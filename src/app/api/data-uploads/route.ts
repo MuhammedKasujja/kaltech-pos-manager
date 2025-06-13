@@ -2,12 +2,12 @@ import prisma from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET() {
-  const accounts = await prisma.account.findMany();
-  return NextResponse.json(accounts);
+  const updates = await prisma.dataUpload.findMany();
+  return NextResponse.json(updates);
 }
 
 export async function POST(req: NextRequest) {
   const data = await req.json();
-  const updates = await prisma.account.create({ data });
+  const updates = await prisma.dataUpload.create({ data });
   return NextResponse.json(updates);
 }
