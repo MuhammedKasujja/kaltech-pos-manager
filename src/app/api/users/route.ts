@@ -1,8 +1,7 @@
-import { NextRequest, NextResponse } from "next/server";
+import  prisma  from "@/lib/prisma";
+import { NextResponse } from "next/server";
 
 export async function GET() {
-  const res = await fetch("https://api.vercel.app/blog");
-  const data = await res.json();
-
-  return NextResponse.json(data);
+  const accounts = await prisma.account.findMany();
+  return NextResponse.json(accounts);
 }
