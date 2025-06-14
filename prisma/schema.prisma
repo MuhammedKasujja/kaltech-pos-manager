@@ -9,20 +9,44 @@ datasource db {
 }
 
 model Account {
-  id          Int    @id @default(autoincrement())
+  id          Int          @id @default(autoincrement())
   account_key String
   expires_at  Int?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  devices     SyncDevice[]
+  uploads     DataUpload[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
 }
 
 model DataUpload {
-  id          Int    @id @default(autoincrement())
-  account_key String
-  device_id   String
+  id        Int      @id @default(autoincrement())
+  device_id String
+  user_id   String
+  data      Json
+  upload_id Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Account   Account? @relation(fields: [accountId], references: [id])
+  accountId Int?
+}
+
+model User {
+  id         Int      @id @default(autoincrement())
+  first_name String
+  last_name  String
+  email      String   @unique
+  password   String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model SyncDevice {
+  id          String   @unique
   user_id     String
-  data        String @db.LongText
-  upload_id   Int
+  account_key String
+  device_id   String   @unique
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  Account     Account? @relation(fields: [accountId], references: [id])
+  accountId   Int?
 }

@@ -8,5 +8,5 @@ export default function Page() {
   if (error) {
     return <div>{`${error}`}</div>;
   }
-  return <div>this is okay</div>;
+  return <div className="md:gap-6 md:p-6">this is okay</div>;
 }

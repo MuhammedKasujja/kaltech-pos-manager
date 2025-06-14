@@ -13,7 +13,7 @@ export function useAccounts() {
 
   return {
     accounts,
-    loading: !accounts && !error,
+    isLoading: !accounts && !error,
     error,
   };
 }

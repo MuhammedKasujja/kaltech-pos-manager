@@ -13,7 +13,7 @@ export function useDataUploads() {
 
   return {
     updates,
-    loading: !updates && !error,
+    isLoading: !updates && !error,
     error,
   };
 }

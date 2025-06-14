@@ -8,7 +8,7 @@ export function AccountList() {
     return <div>{`${error}`}</div>
   }
   return (
-    <ul>
+    <ul className="md:gap-6 md:p-6">
       {accounts?.map((account) => (
         <li key={account.id}>{account.account_key}</li>
       ))}
