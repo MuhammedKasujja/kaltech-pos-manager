@@ -9,6 +9,7 @@ import {
   IconInnerShadowTop,
   IconListDetails,
   IconSettings,
+  IconUsersGroup,
 } from "@tabler/icons-react"
 
 import { NavMain } from "@/components/nav-main"
@@ -55,6 +56,11 @@ const data = {
       title: "Data Uploads",
       url: "data-uploads",
       icon: IconFileDescription,
+    },
+     {
+      title: "Users",
+      url: "users",
+      icon: IconUsersGroup,
     },
   ],
   navClouds: [
