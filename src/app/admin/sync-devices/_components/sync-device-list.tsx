@@ -1,9 +1,11 @@
-'use client'
+"use client";
 import { useSyncDevices } from "@/lib/swr/use-sync-devices";
+import { columns } from "../columns";
+import { DataTable } from "@/components/data-table";
 
 export function SyncDeviceList() {
   const { devices, error } = useSyncDevices();
 
   if (error) return <div>{`${error}`}</div>;
-  return <div>{devices?.map((device) => <div>{device.device_id}</div>)}</div>;
+  return <DataTable columns={columns} data={devices ?? []} />;
 }

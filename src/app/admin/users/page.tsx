@@ -1,7 +1,8 @@
 "use client";
 
 import { useSystemUsers } from "@/lib/swr/use-system-users";
-import { UserCard } from "./_components/user-card";
+import { DataTable } from "@/components/data-table";
+import { columns } from "./columns";
 
 export default function Page() {
   const { users, error } = useSystemUsers();
@@ -10,7 +11,7 @@ export default function Page() {
   return (
     <div className="space-y-4 md:gap-6 md:p-6">
       <div>System Users</div>
-      {users?.map((user) => <UserCard user={user} />)}
+      <DataTable columns={columns} data={users ?? []} />
     </div>
   );
 }

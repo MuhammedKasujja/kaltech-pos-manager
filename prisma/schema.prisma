@@ -52,14 +52,14 @@ model User {
 }
 
 model SyncDevice {
-  id         String   @unique
-  userId     String
-  accountKey String
-  deviceId   String   @unique
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  Account    Account? @relation(fields: [accountId], references: [id], onDelete: Cascade)
-  accountId  Int?
+  id        Int      @id @default(autoincrement())
+  userId    String
+  deviceId  String   @unique
+  userName  String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Account   Account? @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  accountId Int?
 }
 
 model Company {
