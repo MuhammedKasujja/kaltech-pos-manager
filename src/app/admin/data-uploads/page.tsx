@@ -1,12 +1,10 @@
-"use client";
-
-import { useDataUploads } from "@/lib/swr/use-data-uploads";
+import { DataViewer } from "./_components/data-viewer";
 
 export default function Page() {
-  const { updates, error } = useDataUploads();
-
-  if (error) {
-    return <div>{`${error}`}</div>;
-  }
-  return <div className="md:gap-6 md:p-6">this is okay</div>;
+  return (
+    <div className="md:gap-6 md:p-6 space-y-6">
+      <div>Data Updates</div>
+      <DataViewer />
+    </div>
+  );
 }
