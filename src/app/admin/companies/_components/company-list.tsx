@@ -1,15 +1,16 @@
 "use client";
 
 import { useCompanies } from "@/lib/swr/use-companies";
+import { CompanyCard } from "./company-card";
 
 export function CompanyList() {
   const { companies, error } = useCompanies();
   if (error) return <div>{`${error}`}</div>;
 
   return (
-    <div>
+    <div className="flex flex-wrap">
       {companies?.map((company) => (
-        <div key={company.phone}>{company.name} {company.phone}</div>
+        <CompanyCard key={company.phone} company={company} />
       ))}
     </div>
   );

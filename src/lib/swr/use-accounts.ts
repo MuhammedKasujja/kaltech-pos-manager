@@ -1,9 +1,15 @@
-import { Account } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import useSWR from "swr";
 import { fetcher } from "@/lib/fetcher";
 
+const accountWithCompany = Prisma.validator<Prisma.AccountDefaultArgs>()({
+  include: { company: true },
+});
+
+export type AccountDetail = Prisma.AccountGetPayload<typeof accountWithCompany>;
+
 export function useAccounts() {
-  const { data: accounts, error } = useSWR<Account[]>(
+  const { data: accounts, error } = useSWR<AccountDetail[]>(
     `/api/accounts`,
     fetcher,
     {

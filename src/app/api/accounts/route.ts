@@ -4,7 +4,9 @@ import { CreateAccountSchema } from "@/lib/schemas/account";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET() {
-  const accounts = await prisma.account.findMany();
+  const accounts = await prisma.account.findMany({
+    include: { company: true },
+  });
   return NextResponse.json(accounts);
 }
 

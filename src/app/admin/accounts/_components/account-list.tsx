@@ -1,17 +1,18 @@
 "use client";
 import { useAccounts } from "@/lib/swr/use-accounts";
+import { AccountCard } from "./account-card";
 
 export function AccountList() {
   const { accounts, error } = useAccounts();
-   
+
   if (error) {
-    return <div>{`${error}`}</div>
+    return <div>{`${error}`}</div>;
   }
   return (
-    <ul className="md:gap-6 md:p-6">
+    <div className="flex flex-wrap">
       {accounts?.map((account) => (
-        <li key={account.id}>{account.accountKey}</li>
+        <AccountCard key={account.id} account={account} />
       ))}
-    </ul>
+    </div>
   );
 }
