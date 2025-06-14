@@ -37,7 +37,7 @@ model DataUpload {
   updateId   Int
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
-  Account    Account? @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  account    Account? @relation(fields: [accountId], references: [id], onDelete: Cascade)
   accountId  Int?
 }
 
@@ -58,7 +58,7 @@ model SyncDevice {
   userName  String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  Account   Account? @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  account   Account? @relation(fields: [accountId], references: [id], onDelete: Cascade)
   accountId Int?
 }
 
@@ -67,11 +67,11 @@ model Company {
   name           String
   email          String?      @unique
   phone          String       @unique
-  Admin          CompanyAdmin @relation(fields: [companyAdminId], references: [id], onDelete: Cascade)
+  admin          CompanyAdmin @relation(fields: [companyAdminId], references: [id], onDelete: Cascade)
   createdAt      DateTime     @default(now())
   updatedAt      DateTime     @updatedAt
   companyAdminId Int          @unique
-  Account        Account?
+  account        Account?
 }
 
 model CompanyAdmin {
@@ -83,5 +83,5 @@ model CompanyAdmin {
   password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  Company   Company?
+  company   Company?
 }

@@ -1,5 +1,6 @@
 import prisma from "@/lib/prisma";
 import { createUserSchema } from "@/lib/schemas/user";
+import { hashPassword } from "@/lib/utils";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET() {
@@ -20,7 +21,14 @@ export async function POST(req: NextRequest) {
   }
   const data = parseResult.data;
 
-  const user = await prisma.user.create({ data });
+  const encryptedPassword = await hashPassword(data.password);
+
+  const user = await prisma.user.create({
+    data: {
+      ...data,
+      password: encryptedPassword,
+    },
+  });
 
   return NextResponse.json(user);
 }

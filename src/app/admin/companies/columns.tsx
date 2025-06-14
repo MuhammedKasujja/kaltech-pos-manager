@@ -10,9 +10,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Company } from "@prisma/client";
+import { CompanyDetail } from "@/lib/swr/use-companies";
 
-export const columns: ColumnDef<Company>[] = [
+export const columns: ColumnDef<CompanyDetail>[] = [
   {
     accessorKey: "name",
     header: "Name",
@@ -24,6 +24,10 @@ export const columns: ColumnDef<Company>[] = [
   {
     accessorKey: "email",
     header: "Email",
+  },
+  {
+    accessorKey: "admin.firstName",
+    header: "Admin",
   },
   {
     accessorKey: "createdAt",
