@@ -9,45 +9,79 @@ datasource db {
 }
 
 model Account {
-  id          Int          @id @default(autoincrement())
-  accountKey String
-  expiresAt  Int?
-  devices     SyncDevice[]
-  uploads     DataUpload[]
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
+  id                Int          @id @default(autoincrement())
+  accountKey        String
+  expiresAt         Int?
+  devices           SyncDevice[]
+  isVerifiedAccount Boolean      @default(false)
+  isTrial           Boolean      @default(true)
+  uploads           DataUpload[]
+  plan              String
+  trialStarted      DateTime
+  planStarted       DateTime
+  trialDuration     Int
+  planExpires       DateTime
+  deletedAt         DateTime?
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+  company           Company      @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  companyId         Int          @unique
 }
 
 model DataUpload {
-  id          Int      @id @default(autoincrement())
+  id         Int      @id @default(autoincrement())
   deviceId   String
   userId     String
   accountKey String
-  data        Json
+  data       Json
   updateId   Int
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  Account     Account? @relation(fields: [accountId], references: [id])
-  accountId   Int?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  Account    Account? @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  accountId  Int?
 }
 
 model User {
-  id         Int      @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   firstName String
   lastName  String
-  email      String   @unique
-  password   String
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model SyncDevice {
-  id          String   @unique
+  id         String   @unique
   userId     String
   accountKey String
   deviceId   String   @unique
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  Account     Account? @relation(fields: [accountId], references: [id])
-  accountId   Int?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  Account    Account? @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  accountId  Int?
+}
+
+model Company {
+  id             Int          @id @default(autoincrement())
+  name           String
+  email          String?      @unique
+  phone          String       @unique
+  Admin          CompanyAdmin @relation(fields: [companyAdminId], references: [id], onDelete: Cascade)
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  companyAdminId Int          @unique
+  Account        Account?
+}
+
+model CompanyAdmin {
+  id        Int      @id @default(autoincrement())
+  firstName String
+  lastName  String
+  email     String?  @unique
+  phone     String?  @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Company   Company?
 }

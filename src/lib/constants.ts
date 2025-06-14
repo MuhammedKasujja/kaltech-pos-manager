@@ -1,0 +1,1 @@
+export const kTrialPlanDays = 12;
