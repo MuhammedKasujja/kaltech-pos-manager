@@ -1,12 +1,12 @@
 import { Prettify } from "./util";
 
-type ApiResponseSuccess<T> = {
+type ApiResultSuccess<T> = {
   message?: string;
   data?: T;
   success: true;
 };
 
-type ApiResponseError = {
+type ApiResultError = {
   success: false;
   error: {
     message: string;
@@ -14,6 +14,6 @@ type ApiResponseError = {
   };
 };
 
-type ResponseStruct<T> = ApiResponseSuccess<T> | ApiResponseError;
+type ApiResultStruct<T> = ApiResultSuccess<T> | ApiResultError;
 
-export type ApiResponse<T> = Prettify<ResponseStruct<T>>;
+export type ApiResult<T> = Prettify<ApiResultStruct<T>>;

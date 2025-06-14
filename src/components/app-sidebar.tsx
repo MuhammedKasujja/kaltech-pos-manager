@@ -37,6 +37,11 @@ const data = {
       icon: IconDashboard,
     },
     {
+      title: "Companies",
+      url: "companies",
+      icon: IconListDetails,
+    },
+    {
       title: "Accounts",
       url: "accounts",
       icon: IconListDetails,

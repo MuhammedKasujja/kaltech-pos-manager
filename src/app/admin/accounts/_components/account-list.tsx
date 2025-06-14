@@ -10,7 +10,7 @@ export function AccountList() {
   return (
     <ul className="md:gap-6 md:p-6">
       {accounts?.map((account) => (
-        <li key={account.id}>{account.account_key}</li>
+        <li key={account.id}>{account.accountKey}</li>
       ))}
     </ul>
   );
