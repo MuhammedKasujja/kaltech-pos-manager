@@ -22,12 +22,12 @@ export const columns: ColumnDef<CompanyDetail>[] = [
     header: "Telephone",
   },
   {
-    accessorKey: "email",
-    header: "Email",
-  },
-  {
     accessorKey: "admin.firstName",
     header: "Admin",
+  },
+  {
+    accessorKey: "admin.email",
+    header: "Admin Email",
   },
   {
     accessorKey: "createdAt",

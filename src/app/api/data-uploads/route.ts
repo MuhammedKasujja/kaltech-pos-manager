@@ -1,3 +1,4 @@
+import { ApiResponse } from "@/lib/api-response";
 import { createDataUpload } from "@/lib/data-upload/create-data-upload";
 import prisma from "@/lib/prisma";
 import { createDataUpdateSchema } from "@/lib/schemas/data-upload";
@@ -9,18 +10,22 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
-  const body = await req.json();
-  const parseResult = createDataUpdateSchema.safeParse(body);
+  try {
+    const body = await req.json();
+    const parseResult = createDataUpdateSchema.safeParse(body);
 
-  if (!parseResult.success) {
-    return NextResponse.json(
-      { error: parseResult.error.format() },
-      { status: 400 }
-    );
+    if (!parseResult.success) {
+      return ApiResponse.error({
+        error: "Validation errors",
+        data: parseResult.error.format(),
+      });
+    }
+    const data = parseResult.data;
+
+    const update = await createDataUpload(data);
+
+    return ApiResponse.success({ data: update });
+  } catch (error: any) {
+    return ApiResponse.error({ error: error.toString() });
   }
-  const data = parseResult.data;
-
-  const update = await createDataUpload(data);
-  
-  return NextResponse.json(update);
 }

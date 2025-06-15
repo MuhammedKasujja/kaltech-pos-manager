@@ -26,6 +26,7 @@ model Account {
   updatedAt         DateTime     @updatedAt
   company           Company      @relation(fields: [companyId], references: [id], onDelete: Cascade)
   companyId         Int          @unique
+  licence           Licence[]
 }
 
 model DataUpload {
@@ -84,4 +85,21 @@ model CompanyAdmin {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   company   Company?
+}
+
+model Licence {
+  id         Int      @id @default(autoincrement())
+  licenceKey String
+  days       Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  account    Account  @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  accountId  Int
+}
+
+enum SubscriptionPlan {
+  TRIAL
+  PRO
+  ENTERPRISE
+  WHITE_LABEL
 }

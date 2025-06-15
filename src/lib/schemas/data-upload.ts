@@ -5,7 +5,7 @@ export const createDataUpdateSchema = z.object({
   userId: z.string(),
   accountKey: z.string(),
   updateId: z.number(),
-  data: z.object({}),
+  data: z.array(z.object({}).passthrough())
 });
 
 export type CreateDataUpdateDto = z.infer<typeof createDataUpdateSchema>;

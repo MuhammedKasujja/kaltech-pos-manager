@@ -1,4 +1,4 @@
-import { Account, Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import { CreateAccountRequest } from "../schemas/account";
 import prisma from "../prisma";
 import { DateTime } from "luxon";
@@ -89,7 +89,7 @@ function accountResponse(account: AccountResponse) {
   const admin = account.company.admin;
   return {
     plan: account.plan,
-    key: account.accountKey,
+    accountKey: account.accountKey,
     latestVersion: kLatestVersion,
     isVerifiedAccount: account.isVerifiedAccount,
     isTrial: account.isTrial,
@@ -100,6 +100,7 @@ function accountResponse(account: AccountResponse) {
     planExpires: account.planExpires,
     reportErrors: true,
     referralCode: generateRandomString(10),
+    paymentTypeId: kDefaultPaymentMethod,
     user: {
       firstName: admin.firstName,
       lastName: admin.lastName,
@@ -110,7 +111,6 @@ function accountResponse(account: AccountResponse) {
       name: account.company.name,
       phone: account.company.phone,
       email: account.company.email,
-      paymentTypeId: kDefaultPaymentMethod,
     },
   };
 }

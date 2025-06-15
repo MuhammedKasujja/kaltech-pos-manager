@@ -17,6 +17,7 @@ export async function createDataUpload(data: CreateDataUpdateDto) {
       userId: data.userId,
       updateId: data.updateId,
       data: data.data,
+      accountId: account.id,
     },
   });
 
