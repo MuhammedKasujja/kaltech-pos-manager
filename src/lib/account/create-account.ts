@@ -3,9 +3,9 @@ import { CreateAccountRequest } from "../schemas/account";
 import prisma from "../prisma";
 import { DateTime } from "luxon";
 import {
-  kTrialPlanDays,
-  kDefaultPaymentMethod,
-  kLatestVersion,
+  DEFAULT_TRIAL_PLAN_DAYS,
+  DEFAULT_PAYMENT_METHOD,
+  LATEST_APP_VERSION,
 } from "@/lib/constants";
 import { AccountPlan } from "../types/enums";
 import {
@@ -61,9 +61,9 @@ export async function createCompanyAccount({
       plan: AccountPlan.pro,
       trialStarted: DateTime.now().toUTC().toJSDate(),
       planStarted: DateTime.now().toUTC().toJSDate(),
-      trialDuration: kTrialPlanDays,
+      trialDuration: DEFAULT_TRIAL_PLAN_DAYS,
       planExpires: DateTime.now()
-        .plus({ days: kTrialPlanDays })
+        .plus({ days: DEFAULT_TRIAL_PLAN_DAYS })
         .toUTC()
         .toJSDate(),
     },
@@ -90,7 +90,7 @@ function accountResponse(account: AccountResponse) {
   return {
     plan: account.plan,
     accountKey: account.accountKey,
-    latestVersion: kLatestVersion,
+    latestVersion: LATEST_APP_VERSION,
     isVerifiedAccount: account.isVerifiedAccount,
     isTrial: account.isTrial,
     trialStarted: account.trialStarted,
@@ -100,7 +100,7 @@ function accountResponse(account: AccountResponse) {
     planExpires: account.planExpires,
     reportErrors: true,
     referralCode: generateRandomString(10),
-    paymentTypeId: kDefaultPaymentMethod,
+    paymentTypeId: DEFAULT_PAYMENT_METHOD,
     user: {
       firstName: admin.firstName,
       lastName: admin.lastName,
