@@ -11,6 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { CompanyDetail } from "@/lib/swr/use-companies";
+import { toast } from "sonner";
 
 export const columns: ColumnDef<CompanyDetail>[] = [
   {
@@ -36,7 +37,7 @@ export const columns: ColumnDef<CompanyDetail>[] = [
   {
     id: "actions",
     cell: ({ row }) => {
-      const account = row.original;
+      const company = row.original;
 
       return (
         <DropdownMenu>
@@ -48,6 +49,15 @@ export const columns: ColumnDef<CompanyDetail>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuItem
+              onClick={()=> {
+                navigator.clipboard.writeText(company.admin.firstName)
+                toast.info('License key copied')
+              }
+            }
+            >
+              Copy License key
+            </DropdownMenuItem>
             <DropdownMenuItem>Edit</DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>View</DropdownMenuItem>
