@@ -1,10 +1,10 @@
 import { Skeleton } from "@/components/ui/skeleton";
 
 export function LoadingShimmer() {
-  const totalItems = Array.from<string, string>({ length: 20 }, (v) =>
-    (v+1).toString()
+  const totalItems = Array.from<number, string>({ length: 20 }, (v) =>
+    Math.random().toString()
   );
-
+  Math.random();
   return (
     <div className="space-y-2">
       {totalItems.map((item) => (
