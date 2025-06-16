@@ -1,5 +1,5 @@
 "use server";
-import prisma from "../prisma";
+import prisma from "@/lib/prisma";
 import { generateRandomString } from "../utils";
 
 function generateLicence() {

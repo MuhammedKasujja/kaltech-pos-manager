@@ -15,7 +15,6 @@ export async function applyLicenceKey({
   const licence = await prisma.licence.findFirst({
     where: {
       licenceKey,
-      isApplied: false,
       account: {
         accountKey,
       },
@@ -29,6 +28,10 @@ export async function applyLicenceKey({
     throw Error("Invalid license key please check and try again");
   }
 
+  if (licence.isApplied) {
+    throw Error("License key already used");
+  }
+
   const systemDate = DateTime.now();
 
   const currentDataTime = systemDate.toJSDate();
@@ -40,6 +43,8 @@ export async function applyLicenceKey({
       planStarted: currentDataTime,
       trialDuration: licence?.days,
       planExpires: systemDate.plus({ days: licence?.days }).toJSDate(),
+      isTrial: false,
+      isVerifiedAccount: true
     },
   });
 
@@ -55,7 +60,9 @@ export async function applyLicenceKey({
     trialStarted: verifiedAccount.trialStarted,
     planStarted: verifiedAccount.planStarted,
     trialDuration: verifiedAccount.trialDuration,
-    trialDaysLeft: verifiedAccount.trialDuration,
+    trialDaysLeft: 0,//verifiedAccount.trialDuration,
     planExpires: verifiedAccount.planExpires,
+    isVerifiedAccount: verifiedAccount.isVerifiedAccount,
+    accountPlan: verifiedAccount.plan,
   };
 }

@@ -10,12 +10,19 @@ export class ApiResponse {
     statusCode,
     data,
   }: {
-    error: string;
+    error: unknown;
     statusCode?: number;
     data?: unknown;
-  }) {
+  }): NextResponse {
+    let message = error;
+    if (typeof error === "string") message = error;
+    
+    if (error instanceof Error) {
+      message = error.message;
+    }
+
     return NextResponse.json(
-      { success: false, error, errors: data },
+      { success: false, error: message?.toString(), errors: data },
       { status: statusCode ?? 400 }
     );
   }

@@ -46,12 +46,13 @@ export const columns: ColumnDef<AccountDetail>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => {
+              onClick={async () => {
                 try {
-                  generateCompanyLicence(account.accountKey);
-                  toast.info("Licence generated successfully");
-                } catch (error) {
-                  toast.error(<>{error}</>);
+                  await generateCompanyLicence(account.accountKey);
+                  toast.success("Licence generated successfully");
+                } catch (error :any) {
+                  console.log({'generateCompanyLicence': error})
+                  toast.error(<>{error.toString()}</>);
                 }
               }}
             >
