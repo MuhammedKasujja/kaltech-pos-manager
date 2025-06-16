@@ -16,10 +16,13 @@ export async function applyLicenceKey({
     where: {
       accountKey,
       licence: {
-        every: {
+        some: {
           licenceKey: licenceKey,
         },
       },
+    },
+    include: {
+      licence: true,
     },
   });
 
@@ -27,14 +30,16 @@ export async function applyLicenceKey({
     throw Error("Invalid licence key please check and try again");
   }
 
+  const licence = account.licence.at(0);
+
   const verifiedAccount = await prisma.account.update({
     where: { id: account.id },
     data: {
       trialStarted: DateTime.now().toUTC().toJSDate(),
       planStarted: DateTime.now().toUTC().toJSDate(),
-      trialDuration: DEFAULT_TRIAL_PLAN_DAYS,
+      trialDuration: licence?.days,
       planExpires: DateTime.now()
-        .plus({ days: DEFAULT_TRIAL_PLAN_DAYS })
+        .plus({ days: licence?.days })
         .toUTC()
         .toJSDate(),
     },

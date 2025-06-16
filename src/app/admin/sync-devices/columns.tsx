@@ -18,6 +18,10 @@ export const columns: ColumnDef<SyncDevice>[] = [
     header: "Account Key",
   },
   {
+    accessorKey: "userName",
+    header: "User",
+  },
+  {
     accessorKey: "deviceId",
     header: "Device ID",
   },

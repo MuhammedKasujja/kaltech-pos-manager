@@ -11,6 +11,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { generateCompanyLicence } from "@/lib/licence/generate-license";
+import { toast } from "sonner";
 
 export const columns: ColumnDef<AccountDetail>[] = [
   {
@@ -33,7 +35,6 @@ export const columns: ColumnDef<AccountDetail>[] = [
     id: "actions",
     cell: ({ row }) => {
       const account = row.original;
-
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -44,6 +45,18 @@ export const columns: ColumnDef<AccountDetail>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuItem
+              onClick={() => {
+                try {
+                  generateCompanyLicence(account.accountKey);
+                  toast.info("Licence generated successfully");
+                } catch (error) {
+                  toast.error(<>{error}</>);
+                }
+              }}
+            >
+              Generate Licence
+            </DropdownMenuItem>
             <DropdownMenuItem>Edit</DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>View</DropdownMenuItem>
