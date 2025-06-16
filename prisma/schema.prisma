@@ -91,6 +91,8 @@ model Licence {
   id         Int      @id @default(autoincrement())
   licenceKey String
   days       Int
+  isApplied  Boolean  @default(false)
+  appliedAt  DateTime?
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
   account    Account  @relation(fields: [accountId], references: [id], onDelete: Cascade)

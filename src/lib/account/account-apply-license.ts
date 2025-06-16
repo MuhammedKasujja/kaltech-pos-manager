@@ -1,5 +1,4 @@
 import { DateTime } from "luxon";
-import { DEFAULT_TRIAL_PLAN_DAYS } from "../constants";
 import { z } from "zod";
 import prisma from "@/lib/prisma";
 
@@ -12,36 +11,43 @@ export async function applyLicenceKey({
   licenceKey,
   accountKey,
 }: z.infer<typeof applyLicenceKeySchema>) {
-  const account = await prisma.account.findFirst({
+
+  const licence = await prisma.licence.findFirst({
     where: {
-      accountKey,
-      licence: {
-        some: {
-          licenceKey: licenceKey,
-        },
+      licenceKey,
+      isApplied: false,
+      account: {
+        accountKey,
       },
     },
     include: {
-      licence: true,
+      account: true,
     },
   });
 
-  if (!account) {
-    throw Error("Invalid licence key please check and try again");
+  if (!licence) {
+    throw Error("Invalid license key please check and try again");
   }
 
-  const licence = account.licence.at(0);
+  const systemDate = DateTime.now();
+
+  const currentDataTime = systemDate.toJSDate();
 
   const verifiedAccount = await prisma.account.update({
-    where: { id: account.id },
+    where: { id: licence.account.id },
     data: {
-      trialStarted: DateTime.now().toUTC().toJSDate(),
-      planStarted: DateTime.now().toUTC().toJSDate(),
+      trialStarted: currentDataTime,
+      planStarted: currentDataTime,
       trialDuration: licence?.days,
-      planExpires: DateTime.now()
-        .plus({ days: licence?.days })
-        .toUTC()
-        .toJSDate(),
+      planExpires: systemDate.plus({ days: licence?.days }).toJSDate(),
+    },
+  });
+
+  await prisma.licence.update({
+    where: { id: licence?.id },
+    data: {
+      isApplied: true,
+      appliedAt: currentDataTime,
     },
   });
 
