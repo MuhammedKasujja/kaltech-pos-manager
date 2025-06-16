@@ -50,8 +50,7 @@ export const columns: ColumnDef<AccountDetail>[] = [
                 try {
                   await generateCompanyLicence(account.accountKey);
                   toast.success("Licence generated successfully");
-                } catch (error :any) {
-                  console.log({'generateCompanyLicence': error})
+                } catch (error: any) {
                   toast.error(<>{error.toString()}</>);
                 }
               }}
