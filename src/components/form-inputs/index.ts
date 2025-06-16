@@ -1,7 +1,6 @@
-export * from "./file-input"
 export * from "./text-input"
 export * from "./radio-buttons"
-export * from "./autocomplete"
+// export * from "./autocomplete"
 export * from "./textarea"
 export * from "./phone-input"
 export * from "./select-input"

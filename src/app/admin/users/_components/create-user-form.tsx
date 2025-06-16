@@ -1,7 +1,7 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -9,44 +9,76 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { Form } from "@/components/ui/form";
+
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { CreateSystemUserType, createUserSchema } from "@/lib/schemas/user";
+import { createSystemUser } from "@/lib/user/create-user";
+import { toast } from "sonner";
+import { PasswordInput, TextInput } from "@/components/form-inputs";
 
 export function CreateUserForm() {
+  const form = useForm<CreateSystemUserType>({
+    resolver: zodResolver(createUserSchema),
+  });
+
+  async function onSubmit(values: CreateSystemUserType) {
+    try {
+      await createSystemUser(values);
+      toast.success("User added successfully");
+    } catch (error: any) {
+      toast.error(error.toString());
+    }
+  }
+
   return (
-    <form>
-      <Dialog>
-        <DialogTrigger asChild>
-          <Button variant="outline">Add User</Button>
-        </DialogTrigger>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle>Add User</DialogTitle>
-            <DialogDescription>
-              Anyone who has this link will be able to view this.
-            </DialogDescription>
-          </DialogHeader>
-          <div className="flex items-center gap-2">
-            <div className="grid flex-1 gap-4">
-              <Label htmlFor="first">First Name</Label>
-              <Input id="first" />
-              <Label htmlFor="last">Last Name</Label>
-              <Input id="last" />
-              <Label htmlFor="email">Email</Label>
-              <Input id="email" />
-              <Label htmlFor="password">Password</Label>
-              <Input id="password" />
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button variant="outline">Add User</Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-md">
+            <DialogHeader>
+              <DialogTitle>Add User</DialogTitle>
+              <DialogDescription>
+                Anyone who has this link will be able to view this.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="flex items-center gap-2">
+              <div className="grid flex-1 gap-4">
+                <TextInput
+                  label="First Name"
+                  control={form.control}
+                  name={"firstName"}
+                />
+                <TextInput
+                  label="Last Name"
+                  control={form.control}
+                  name={"lastName"}
+                />
+                <TextInput
+                  label="Email"
+                  type="email"
+                  control={form.control}
+                  name={"email"}
+                />
+                <PasswordInput
+                  label="Password"
+                  control={form.control}
+                  name={"password"}
+                />
+              </div>
             </div>
-          </div>
-          <DialogFooter className="sm:justify-start">
-            <DialogClose asChild>
-              <Button type="button" variant="secondary">
-                Submit
-              </Button>
-            </DialogClose>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-    </form>
+            <DialogFooter className="sm:justify-end">
+                <Button type="submit" variant="secondary">
+                  Submit
+                </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      </form>
+    </Form>
   );
 }

@@ -6,3 +6,5 @@ export const createUserSchema = z.object({
   email: z.string(),
   password: z.string(),
 });
+
+export type CreateSystemUserType = z.infer<typeof createUserSchema>;
