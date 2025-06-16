@@ -14,12 +14,12 @@ import { User } from "@prisma/client";
 
 export const columns: ColumnDef<User>[] = [
   {
-    accessorKey: "firstName",
-    header: "First Name",
-  },
-  {
-    accessorKey: "lastName",
-    header: "Last Name",
+    id: "name",
+    header: "Name",
+    cell: ({ row }) => {
+      const user = row.original;
+      return <div>{user.firstName} {user.lastName}</div>
+    }
   },
   {
     accessorKey: "email",
@@ -32,7 +32,7 @@ export const columns: ColumnDef<User>[] = [
   {
     id: "actions",
     cell: ({ row }) => {
-      const account = row.original;
+      const user = row.original;
 
       return (
         <DropdownMenu>

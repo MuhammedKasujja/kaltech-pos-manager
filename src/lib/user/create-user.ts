@@ -1,9 +1,14 @@
 "use server";
 
-import prisma from "../prisma";
+import prisma from "@/lib/prisma";
 import { CreateSystemUserType } from "../schemas/user";
+import { hashPassword } from "@/lib/utils";
 
 export async function createSystemUser(data: CreateSystemUserType) {
-  const user = await prisma.user.create({ data });
+  const encryptedPassword = await hashPassword(data.password);
+
+  const user = await prisma.user.create({
+    data: { ...data, password: encryptedPassword },
+  });
   return user;
 }

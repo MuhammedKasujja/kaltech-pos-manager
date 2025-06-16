@@ -33,17 +33,17 @@ export function CreateUserForm() {
   }
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button variant="outline">Add User</Button>
-          </DialogTrigger>
-          <DialogContent className="sm:max-w-md">
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button variant="outline">Add User</Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-md">
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <DialogHeader>
               <DialogTitle>Add User</DialogTitle>
               <DialogDescription>
-                Anyone who has this link will be able to view this.
+                Create system user
               </DialogDescription>
             </DialogHeader>
             <div className="flex items-center gap-2">
@@ -72,13 +72,13 @@ export function CreateUserForm() {
               </div>
             </div>
             <DialogFooter className="sm:justify-end">
-                <Button type="submit" variant="secondary">
-                  Submit
-                </Button>
+              <Button type="submit" variant="secondary">
+                Submit
+              </Button>
             </DialogFooter>
-          </DialogContent>
-        </Dialog>
-      </form>
-    </Form>
+          </form>
+        </Form>
+      </DialogContent>
+    </Dialog>
   );
 }
