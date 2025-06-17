@@ -2,7 +2,7 @@ import { Prisma } from "@prisma/client";
 import useSWR from "swr";
 import { fetcher } from "@/lib/fetcher";
 
-const accountWithCompany = Prisma.validator<Prisma.AccountDefaultArgs>()({
+export const accountWithCompany = Prisma.validator<Prisma.AccountDefaultArgs>()({
   include: { company: true },
 });
 

@@ -1,6 +1,8 @@
+"use server";
 import z from "zod";
 import prisma from "../prisma";
 import { createSyncDeviceSchema } from "../schemas/sync-device";
+import { revalidatePath } from "next/cache";
 
 export async function createSyncDevice(
   data: z.infer<typeof createSyncDeviceSchema>
@@ -17,6 +19,6 @@ export async function createSyncDevice(
       deviceId: data.deviceId,
     },
   });
-
+  revalidatePath("admin/sync-devices");
   return device;
 }

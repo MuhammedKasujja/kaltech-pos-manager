@@ -2,11 +2,11 @@ import { Prisma } from "@prisma/client";
 import useSWR from "swr";
 import { fetcher } from "../fetcher";
 
-const query = Prisma.validator<Prisma.CompanyDefaultArgs>()({
+export const companyQuery = Prisma.validator<Prisma.CompanyDefaultArgs>()({
   include: { admin: true },
 });
 
-export type CompanyDetail = Prisma.CompanyGetPayload<typeof query>;
+export type CompanyDetail = Prisma.CompanyGetPayload<typeof companyQuery>;
 
 export function useCompanies() {
   const { data: companies, error } = useSWR<CompanyDetail[]>(

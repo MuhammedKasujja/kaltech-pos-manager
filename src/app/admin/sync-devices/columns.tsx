@@ -31,8 +31,8 @@ export const columns: ColumnDef<SyncDevice>[] = [
   },
   {
     id: "actions",
-    cell: ({ row }) => {
-      const account = row.original;
+    cell: () => {
+      // const device = row.original;
 
       return (
         <DropdownMenu>

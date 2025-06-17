@@ -2,7 +2,7 @@ import z from "zod";
 import { checkPassword } from "@/lib/utils";
 import prisma from "../prisma";
 
-const loginSchema = z.object({
+export const loginSchema = z.object({
   email: z.string(),
   password: z.string(),
 });

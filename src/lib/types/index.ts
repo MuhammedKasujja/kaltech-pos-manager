@@ -6,6 +6,6 @@ export type EntityData = {
   tableName: string;
   entityId?: string;
   entity: string;
-  data: any;
+  data: unknown;
   operation: SyncMode;
 };

@@ -31,7 +31,7 @@ export function RadioButtons<T extends FieldValues>({
     if (options.length < 2) {
       throw new Error("Minimum options are 2");
     }
-  }, []);
+  }, [options]);
 
   return (
     <FormField

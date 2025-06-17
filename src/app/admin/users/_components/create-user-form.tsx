@@ -27,8 +27,8 @@ export function CreateUserForm() {
     try {
       await createSystemUser(values);
       toast.success("User added successfully");
-    } catch (error: any) {
-      toast.error(error.toString());
+    } catch (error: unknown) {
+      toast.error(`${error?.toString()}`);
     }
   }
 

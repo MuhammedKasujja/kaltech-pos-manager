@@ -10,6 +10,7 @@ import { login } from "@/lib/auth/login";
 import { toast } from "sonner";
 import { PasswordInput, TextInput } from "@/components/form-inputs";
 import { useRouter } from "next/navigation";
+import Image from "next/image"
 
 const formSchema = z.object({
   email: z.string(),
@@ -31,8 +32,8 @@ export function LoginForm({
       await login(values);
       toast.success("User added successfully");
       router.replace('admin/dashboard')
-    } catch (error: any) {
-      toast.error(error.toString());
+    } catch (error: unknown) {
+      toast.error(error?.toString());
     }
   }
 
@@ -69,7 +70,7 @@ export function LoginForm({
             </form>
           </Form>
           <div className="bg-muted relative hidden md:block">
-            <img
+            <Image
               src="/placeholder.svg"
               alt="Image"
               className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"

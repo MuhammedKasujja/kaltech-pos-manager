@@ -14,7 +14,7 @@ import {
   hashPassword,
 } from "@/lib/utils";
 
-const query = Prisma.validator<Prisma.AccountDefaultArgs>()({
+export const accountQuery = Prisma.validator<Prisma.AccountDefaultArgs>()({
   include: {
     company: {
       include: {
@@ -24,7 +24,7 @@ const query = Prisma.validator<Prisma.AccountDefaultArgs>()({
   },
 });
 
-type AccountResponse = Prisma.AccountGetPayload<typeof query>;
+type AccountResponse = Prisma.AccountGetPayload<typeof accountQuery>;
 
 export async function createCompanyAccount({
   user,

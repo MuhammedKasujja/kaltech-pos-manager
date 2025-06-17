@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
       data: account,
       message: "Account created Successfully",
     });
-  } catch (error: any) {
-    return ApiResponse.error({ error: error.toString() });
+  } catch (error: unknown) {
+    return ApiResponse.error({ error: error });
   }
 }
