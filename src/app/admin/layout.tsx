@@ -1,15 +1,14 @@
-import { AppSidebar } from "@/components/app-sidebar"
-import { SiteHeader } from "@/components/site-header"
-import {
-  SidebarInset,
-  SidebarProvider,
-} from "@/components/ui/sidebar"
+import { AppSidebar } from "@/components/app-sidebar";
+import { SiteHeader } from "@/components/site-header";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import { getAuthUser } from "@/lib/auth/get-auth-user";
 
-export default function AdminLayout({
+export default async function AdminLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const userPromise = getAuthUser();
   return (
     <SidebarProvider
       style={
@@ -19,7 +18,7 @@ export default function AdminLayout({
         } as React.CSSProperties
       }
     >
-      <AppSidebar variant="inset" />
+      <AppSidebar variant="inset" userPromise={userPromise} />
       <SidebarInset>
         <SiteHeader />
         <div className="flex flex-1 flex-col">

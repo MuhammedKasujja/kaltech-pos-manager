@@ -23,14 +23,8 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { getAuthUser } from "@/lib/auth/get-auth-user";
 
 const data = {
-  user: {
-    name: "Kasujja",
-    email: "kasujja@kaltech.com",
-    avatar: "/avatars/kasujja.jpg",
-  },
   navMain: [
     {
       title: "Dashboard",
@@ -90,10 +84,17 @@ const data = {
   ],
 };
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  // const [user, setUser] = React.useState();
+type Props = React.ComponentProps<typeof Sidebar> & {
+  userPromise: Promise<{
+    id: number;
+    email: string;
+    name: string;
+    avatar: string;
+  } | null>;
+};
 
-  // const info = await getAuthUser()
+export function AppSidebar({ userPromise, ...props }: Props) {
+  const user = React.use(userPromise);
 
   return (
     <Sidebar collapsible="offcanvas" {...props}>
@@ -116,9 +117,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavMain items={data.navMain} />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
-      <SidebarFooter>
-        <NavAuthUser user={data.user}/>
-      </SidebarFooter>
+      <SidebarFooter>{user && <NavAuthUser user={user} />}</SidebarFooter>
     </Sidebar>
   );
 }
