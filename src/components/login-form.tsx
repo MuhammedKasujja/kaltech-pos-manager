@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -10,18 +10,17 @@ import { login } from "@/lib/auth/login";
 import { toast } from "sonner";
 import { PasswordInput, TextInput } from "@/components/form-inputs";
 import { useRouter } from "next/navigation";
-import Image from "next/image"
 
 const formSchema = z.object({
-  email: z.string(),
-  password: z.string(),
+  email: z.string().email({ message: "Please enter a valid email." }).trim(),
+  password: z.string().trim(),
 });
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
-  const router = useRouter()
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -31,7 +30,7 @@ export function LoginForm({
     try {
       await login(values);
       toast.success("User added successfully");
-      router.replace('admin/dashboard')
+      router.replace("admin/dashboard");
     } catch (error: unknown) {
       toast.error(error?.toString());
     }
@@ -70,7 +69,7 @@ export function LoginForm({
             </form>
           </Form>
           <div className="bg-muted relative hidden md:block">
-            <Image
+            <img
               src="/placeholder.svg"
               alt="Image"
               className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"

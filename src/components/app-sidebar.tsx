@@ -1,6 +1,5 @@
-"use client"
-
-import * as React from "react"
+"use client";
+import * as React from "react";
 import {
   IconCamera,
   IconDashboard,
@@ -10,11 +9,11 @@ import {
   IconListDetails,
   IconSettings,
   IconUsersGroup,
-} from "@tabler/icons-react"
+} from "@tabler/icons-react";
 
-import { NavMain } from "@/components/nav-main"
-import { NavSecondary } from "@/components/nav-secondary"
-import { NavUser } from "@/components/nav-user"
+import { NavMain } from "@/components/nav-main";
+import { NavSecondary } from "@/components/nav-secondary";
+import { NavAuthUser } from "@/components/nav-auth-user";
 import {
   Sidebar,
   SidebarContent,
@@ -23,7 +22,8 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
+import { getAuthUser } from "@/lib/auth/get-auth-user";
 
 const data = {
   user: {
@@ -52,12 +52,12 @@ const data = {
       url: "sync-devices",
       icon: IconFolder,
     },
-     {
+    {
       title: "Data Uploads",
       url: "data-uploads",
       icon: IconFileDescription,
     },
-     {
+    {
       title: "Users",
       url: "users",
       icon: IconUsersGroup,
@@ -88,9 +88,13 @@ const data = {
       icon: IconSettings,
     },
   ],
-}
+};
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  // const [user, setUser] = React.useState();
+
+  // const info = await getAuthUser()
+
   return (
     <Sidebar collapsible="offcanvas" {...props}>
       <SidebarHeader>
@@ -113,8 +117,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavAuthUser user={data.user}/>
       </SidebarFooter>
     </Sidebar>
-  )
+  );
 }

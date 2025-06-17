@@ -1,13 +1,11 @@
 import { createCompanyAccount } from "@/lib/account/create-account";
+import { getAllAccounts } from "@/lib/account/get-all-account";
 import { ApiResponse } from "@/lib/api-response";
-import prisma from "@/lib/prisma";
 import { CreateAccountSchema } from "@/lib/schemas/account";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET() {
-  const accounts = await prisma.account.findMany({
-    include: { company: true },
-  });
+  const accounts = await getAllAccounts();
   return NextResponse.json(accounts);
 }
 

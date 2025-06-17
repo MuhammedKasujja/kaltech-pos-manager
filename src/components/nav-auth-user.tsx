@@ -1,5 +1,4 @@
-"use client";
-
+'use client'
 import {
   IconDotsVertical,
   IconLogout,
@@ -23,8 +22,9 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { useRouter } from "next/navigation";
+import { logout } from "@/lib/auth/logout";
 
-export function NavUser({
+export function NavAuthUser({
   user,
 }: {
   user: {
@@ -37,7 +37,8 @@ export function NavUser({
 
   const router = useRouter();
 
-  function handleLogout() {
+  async function handleLogout() {
+    await logout();
     router.replace("/login");
   }
 
