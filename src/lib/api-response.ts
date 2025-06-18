@@ -2,7 +2,10 @@ import { NextResponse } from "next/server";
 
 export class ApiResponse {
   static success<T>({ data, message }: { data?: T; message?: string }) {
-    return NextResponse.json({ success: true, data: data, message });
+    return NextResponse.json(
+      { success: true, data: data, message },
+      { status: 200 },
+    );
   }
 
   static error({

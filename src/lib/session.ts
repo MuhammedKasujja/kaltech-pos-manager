@@ -3,7 +3,7 @@ import { SignJWT, jwtVerify } from "jose";
 // import { SessionPayload } from "@/app/lib/definitions";
 import { cookies } from "next/headers";
 
-type SessionPayload ={ userId: string, expiresAt: Date }
+type SessionPayload = { userId: string; expiresAt: Date };
 
 const secretKey = process.env.SESSION_SECRET;
 const sessionDuration = process.env.SESSION_EXPIRY_TIME ?? "1d";

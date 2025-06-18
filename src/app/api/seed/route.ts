@@ -1,12 +1,15 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import { ApiResponse } from "@/lib/api-response";
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
+import { NextRequest } from "next/server";
 
 const prisma = new PrismaClient();
 
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
-  if (req.query.secret !== process.env.SEED_SECRET) {
-    return res.status(403).json({ message: "Forbidden" });
+export async function GET(req: NextRequest) {
+  const { searchParams } = new URL(req.url);
+  const secret = searchParams.get("secret");
+  if (secret !== process.env.SEED_SECRET) {
+    return ApiResponse.error({ error: "Forbidden", statusCode: 403 });
   }
 
   try {
@@ -27,11 +30,10 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
         email: "jjuuko@gmail.com",
       },
     });
-
-    res.status(200).json({ message: "Seeding successful" });
+    ApiResponse.success({ message: "Seeding successful" });
   } catch (error: unknown) {
     console.error(error);
-    res.status(500).json({ error: error?.toString() });
+    return ApiResponse.error({ error: error?.toString(), statusCode: 500 });
   } finally {
     await prisma.$disconnect();
   }
