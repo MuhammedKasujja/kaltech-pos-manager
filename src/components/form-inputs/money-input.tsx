@@ -18,7 +18,7 @@ export function MoneyInput<T extends FieldValues>({
   label,
   required = true,
 }: Readonly<MoneyInputProps<T>>) {
-  const currency = 'UGX';
+  const currency = "UGX";
   return (
     <FormField
       control={control}

@@ -6,7 +6,7 @@ import {
   FormControl,
   FormMessage,
 } from "../ui/form";
-import { Textarea as TextareaComp} from "../ui/textarea";
+import { Textarea as TextareaComp } from "../ui/textarea";
 
 type TextareaProps<F extends FieldValues> = {
   label: string;
@@ -31,7 +31,7 @@ export function Textarea<T extends FieldValues>({
         <FormItem>
           <FormLabel>{label}</FormLabel>
           <FormControl>
-            <TextareaComp placeholder={placeholder} {...field} {...rest}/>
+            <TextareaComp placeholder={placeholder} {...field} {...rest} />
           </FormControl>
           <FormMessage />
         </FormItem>

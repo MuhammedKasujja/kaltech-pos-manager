@@ -14,7 +14,7 @@ export function useCompanies() {
     fetcher,
     {
       dedupingInterval: 60000,
-    }
+    },
   );
 
   return {

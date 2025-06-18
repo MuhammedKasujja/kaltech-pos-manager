@@ -8,7 +8,7 @@ import { LoadingShimmer } from "@/components/loading-shimmer";
 export function CompanyList() {
   const { companies, error, isLoading } = useCompanies();
   if (error) return <div>{`${error}`}</div>;
-  if (isLoading) return <LoadingShimmer/>;
+  if (isLoading) return <LoadingShimmer />;
 
   return <DataTable columns={columns} data={companies ?? []} />;
 }

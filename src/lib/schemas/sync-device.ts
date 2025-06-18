@@ -7,4 +7,4 @@ export const createSyncDeviceSchema = z.object({
   userName: z.string(),
 });
 
-export type CreateSyncDeviceDto = z.infer<typeof createSyncDeviceSchema>
+export type CreateSyncDeviceDto = z.infer<typeof createSyncDeviceSchema>;

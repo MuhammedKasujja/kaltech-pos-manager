@@ -18,8 +18,12 @@ export const columns: ColumnDef<User>[] = [
     header: "Name",
     cell: ({ row }) => {
       const user = row.original;
-      return <div>{user.firstName} {user.lastName}</div>
-    }
+      return (
+        <div>
+          {user.firstName} {user.lastName}
+        </div>
+      );
+    },
   },
   {
     accessorKey: "email",
@@ -32,7 +36,6 @@ export const columns: ColumnDef<User>[] = [
   {
     id: "actions",
     cell: () => {
-
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

@@ -16,14 +16,14 @@ export class ApiResponse {
   }): NextResponse {
     let message = error;
     if (typeof error === "string") message = error;
-    
+
     if (error instanceof Error) {
       message = error.message;
     }
 
     return NextResponse.json(
       { success: false, error: message?.toString(), errors: data },
-      { status: statusCode ?? 400 }
+      { status: statusCode ?? 400 },
     );
   }
 }

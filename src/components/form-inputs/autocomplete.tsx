@@ -22,20 +22,22 @@ import { Control, FieldPath, FieldValues } from "react-hook-form";
 import { VariantProps, cva } from "class-variance-authority";
 
 export const autoCompleteVariants = cva(
-  "border-neutral-300 focus:border-primary/50 focus:bg-inherit hover:bg-white rounded text-foreground font-normal hover:text-inherit", {
-  variants: {
-    size: {
-      xs: "w-[100px]",
-      sm: "w-72",
-      md: "w-[300px]",
-      lg: "w-[400px]",
-      full: "w-full min-w-[var(--radix-select-trigger-width)]",
+  "border-neutral-300 focus:border-primary/50 focus:bg-inherit hover:bg-white rounded text-foreground font-normal hover:text-inherit",
+  {
+    variants: {
+      size: {
+        xs: "w-[100px]",
+        sm: "w-72",
+        md: "w-[300px]",
+        lg: "w-[400px]",
+        full: "w-full min-w-[var(--radix-select-trigger-width)]",
+      },
+    },
+    defaultVariants: {
+      size: "full",
     },
   },
-  defaultVariants: {
-    size: "full",
-  },
-});
+);
 
 type AutoCompleteProps<F extends FieldValues> = {
   options: Readonly<IOption[]>;
@@ -73,19 +75,19 @@ export const AutoComplete = <T extends FieldValues>({
                   aria-expanded={open}
                   className={cn(
                     autoCompleteVariants({ size }),
-                    "justify-between"
+                    "justify-between",
                   )}
                 >
                   {field.value
                     ? options.find((opt) => opt.value == field.value)?.label
-                    : placeholder ?? "Search"}
+                    : (placeholder ?? "Search")}
                   <ChevronsLeftRightIcon className="ml-2 h-4 w-4 shrink-0 opacity-60 rotate-90" />
                 </Button>
               </PopoverTrigger>
               <PopoverContent
                 className={cn(
                   "p-0",
-                  size === "full" && "w-[var(--radix-popover-trigger-width)]"
+                  size === "full" && "w-[var(--radix-popover-trigger-width)]",
                 )}
               >
                 <Command>
@@ -114,7 +116,7 @@ export const AutoComplete = <T extends FieldValues>({
                                 "ml-auto h-4 w-4 text-primary font-extrabold",
                                 field.value == opt.value
                                   ? "opacity-100"
-                                  : "opacity-0"
+                                  : "opacity-0",
                               )}
                             />
                           </CommandItem>

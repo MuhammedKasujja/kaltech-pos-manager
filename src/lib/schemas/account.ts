@@ -15,4 +15,4 @@ export const CreateAccountSchema = z.object({
   }),
 });
 
-export type CreateAccountRequest = z.infer<typeof CreateAccountSchema>
+export type CreateAccountRequest = z.infer<typeof CreateAccountSchema>;

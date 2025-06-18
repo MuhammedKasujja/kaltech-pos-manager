@@ -8,7 +8,7 @@ export function useSyncDevices() {
     fetcher,
     {
       dedupingInterval: 60000,
-    }
+    },
   );
   return {
     devices,

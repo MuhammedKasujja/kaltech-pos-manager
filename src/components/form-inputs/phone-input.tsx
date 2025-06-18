@@ -26,7 +26,7 @@ export const PhoneInput = <TValue extends FieldValues>({
       { label: "+254", value: "254" },
       { label: "+44", value: "44" },
     ],
-    []
+    [],
   );
   return (
     <div>

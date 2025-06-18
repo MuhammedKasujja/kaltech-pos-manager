@@ -5,7 +5,7 @@ import { createSyncDeviceSchema } from "../schemas/sync-device";
 import { revalidatePath } from "next/cache";
 
 export async function createSyncDevice(
-  data: z.infer<typeof createSyncDeviceSchema>
+  data: z.infer<typeof createSyncDeviceSchema>,
 ) {
   const account = await prisma.account.findFirstOrThrow({
     where: { accountKey: data.accountKey },

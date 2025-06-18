@@ -3,7 +3,7 @@ import { ZodSchema } from "zod";
 
 export function withValidation<T>(
   schema: ZodSchema<T>,
-  handler: (data: T, req: Request) => Promise<Response>
+  handler: (data: T, req: Request) => Promise<Response>,
 ) {
   return async (req: Request) => {
     const body = await req.json();
@@ -11,7 +11,7 @@ export function withValidation<T>(
     if (!result.success) {
       return NextResponse.json(
         { error: result.error.format() },
-        { status: 400 }
+        { status: 400 },
       );
     }
     return handler(result.data, req);

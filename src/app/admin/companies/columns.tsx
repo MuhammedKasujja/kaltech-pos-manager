@@ -50,11 +50,10 @@ export const columns: ColumnDef<CompanyDetail>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={()=> {
-                navigator.clipboard.writeText(company.admin.firstName)
-                toast.info('License key copied')
-              }
-            }
+              onClick={() => {
+                navigator.clipboard.writeText(company.admin.firstName);
+                toast.info("License key copied");
+              }}
             >
               Copy License key
             </DropdownMenuItem>

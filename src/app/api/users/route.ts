@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
   if (!parseResult.success) {
     return NextResponse.json(
       { error: parseResult.error.flatten().fieldErrors },
-      { status: 400 }
+      { status: 400 },
     );
   }
   const data = parseResult.data;

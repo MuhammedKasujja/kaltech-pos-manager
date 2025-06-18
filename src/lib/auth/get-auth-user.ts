@@ -1,11 +1,11 @@
-'use server'
+"use server";
 import { cache } from "react";
 import { verifySession } from "./verify-session";
 import { getUserDTO } from "@/lib/dto/user-dto";
 
 export const getAuthUser = cache(async () => {
   const session = await verifySession();
-  if (!session) return  null;
+  if (!session) return null;
 
   try {
     const user = await getUserDTO(session.userId.toString());

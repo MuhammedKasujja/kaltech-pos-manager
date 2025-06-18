@@ -8,7 +8,7 @@ export function useDataUploads() {
     fetcher,
     {
       dedupingInterval: 60000,
-    }
+    },
   );
 
   return {

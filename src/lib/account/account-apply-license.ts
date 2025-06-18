@@ -11,7 +11,6 @@ export async function applyLicenceKey({
   licenceKey,
   accountKey,
 }: z.infer<typeof applyLicenceKeySchema>) {
-
   const licence = await prisma.licence.findFirst({
     where: {
       licenceKey,
@@ -44,7 +43,7 @@ export async function applyLicenceKey({
       trialDuration: licence?.days,
       planExpires: systemDate.plus({ days: licence?.days }).toJSDate(),
       isTrial: false,
-      isVerifiedAccount: true
+      isVerifiedAccount: true,
     },
   });
 
@@ -60,7 +59,7 @@ export async function applyLicenceKey({
     trialStarted: verifiedAccount.trialStarted,
     planStarted: verifiedAccount.planStarted,
     trialDuration: verifiedAccount.trialDuration,
-    trialDaysLeft: 0,//verifiedAccount.trialDuration,
+    trialDaysLeft: 0, //verifiedAccount.trialDuration,
     planExpires: verifiedAccount.planExpires,
     isVerifiedAccount: verifiedAccount.isVerifiedAccount,
     accountPlan: verifiedAccount.plan,

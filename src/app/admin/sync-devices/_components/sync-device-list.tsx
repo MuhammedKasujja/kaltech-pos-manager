@@ -8,7 +8,7 @@ export function SyncDeviceList() {
   const { devices, error, isLoading } = useSyncDevices();
 
   if (error) return <div>{`${error}`}</div>;
-  if (isLoading) return <LoadingShimmer/>;
+  if (isLoading) return <LoadingShimmer />;
 
   return <DataTable columns={columns} data={devices ?? []} />;
 }

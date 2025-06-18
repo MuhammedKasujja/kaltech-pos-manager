@@ -42,9 +42,7 @@ export function CreateUserForm() {
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <DialogHeader>
               <DialogTitle>Add User</DialogTitle>
-              <DialogDescription>
-                Create system user
-              </DialogDescription>
+              <DialogDescription>Create system user</DialogDescription>
             </DialogHeader>
             <div className="flex items-center gap-2">
               <div className="grid flex-1 gap-4">
