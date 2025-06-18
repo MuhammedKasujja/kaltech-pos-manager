@@ -30,11 +30,11 @@ export async function GET(req: NextRequest) {
         email: "jjuuko@gmail.com",
       },
     });
+    await prisma.$disconnect();
     ApiResponse.success({ message: "Seeding successful" });
   } catch (error: unknown) {
     console.error(error);
-    return ApiResponse.error({ error: error?.toString(), statusCode: 500 });
-  } finally {
     await prisma.$disconnect();
-  }
+    return ApiResponse.error({ error: error?.toString(), statusCode: 500 });
+  } 
 }
