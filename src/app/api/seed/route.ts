@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
 
-export default async function GET(req: NextApiRequest, res: NextApiResponse) {
+export async function GET(req: NextApiRequest, res: NextApiResponse) {
   if (req.query.secret !== process.env.SEED_SECRET) {
     return res.status(403).json({ message: "Forbidden" });
   }
