@@ -7,7 +7,8 @@ import { DateTime } from "luxon";
 type SessionPayload = { userId: string; expiresAt: Date };
 
 const secretKey = process.env.SESSION_SECRET;
-const sessionDuration = process.env.SESSION_EXPIRY_TIME ?? "1 day";
+// const sessionDuration = process.env.SESSION_EXPIRY_TIME ?? "1 day";
+const sessionDuration = DateTime.now().plus({ days: 7 }).toJSDate()
 const encodedKey = new TextEncoder().encode(secretKey);
 
 export async function encrypt(payload: SessionPayload) {
