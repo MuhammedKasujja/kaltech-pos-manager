@@ -2,11 +2,12 @@ import "server-only";
 import { SignJWT, jwtVerify } from "jose";
 // import { SessionPayload } from "@/app/lib/definitions";
 import { cookies } from "next/headers";
+import { DateTime } from "luxon";
 
 type SessionPayload = { userId: string; expiresAt: Date };
 
 const secretKey = process.env.SESSION_SECRET;
-const sessionDuration = process.env.SESSION_EXPIRY_TIME ?? "1d";
+const sessionDuration = process.env.SESSION_EXPIRY_TIME ?? "1 day";
 const encodedKey = new TextEncoder().encode(secretKey);
 
 export async function encrypt(payload: SessionPayload) {
@@ -29,7 +30,7 @@ export async function decrypt(session: string | undefined = "") {
 }
 
 export async function createSession(userId: string) {
-  const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+  const expiresAt = DateTime.now().plus({ days: 7 }).toJSDate();
   const session = await encrypt({ userId, expiresAt });
   const cookieStore = await cookies();
 
@@ -50,7 +51,7 @@ export async function updateSession() {
     return null;
   }
 
-  const expires = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+  const expires = DateTime.now().plus({ days: 7 }).toJSDate();
 
   const cookieStore = await cookies();
   cookieStore.set("session", session, {

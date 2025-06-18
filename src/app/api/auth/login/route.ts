@@ -9,18 +9,22 @@ const loginSchema = z.object({
 });
 
 export async function POST(req: NextRequest) {
-  const body = await req.json();
-  const parseResult = loginSchema.safeParse(body);
+  try {
+    const body = await req.json();
+    const parseResult = loginSchema.safeParse(body);
 
-  if (!parseResult.success) {
-    return ApiResponse.error({
-      error: "Field validation failed",
-      data: parseResult.error.format(),
-      statusCode: 400,
-    });
+    if (!parseResult.success) {
+      return ApiResponse.error({
+        error: "Field validation failed",
+        data: parseResult.error.format(),
+        statusCode: 400,
+      });
+    }
+    const data = parseResult.data;
+
+    const user = await login(data);
+    return ApiResponse.success({ data: user, message: "Login successfully" });
+  } catch (error) {
+    return ApiResponse.error({ error: error, statusCode: 500 });
   }
-  const data = parseResult.data;
-
-  const user = await login(data);
-  return ApiResponse.success({ data: user, message: "Login successfully" });
 }
