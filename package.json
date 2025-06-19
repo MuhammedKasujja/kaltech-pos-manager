@@ -10,7 +10,7 @@
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,mdx}\"",
     "dev:prisma": "npx prisma generate && npx prisma migrate deploy",
     "dev:prisma:force": "npx prisma migrate reset --force && npx prisma migrate dev --name init",
-    "postinstall": "prisma migrate reset --force && prisma generate && prisma migrate deploy"
+    "postinstall": "prisma generate && prisma migrate dev --name init"
   },
   "prisma": {
     "seed": "node ./prisma/seed.js"
