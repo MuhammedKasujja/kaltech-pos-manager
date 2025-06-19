@@ -1,3 +1,4 @@
+'use client'
 import { AccountDetail } from "@/lib/swr/use-accounts";
 import { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
@@ -13,6 +14,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { generateCompanyLicence } from "@/lib/licence/generate-license";
 import { toast } from "sonner";
+import { deleteAccount } from "@/lib/account/delete-account";
 
 export const columns: ColumnDef<AccountDetail>[] = [
   {
@@ -60,7 +62,18 @@ export const columns: ColumnDef<AccountDetail>[] = [
             <DropdownMenuItem>Edit</DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>View</DropdownMenuItem>
-            <DropdownMenuItem>Delete</DropdownMenuItem>
+            <DropdownMenuItem 
+              onClick={async () => {
+                try {
+                  await deleteAccount(account.id);
+                  toast.success("Account deleted successfully");
+                } catch (error: unknown) {
+                  toast.error(<>{error?.toString()}</>);
+                }
+              }}
+            >
+              Delete
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );
