@@ -46,6 +46,7 @@ export async function createCompanyAccount({
     data: {
       name: company.name,
       phone: company.phone,
+      email: company.email,
       companyAdminId: admin.id,
     },
   });
