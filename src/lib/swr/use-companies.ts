@@ -3,7 +3,7 @@ import useSWR from "swr";
 import { fetcher } from "../fetcher";
 
 export const companyQuery = Prisma.validator<Prisma.CompanyDefaultArgs>()({
-  include: { admin: true },
+  include: { admin: true, account: { include: { licence: true } } },
 });
 
 export type CompanyDetail = Prisma.CompanyGetPayload<typeof companyQuery>;
@@ -14,7 +14,7 @@ export function useCompanies() {
     fetcher,
     {
       dedupingInterval: 60000,
-    },
+    }
   );
 
   return {

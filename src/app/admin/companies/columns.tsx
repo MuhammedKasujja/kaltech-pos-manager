@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { CompanyDetail } from "@/lib/swr/use-companies";
 import { toast } from "sonner";
+import { formatDateTime } from "@/lib/utils";
 
 export const columns: ColumnDef<CompanyDetail>[] = [
   {
@@ -31,8 +32,12 @@ export const columns: ColumnDef<CompanyDetail>[] = [
     header: "Admin Email",
   },
   {
-    accessorKey: "createdAt",
+    id: "createdAt",
     header: "Date",
+    cell: ({ row }) => {
+      const company = row.original;
+      return <>{formatDateTime(company.createdAt)}</>;
+    },
   },
   {
     id: "actions",
@@ -51,7 +56,14 @@ export const columns: ColumnDef<CompanyDetail>[] = [
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
               onClick={() => {
-                navigator.clipboard.writeText(company.admin.firstName);
+                const license = company.account?.licence.at(
+                  company.account?.licence.length - 1
+                );
+                if (!license) {
+                  toast.error("No license key found");
+                  return;
+                }
+                navigator.clipboard.writeText(license?.licenceKey ?? "");
                 toast.info("License key copied");
               }}
             >

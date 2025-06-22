@@ -1,7 +1,7 @@
-import prisma from "@/lib/prisma";
+import { getAllCompanies } from "@/lib/company/get-all-companies";
 import { NextResponse } from "next/server";
 
 export async function GET() {
-  const companies = await prisma.company.findMany({ include: { admin: true } });
+  const companies = await getAllCompanies();
   return NextResponse.json(companies);
 }

@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { AccountDetail } from "@/lib/swr/use-accounts";
 import { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
@@ -15,6 +15,7 @@ import {
 import { generateCompanyLicence } from "@/lib/licence/generate-license";
 import { toast } from "sonner";
 import { deleteAccount } from "@/lib/account/delete-account";
+import { formatDateTime } from "@/lib/utils";
 
 export const columns: ColumnDef<AccountDetail>[] = [
   {
@@ -30,8 +31,12 @@ export const columns: ColumnDef<AccountDetail>[] = [
     header: "Plan",
   },
   {
-    accessorKey: "createdAt",
+    id: "createdAt",
     header: "Date",
+    cell: ({ row }) => {
+      const account = row.original;
+      return <>{formatDateTime(account.createdAt)}</>;
+    },
   },
   {
     id: "actions",
@@ -62,7 +67,7 @@ export const columns: ColumnDef<AccountDetail>[] = [
             <DropdownMenuItem>Edit</DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>View</DropdownMenuItem>
-            <DropdownMenuItem 
+            <DropdownMenuItem
               onClick={async () => {
                 try {
                   await deleteAccount(account.id);
