@@ -41,6 +41,7 @@ export const columns: ColumnDef<CompanyDetail>[] = [
       const license = company.account?.licence.at(
         company.account?.licence.length - 1
       );
+
       return (
         <Badge variant="outline" className="text-muted-foreground px-1.5">
           {license?.isApplied ? (
@@ -48,6 +49,7 @@ export const columns: ColumnDef<CompanyDetail>[] = [
           ) : (
             <IconLoader />
           )}
+          {license?.appliedAt && formatDateTime(license?.appliedAt)}
         </Badge>
       );
     },
