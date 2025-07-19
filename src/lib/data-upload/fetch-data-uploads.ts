@@ -19,12 +19,20 @@ export async function fetchAccountDataUploads(data: FetchDataUploadsDto) {
   }
 
   const device = await prisma.syncDevice.findFirst({
-    where: { deviceId: data.deviceId },
+    where: {
+      deviceId: data.deviceId,
+      account: { accountKey: account.accountKey },
+    },
   });
 
   if (device == null) {
     throw new Error("Sync Device not Registered");
   }
 
-  return await prisma.dataUpload.findMany();
+  return await prisma.dataUpload.findMany({
+    where: {
+      accountId: account.id,
+    },
+    orderBy: { createdAt: "desc" },
+  });
 }
