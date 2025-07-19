@@ -29,10 +29,14 @@ export async function fetchAccountDataUploads(data: FetchDataUploadsDto) {
     throw new Error("Sync Device not Registered");
   }
 
-  return await prisma.dataUpload.findMany({
+  const updates = await prisma.dataUpload.findMany({
     where: {
       accountId: account.id,
     },
     orderBy: { createdAt: "desc" },
   });
+
+  const flattenedData = updates.flatMap(item => item.data);
+
+  return flattenedData;
 }
