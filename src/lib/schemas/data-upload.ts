@@ -9,3 +9,10 @@ export const createDataUpdateSchema = z.object({
 });
 
 export type CreateDataUpdateDto = z.infer<typeof createDataUpdateSchema>;
+
+export const fetchDataUploadsSchema = z.object({
+  accountKey: z.string().min(1, "Account Key is required"),
+  deviceId: z.string().min(1, "Device ID is required"),
+});
+
+export type FetchDataUploadsDto = z.infer<typeof fetchDataUploadsSchema>;
