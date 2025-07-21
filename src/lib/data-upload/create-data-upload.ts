@@ -29,5 +29,14 @@ export async function createDataUpload(data: CreateDataUpdateDto) {
     },
   });
 
-  return update;
+  await prisma.dataUploadDevice.create({
+    data: {
+      uploadDeviceId: device.id,
+      dataUploadId: update.id,
+    },
+  });
+
+  const { createdAt, updatedAt, id: updateId } = update;
+
+  return { createdAt, updatedAt, updateId: updateId.toString() };
 }

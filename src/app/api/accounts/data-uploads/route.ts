@@ -44,7 +44,10 @@ export async function POST(req: NextRequest) {
 
     const update = await createDataUpload(data);
 
-    return ApiResponse.success({ data: update });
+    return ApiResponse.success({
+      data: update,
+      message: "Data uploaded successfully",
+    });
   } catch (error) {
     return ApiResponse.error({ error: error });
   }

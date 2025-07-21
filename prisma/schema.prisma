@@ -31,16 +31,17 @@ model Account {
 }
 
 model DataUpload {
-  id         Int      @id @default(autoincrement())
+  id         Int                @id @default(autoincrement())
   deviceId   String
   userId     String
   accountKey String
   data       Json
-  updateId   Int
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  account    Account? @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  updateId   String
+  createdAt  DateTime           @default(now())
+  updatedAt  DateTime           @updatedAt
+  account    Account?           @relation(fields: [accountId], references: [id], onDelete: Cascade)
   accountId  Int?
+  uploads    DataUploadDevice[]
 }
 
 model User {
@@ -54,14 +55,15 @@ model User {
 }
 
 model SyncDevice {
-  id        Int      @id @default(autoincrement())
+  id        Int                @id @default(autoincrement())
   userId    String
-  deviceId  String   @unique
-  userName  String   @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  account   Account? @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  deviceId  String             @unique
+  userName  String             @unique
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @updatedAt
+  account   Account?           @relation(fields: [accountId], references: [id], onDelete: Cascade)
   accountId Int?
+  uploads   DataUploadDevice[]
 }
 
 model Company {
@@ -89,15 +91,24 @@ model CompanyAdmin {
 }
 
 model Licence {
-  id         Int      @id @default(autoincrement())
+  id         Int       @id @default(autoincrement())
   licenceKey String
   days       Int
-  isApplied  Boolean  @default(false)
+  isApplied  Boolean   @default(false)
   appliedAt  DateTime?
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  account    Account  @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  account    Account   @relation(fields: [accountId], references: [id], onDelete: Cascade)
   accountId  Int
+}
+
+model DataUploadDevice {
+  uploadDeviceId   Int
+  dataUploadId     Int
+  dataUpload DataUpload @relation(fields: [dataUploadId], references: [id])
+  device     SyncDevice @relation(fields: [uploadDeviceId], references: [id])
+
+  @@id([uploadDeviceId, dataUploadId]) // composite primary key
 }
 
 enum SubscriptionPlan {

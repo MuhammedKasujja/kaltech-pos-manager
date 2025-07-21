@@ -1,12 +1,9 @@
 "use server";
-import z from "zod";
 import prisma from "../prisma";
-import { createSyncDeviceSchema } from "../schemas/sync-device";
+import { CreateSyncDeviceDto } from "../schemas/sync-device";
 import { revalidatePath } from "next/cache";
 
-export async function createSyncDevice(
-  data: z.infer<typeof createSyncDeviceSchema>
-) {
+export async function createSyncDevice(data: CreateSyncDeviceDto) {
   const account = await prisma.account.findFirst({
     where: { accountKey: data.accountKey },
   });

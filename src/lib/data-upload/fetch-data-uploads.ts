@@ -4,7 +4,9 @@ import { FetchDataUploadsDto } from "../schemas/data-upload";
 
 export async function fetchDataUploads() {
   await verifySession();
-  const updates = await prisma.dataUpload.findMany();
+  const updates = await prisma.dataUpload.findMany({
+    orderBy: { createdAt: "desc" },
+  });
 
   return updates;
 }
@@ -36,7 +38,7 @@ export async function fetchAccountDataUploads(data: FetchDataUploadsDto) {
     orderBy: { createdAt: "desc" },
   });
 
-  const flattenedData = updates.flatMap(item => item.data);
+  const flattenedData = updates.flatMap((item) => item.data);
 
-  return flattenedData;
+  return updates;
 }
