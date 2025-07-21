@@ -34,11 +34,20 @@ export async function fetchAccountDataUploads(data: FetchDataUploadsDto) {
   const updates = await prisma.dataUpload.findMany({
     where: {
       accountId: account.id,
+      uploads: {
+        none: { uploadDeviceId: device.id },
+      },
     },
     orderBy: { createdAt: "desc" },
   });
 
-  const flattenedData = updates.flatMap((item) => item.data);
+  for (const update of updates) {
+    await prisma.dataUploadDevice.create({
+      data: { dataUploadId: update.id, uploadDeviceId: device.id },
+    });
+  }
+
+  // const flattenedData = updates.flatMap((item) => item.data);
 
   return updates;
 }

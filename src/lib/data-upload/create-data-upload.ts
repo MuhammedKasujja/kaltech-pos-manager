@@ -1,5 +1,6 @@
 import prisma from "../prisma";
 import { CreateDataUpdateDto } from "../schemas/data-upload";
+import { generateRandomString } from "../utils";
 
 export async function createDataUpload(data: CreateDataUpdateDto) {
   const account = await prisma.account.findFirst({
@@ -18,12 +19,14 @@ export async function createDataUpload(data: CreateDataUpdateDto) {
     throw new Error("Sync Device not Registered");
   }
 
+  const nextUpdateId = generateRandomString(16).toUpperCase();
+
   const update = await prisma.dataUpload.create({
     data: {
       accountKey: account.accountKey,
       deviceId: device.deviceId,
       userId: data.userId,
-      updateId: data.updateId,
+      updateId: nextUpdateId,
       data: data.data,
       accountId: account.id,
     },
@@ -36,7 +39,7 @@ export async function createDataUpload(data: CreateDataUpdateDto) {
     },
   });
 
-  const { createdAt, updatedAt, id: updateId } = update;
+  const { createdAt: lastSyncDate } = update;
 
-  return { createdAt, updatedAt, updateId: updateId.toString() };
+  return { lastSyncDate, lastUpdateId: nextUpdateId };
 }
