@@ -105,8 +105,8 @@ model Licence {
 model DataUploadDevice {
   uploadDeviceId   Int
   dataUploadId     Int
-  dataUpload DataUpload @relation(fields: [dataUploadId], references: [id])
-  device     SyncDevice @relation(fields: [uploadDeviceId], references: [id])
+  dataUpload DataUpload @relation(fields: [dataUploadId], references: [id], onDelete: Cascade)
+  device     SyncDevice @relation(fields: [uploadDeviceId], references: [id], onDelete: Cascade)
 
   @@id([uploadDeviceId, dataUploadId]) // composite primary key
 }
