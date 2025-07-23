@@ -1,6 +1,6 @@
 "use client";
 import { useTranslations as useTranslationsBase } from "next-intl";
-import { MessageKey, Namespaces, NamespaceKeys, GlobalKeys } from "./messages";
+import {Namespaces, NamespaceKeys, GlobalKeys } from "./messages";
 
 export function useTranslation<N extends Namespaces | undefined = undefined>(
   namespace?: N
