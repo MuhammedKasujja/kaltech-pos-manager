@@ -7,6 +7,21 @@ const de = {
   HomePage: {
     title: "Start",
   },
+  account: {
+    title: "Accountbeheer",
+    description: "Beheer uw accounts en instellingen",
+    create: "Account aanmaken",
+    edit: "Account bewerken",
+    delete: "Account verwijderen",
+    view: "Account bekijken",
+    list: "Accountlijst",
+    details: "Accountgegevens",
+    name: "Naam",
+    email: "E-mail",
+    role: "Rol",
+    status: "Status",
+    actions: "Acties",
+  },
   LoginPage: {
     credentials: "Anmeldedaten: jane@doe.com / next-intl",
     description: "Bitte geben Sie Ihre Daten ein.",

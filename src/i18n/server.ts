@@ -1,14 +1,17 @@
-"user server";
+"use server";
 import { getTranslations as getServerTranslations } from "next-intl/server";
-import { MessageKey, Namespaces } from "./messages";
-import type { TranslationValues } from 'next-intl';
+import { GlobalKeys, NamespaceKeys, Namespaces } from "./messages";
+import type { TranslationValues } from "next-intl";
 
-export async function getTranslations(namespace?: Namespaces) {
-  const t = await getServerTranslations<Namespaces>(namespace);
+export async function getTranslations<
+  N extends Namespaces | undefined = undefined,
+>(namespace?: N) {
+  const t = await getServerTranslations(namespace);
 
-  function typedT(key: MessageKey, values?: TranslationValues) {
-    return t(key, values);
-  }
-
-  return typedT;
+  return <K extends N extends string ? NamespaceKeys<N> : GlobalKeys>(
+    key: K,
+    values?: TranslationValues
+  ) => {
+    return t(key as string, values);
+  };
 }
