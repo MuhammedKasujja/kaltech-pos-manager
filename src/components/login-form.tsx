@@ -10,6 +10,7 @@ import { login } from "@/lib/auth/login";
 import { toast } from "sonner";
 import { PasswordInput, TextInput } from "@/components/form-inputs";
 import { useRouter } from "next/navigation";
+import { useTranslation } from "@/i18n";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email." }).trim(),
@@ -20,6 +21,8 @@ export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const tr = useTranslation();
+
   const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -44,9 +47,9 @@ export function LoginForm({
             <form className="p-6 md:p-8" onSubmit={form.handleSubmit(onSubmit)}>
               <div className="flex flex-col gap-6">
                 <div className="flex flex-col items-center text-center">
-                  <h1 className="text-2xl font-bold">Welcome back</h1>
+                  <h1 className="text-2xl font-bold">{tr('common.welcomeBack')}</h1>
                   <p className="text-muted-foreground text-balance">
-                    Login to your Acme Inc account
+                    {tr('common.welcomeBack')}
                   </p>
                 </div>
                 {/* <div className="grid gap-3"> */}
