@@ -8,6 +8,13 @@ const en = {
     copyright: "© 2025 Kaltech Inc.",
   },
   common: {
+    locale: {
+      header: "Locale",
+      description: "Select your preferred language",
+      en: "English",
+      de: "Deutsch",
+    },
+    hello: "Hello {name}!",
     cancel: "Cancel",
     close: "Close",
     continue: "Continue",
@@ -70,6 +77,10 @@ const en = {
       next: "Next",
       previous: "Previous",
     },
+  },
+  dashboard: {
+    title: "Welcome back!",
+    unreadCount: "{count} unread messages",
   },
   account: {
     title: "Accounts Management",

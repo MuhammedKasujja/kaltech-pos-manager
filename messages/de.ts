@@ -7,6 +7,20 @@ const de = {
   HomePage: {
     title: "Start",
   },
+  common: {
+    locale: {
+      header: "Locale",
+      description: "Select your preferred language",
+      en: "English",
+      de: "Deutsch",
+    },
+    hello: "Holla {name}!",
+    welcomeBack: "Welkom terug!",
+  },
+  dashboard: {
+    title: "Welkom terug!",
+    unreadCount: "{count} ongelezen berichten",
+  },
   account: {
     title: "Accountbeheer",
     description: "Beheer uw accounts en instellingen",
