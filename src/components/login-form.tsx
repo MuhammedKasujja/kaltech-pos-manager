@@ -21,7 +21,7 @@ export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
-  const tr = useTranslation('app');
+  const tr = useTranslation('common');
 
   const router = useRouter();
 
@@ -49,7 +49,7 @@ export function LoginForm({
                 <div className="flex flex-col items-center text-center">
                   <h1 className="text-2xl font-bold">Welcome back</h1>
                   <p className="text-muted-foreground text-balance">
-                    {tr("LoginPage.description")}
+                    {tr('form.previous')}
                   </p>
                 </div>
                 {/* <div className="grid gap-3"> */}

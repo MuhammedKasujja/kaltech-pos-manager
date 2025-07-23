@@ -1,13 +1,16 @@
 "use client";
-import { useTranslations as translator } from "next-intl";
-import { MessageKey, Namespace } from "./messages";
+import { useTranslations as useTranslationsBase } from "next-intl";
+import { MessageKey, Namespaces, NamespaceKeys, GlobalKeys } from "./messages";
 
-export function useTranslation(namespace?: Namespace) {
-  const t = translator<Namespace>(namespace);
+export function useTranslation<N extends Namespaces | undefined = undefined>(
+  namespace?: N
+) {
+  const t = useTranslationsBase(namespace as any);
 
-  function typedT(key: MessageKey, values?: Record<string, any>) {
-    return t(key, values);
-  }
-
-  return typedT;
+  return <K extends N extends string ? NamespaceKeys<N> : GlobalKeys>(
+    key: K,
+    values?: Record<string, any>
+  ) => {
+    return t(key as string, values);
+  };
 }
