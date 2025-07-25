@@ -16,10 +16,11 @@ export async function POST(req: NextRequest) {
       });
     }
     const request = parseResult.data;
+    
     const data = await connectAccountDevice(request);
     return ApiResponse.success({
       data: data,
-      message: "Device Connected Successfully",
+      message: "Device Connected Successfully.....",
     });
   } catch (error: unknown) {
     return ApiResponse.error({ error: error });
