@@ -27,6 +27,7 @@ export async function checkPassword(
   const match = await bcrypt.compare(password, hashedPassword);
   return match;
 }
+
 export const formatDateTime = (
   datetime: Date | string,
   options?: Intl.DateTimeFormatOptions,

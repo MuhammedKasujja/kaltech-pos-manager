@@ -4,6 +4,7 @@ import { FetchDataUploadsDto } from "../schemas/data-upload";
 
 export async function fetchDataUploads() {
   await verifySession();
+  // await prisma.dataUpload.deleteMany()
   const updates = await prisma.dataUpload.findMany({
     orderBy: { createdAt: "desc" },
   });

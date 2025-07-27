@@ -11,6 +11,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { SyncDevice } from "@prisma/client";
+import { deleteSyncDevice } from "@/lib/sync-device/delete-sync-device";
+import { toast } from "sonner";
 
 export const columns: ColumnDef<SyncDevice>[] = [
   {
@@ -31,8 +33,16 @@ export const columns: ColumnDef<SyncDevice>[] = [
   },
   {
     id: "actions",
-    cell: () => {
-      // const device = row.original;
+    cell: ({ row }) => {
+      const device = row.original;
+      async function handleDeleteDevice() {
+        try {
+          await deleteSyncDevice({ deviceId: device.id });
+          toast.success("Device deleted successfully");
+        } catch (error: unknown) {
+          toast.error(`${error?.toString()}`);
+        }
+      }
 
       return (
         <DropdownMenu>
@@ -47,7 +57,9 @@ export const columns: ColumnDef<SyncDevice>[] = [
             <DropdownMenuItem>Edit</DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>View</DropdownMenuItem>
-            <DropdownMenuItem>Delete</DropdownMenuItem>
+            <DropdownMenuItem onClick={handleDeleteDevice}>
+              Delete
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );
