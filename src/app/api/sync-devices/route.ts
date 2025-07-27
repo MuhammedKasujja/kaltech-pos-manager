@@ -1,4 +1,3 @@
-import prisma from "@/lib/prisma";
 import { createSyncDeviceSchema } from "@/lib/schemas/sync-device";
 import { createSyncDevice } from "@/lib/sync-device/create-sync-device";
 import { fetchSyncDevices } from "@/lib/sync-device/fetch-sync-devices";
