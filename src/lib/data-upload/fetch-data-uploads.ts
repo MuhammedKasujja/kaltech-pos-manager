@@ -39,7 +39,7 @@ export async function fetchAccountDataUploads(data: FetchDataUploadsDto) {
         none: { uploadDeviceId: device.id },
       },
     },
-    orderBy: { createdAt: "desc" },
+    orderBy: { createdAt: "asc" },
   });
 
   for (const update of updates) {

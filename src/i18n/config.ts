@@ -12,4 +12,4 @@ export const supportedLocales = Object.entries(appSupportedLocales).map(
   })
 );
 
-export const defaultLocale: Locale = "en";
+export const defaultLocale = "en";
