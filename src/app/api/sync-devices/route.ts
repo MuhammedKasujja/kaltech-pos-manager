@@ -10,19 +10,23 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
-  const body = await req.json();
-  const parseResult = createSyncDeviceSchema.safeParse(body);
+  try {
+    const body = await req.json();
+    const parseResult = createSyncDeviceSchema.safeParse(body);
 
-  if (!parseResult.success) {
-    return ApiResponse.error({
-      error: "Field validation failed",
-      data: parseResult.error.format(),
-      statusCode: 400,
-    });
+    if (!parseResult.success) {
+      return ApiResponse.error({
+        error: "Field validation failed",
+        data: parseResult.error.format(),
+        statusCode: 400,
+      });
+    }
+    const data = parseResult.data;
+
+    const device = await createSyncDevice(data);
+
+    return ApiResponse.success({ data: device });
+  } catch (error: unknown) {
+    return ApiResponse.error({ error: error });
   }
-  const data = parseResult.data;
-
-  const device = await createSyncDevice(data);
-
-  return ApiResponse.success({ data: device });
 }
