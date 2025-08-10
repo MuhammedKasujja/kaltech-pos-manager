@@ -1,6 +1,6 @@
 "use server";
+import { RegisterSynceDeviceWithAccountDto } from "@/features/sync-device/schemas";
 import prisma from "@/lib/prisma";
-import { RegisterSynceDeviceWithAccountDto } from "@/lib/schemas/connect-device";
 import { checkPassword } from "@/lib/utils";
 
 export async function connectAccountDevice(

@@ -1,7 +1,7 @@
+import { CreateAccountSchema } from "@/features/accounts/schemas";
 import { createCompanyAccount } from "@/lib/account/create-account";
 import { getAllAccounts } from "@/lib/account/get-all-account";
 import { ApiResponse } from "@/lib/api-response";
-import { CreateAccountSchema } from "@/lib/schemas/account";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET() {

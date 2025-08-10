@@ -13,10 +13,13 @@ import { Form } from "@/components/ui/form";
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CreateSystemUserType, createUserSchema } from "@/lib/schemas/user";
 import { createSystemUser } from "@/lib/user/create-user";
 import { toast } from "sonner";
 import { PasswordInput, TextInput } from "@/components/form-inputs";
+import {
+  CreateSystemUserType,
+  createUserSchema,
+} from "@/features/users/schemas";
 
 export function CreateUserForm() {
   const form = useForm<CreateSystemUserType>({

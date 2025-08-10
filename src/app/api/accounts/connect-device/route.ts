@@ -1,5 +1,5 @@
+import { registerSynceDeviceWithAccountSchema } from "@/features/sync-device/schemas";
 import { ApiResponse } from "@/lib/api-response";
-import { registerSynceDeviceWithAccountSchema } from "@/lib/schemas/connect-device";
 import { connectAccountDevice } from "@/lib/sync-device/connect-account-device";
 import { NextRequest } from "next/server";
 

@@ -15,11 +15,11 @@ import { DataUploadDetail } from "../actions";
 
 export const columns: ColumnDef<DataUploadDetail>[] = [
   {
-    id: "name",
-    header: "Account",
+    id: "company",
+    header: "Company",
     cell: ({ row }) => {
       const account = row.original.account;
-      return <div>{account?.accountKey}</div>;
+      return <div>{account?.company.name}</div>;
     },
   },
   {

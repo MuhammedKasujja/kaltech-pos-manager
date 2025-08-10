@@ -1,5 +1,5 @@
+import { createUserSchema } from "@/features/users/schemas";
 import prisma from "@/lib/prisma";
-import { createUserSchema } from "@/lib/schemas/user";
 import { hashPassword } from "@/lib/utils";
 import { NextRequest, NextResponse } from "next/server";
 

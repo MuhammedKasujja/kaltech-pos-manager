@@ -4,7 +4,7 @@ import { FetchDataUploadsDto } from "../schemas";
 import { Prisma } from "@prisma/client";
 
 export const uploadQuery = Prisma.validator<Prisma.DataUploadDefaultArgs>()({
-  include: { account: {} },
+  include: { account: { include: { company: {} } } },
 });
 
 export type DataUploadDetail = Prisma.DataUploadGetPayload<typeof uploadQuery>;
@@ -16,11 +16,9 @@ export async function fetchDataUploads(): Promise<DataUploadDetail[]> {
     orderBy: { createdAt: "desc" },
     include: {
       account: {
-        // include: {
-        //   devices: {
-        //     where: { id:  },
-        //   },
-        // },
+        include: {
+          company: {},
+        },
       },
     },
   });

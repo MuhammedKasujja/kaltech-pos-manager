@@ -1,5 +1,4 @@
 import { Prisma } from "@prisma/client";
-import { CreateAccountRequest } from "../schemas/account";
 import prisma from "../prisma";
 import { DateTime } from "luxon";
 import {
@@ -13,6 +12,7 @@ import {
   generateRandomString,
   hashPassword,
 } from "@/lib/utils";
+import { CreateAccountRequest } from "@/features/accounts/schemas";
 
 export const accountQuery = Prisma.validator<Prisma.AccountDefaultArgs>()({
   include: {

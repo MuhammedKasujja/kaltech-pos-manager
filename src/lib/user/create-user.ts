@@ -1,7 +1,7 @@
 "use server";
 
+import { CreateSystemUserType } from "@/features/users/schemas";
 import prisma from "@/lib/prisma";
-import { CreateSystemUserType } from "../schemas/user";
 import { hashPassword } from "@/lib/utils";
 
 export async function createSystemUser(data: CreateSystemUserType) {

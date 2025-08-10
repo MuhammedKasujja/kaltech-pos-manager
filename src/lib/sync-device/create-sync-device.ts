@@ -1,6 +1,6 @@
 "use server";
+import { CreateSyncDeviceDto } from "@/features/sync-device/schemas";
 import prisma from "../prisma";
-import { CreateSyncDeviceDto } from "../schemas/sync-device";
 import { revalidatePath } from "next/cache";
 
 export async function createSyncDevice(data: CreateSyncDeviceDto) {
