@@ -1,6 +1,6 @@
-import prisma from "../prisma";
-import { CreateDataUpdateDto } from "../schemas/data-upload";
-import { generateRandomString } from "../utils";
+import prisma from "@/lib/prisma";
+import { generateRandomString } from "@/lib/utils";
+import { CreateDataUpdateDto } from "../schemas";
 
 export async function createDataUpload(data: CreateDataUpdateDto) {
   const account = await prisma.account.findFirst({

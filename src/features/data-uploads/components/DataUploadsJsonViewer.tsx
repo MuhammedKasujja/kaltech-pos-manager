@@ -3,7 +3,7 @@
 import { useDataUploads } from "@/lib/swr/use-data-uploads";
 import { JsonPreview } from "./json-preview";
 
-export function DataViewer() {
+export function DataUploadJsonViewer() {
   const { updates, error } = useDataUploads();
 
   if (error) {

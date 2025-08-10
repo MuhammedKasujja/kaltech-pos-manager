@@ -13,6 +13,7 @@ import {
 import { SyncDevice } from "@prisma/client";
 import { deleteSyncDevice } from "@/lib/sync-device/delete-sync-device";
 import { toast } from "sonner";
+import { formatDateTime } from "@/lib/utils";
 
 export const columns: ColumnDef<SyncDevice>[] = [
   {
@@ -28,8 +29,12 @@ export const columns: ColumnDef<SyncDevice>[] = [
     header: "Device ID",
   },
   {
-    accessorKey: "createdAt",
-    header: "Date",
+    id: "createdAt",
+    header: "Registered Date",
+    cell: ({ row }) => {
+      const device = row.original;
+      return <div>{formatDateTime(device.createdAt)}</div>;
+    },
   },
   {
     id: "actions",

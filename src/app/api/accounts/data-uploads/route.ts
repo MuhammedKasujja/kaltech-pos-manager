@@ -1,10 +1,13 @@
-import { ApiResponse } from "@/lib/api-response";
-import { createDataUpload } from "@/lib/data-upload/create-data-upload";
-import { fetchAccountDataUploads } from "@/lib/data-upload/fetch-data-uploads";
+import {
+  createDataUpload,
+  fetchAccountDataUploads,
+} from "@/features/data-uploads/actions";
 import {
   createDataUpdateSchema,
   fetchDataUploadsSchema,
-} from "@/lib/schemas/data-upload";
+} from "@/features/data-uploads/schemas";
+import { ApiResponse } from "@/lib/api-response";
+
 import { NextRequest } from "next/server";
 
 export async function GET(req: NextRequest) {

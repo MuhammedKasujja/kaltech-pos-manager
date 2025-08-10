@@ -42,6 +42,7 @@ model DataUpload {
   account    Account?           @relation(fields: [accountId], references: [id], onDelete: Cascade)
   accountId  Int?
   uploads    DataUploadDevice[]
+  // TODO: add relationship for device making upload
 }
 
 model User {

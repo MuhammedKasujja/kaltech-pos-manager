@@ -1,4 +1,4 @@
-import { fetchDataUploads } from "@/lib/data-upload/fetch-data-uploads";
+import { fetchDataUploads } from "@/features/data-uploads/actions";
 import { NextResponse } from "next/server";
 
 export async function GET() {

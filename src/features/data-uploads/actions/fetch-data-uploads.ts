@@ -1,12 +1,28 @@
-import { verifySession } from "../auth/verify-session";
-import prisma from "../prisma";
-import { FetchDataUploadsDto } from "../schemas/data-upload";
+import { verifySession } from "@/lib/auth/verify-session";
+import prisma from "@/lib/prisma";
+import { FetchDataUploadsDto } from "../schemas";
+import { Prisma } from "@prisma/client";
 
-export async function fetchDataUploads() {
+export const uploadQuery = Prisma.validator<Prisma.DataUploadDefaultArgs>()({
+  include: { account: {} },
+});
+
+export type DataUploadDetail = Prisma.DataUploadGetPayload<typeof uploadQuery>;
+
+export async function fetchDataUploads(): Promise<DataUploadDetail[]> {
   await verifySession();
   // await prisma.dataUpload.deleteMany()
   const updates = await prisma.dataUpload.findMany({
     orderBy: { createdAt: "desc" },
+    include: {
+      account: {
+        // include: {
+        //   devices: {
+        //     where: { id:  },
+        //   },
+        // },
+      },
+    },
   });
 
   return updates;
