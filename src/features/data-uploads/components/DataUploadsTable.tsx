@@ -4,7 +4,6 @@ import { columns } from "./columns";
 import { useDataUploads } from "@/lib/swr/use-data-uploads";
 import { LoadingShimmer } from "@/components/loading-shimmer";
 import { CollapsibleDataTable } from "@/components/collapsible-data-table";
-import { JsonPreview } from "./json-preview";
 import { DataUploadListPreview } from "./DataUpdatePreview";
 
 export function DataUploadsTable() {

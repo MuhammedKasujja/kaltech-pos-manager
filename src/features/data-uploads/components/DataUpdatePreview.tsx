@@ -49,7 +49,7 @@ export function DataUploadListPreview({
           </TableHeader>
           <TableBody>
             {(upload.data as Array<EntityUpload>).map((row) => (
-              <TableRow>
+              <TableRow key={row.entityId}>
                 <TableCell>{row.entity}</TableCell>
                 <TableCell>{row.state}</TableCell>
                 <TableCell>
