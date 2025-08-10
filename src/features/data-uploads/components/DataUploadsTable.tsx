@@ -21,8 +21,7 @@ export function DataUploadsTable() {
       renderDetails={(upload) => (
         <DataUploadListPreview key={upload.id.toString()} upload={upload} />
       )}
-      multiExpand={true}
-      getRowId={(row) => row.id.toString()}
+      multiExpand={false}
     />
   );
 }

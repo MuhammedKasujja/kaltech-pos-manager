@@ -28,7 +28,6 @@ interface CollapsibleTableProps<TData> {
   columns: ColumnDef<TData>[];
   renderDetails: (row: TData) => React.ReactNode;
   multiExpand?: boolean;
-  getRowId?: (row: TData) => string;
 }
 
 export function CollapsibleDataTable<TData>({
@@ -36,13 +35,11 @@ export function CollapsibleDataTable<TData>({
   columns,
   renderDetails,
   multiExpand = false,
-  getRowId,
 }: CollapsibleTableProps<TData>) {
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    getRowId,
   });
 
   const [openRows, setOpenRows] = React.useState<Set<string>>(new Set());
