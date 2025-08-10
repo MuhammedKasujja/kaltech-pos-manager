@@ -1,9 +1,11 @@
 "use client";
 
-import { DataTable } from "@/components/data-table";
 import { columns } from "./columns";
 import { useDataUploads } from "@/lib/swr/use-data-uploads";
 import { LoadingShimmer } from "@/components/loading-shimmer";
+import { CollapsibleDataTable } from "@/components/collapsible-data-table";
+import { JsonPreview } from "./json-preview";
+import { DataUploadListPreview } from "./DataUpdatePreview";
 
 export function DataUploadsTable() {
   const { updates, error, isLoading } = useDataUploads();
@@ -13,5 +15,15 @@ export function DataUploadsTable() {
   }
   if (isLoading) return <LoadingShimmer />;
 
-  return <DataTable columns={columns} data={updates ?? []} />;
+  return (
+    <CollapsibleDataTable
+      columns={columns}
+      data={updates ?? []}
+      renderDetails={(upload) => (
+        <DataUploadListPreview key={upload.id.toString()} upload={upload} />
+      )}
+      multiExpand={true}
+      getRowId={(row) => row.id.toString()}
+    />
+  );
 }

@@ -64,8 +64,17 @@ export const columns: ColumnDef<AccountDetail>[] = [
             >
               Generate Licence
             </DropdownMenuItem>
-            <DropdownMenuItem>Edit</DropdownMenuItem>
             <DropdownMenuSeparator />
+            <DropdownMenuItem
+              onClick={() => {
+                navigator.clipboard.writeText(account.accountKey);
+                toast.info("Account Key Copied");
+              }}
+            >
+              Copy Account key
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>Edit</DropdownMenuItem>
             <DropdownMenuItem>View</DropdownMenuItem>
             <DropdownMenuItem
               onClick={async () => {

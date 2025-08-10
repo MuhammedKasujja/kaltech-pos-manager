@@ -12,6 +12,7 @@ import {
 import { Prisma } from "@prisma/client";
 import { formatDateTime } from "@/lib/utils";
 import { DataUploadDetail } from "../actions";
+import { Badge } from "@/components/ui/badge";
 
 export const columns: ColumnDef<DataUploadDetail>[] = [
   {
@@ -19,7 +20,7 @@ export const columns: ColumnDef<DataUploadDetail>[] = [
     header: "Company",
     cell: ({ row }) => {
       const account = row.original.account;
-      return <div>{account?.company.name}</div>;
+      return <div className="text-foreground">{account?.company.name}</div>;
     },
   },
   {
@@ -31,7 +32,13 @@ export const columns: ColumnDef<DataUploadDetail>[] = [
     header: "Changes",
     cell: ({ row }) => {
       const upload = row.original;
-      return <div className="text-center">{getUploadsTotal(upload.data)}</div>;
+      return (
+        <div className="w-32">
+          <Badge variant="outline" className="text-muted-foreground px-2">
+            {getUploadsTotal(upload.data)}
+          </Badge>
+        </div>
+      );
     },
   },
   {
