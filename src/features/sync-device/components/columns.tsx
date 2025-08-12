@@ -10,15 +10,19 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { SyncDevice } from "@prisma/client";
-import { deleteSyncDevice } from "@/features/sync-device/actions";
+import { SyncDeviceDetail } from "@/features/sync-device/actions";
 import { toast } from "sonner";
 import { formatDateTime } from "@/lib/utils";
+import { deleteSyncDevice } from "../actions/delete-sync-device";
 
-export const columns: ColumnDef<SyncDevice>[] = [
+export const columns: ColumnDef<SyncDeviceDetail>[] = [
   {
-    accessorKey: "accountKey",
-    header: "Account Key",
+    id: "accountKey",
+    header: "Account",
+    cell: ({ row }) => {
+      const device = row.original;
+      return <div>{device.account?.company.name}</div>;
+    },
   },
   {
     accessorKey: "userName",

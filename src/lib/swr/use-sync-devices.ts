@@ -1,14 +1,14 @@
 import useSWR from "swr";
 import { fetcher } from "../fetcher";
-import { SyncDevice } from "@prisma/client";
+import { SyncDeviceDetail } from "@/features/sync-device/actions";
 
 export function useSyncDevices() {
-  const { data: devices, error } = useSWR<SyncDevice[]>(
+  const { data: devices, error } = useSWR<SyncDeviceDetail[]>(
     "/api/sync-devices",
     fetcher,
     {
       dedupingInterval: 60000,
-    },
+    }
   );
   return {
     devices,
