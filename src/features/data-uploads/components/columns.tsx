@@ -13,6 +13,8 @@ import { Prisma } from "@prisma/client";
 import { formatDateTime } from "@/lib/utils";
 import { DataUploadDetail } from "../actions";
 import { Badge } from "@/components/ui/badge";
+import { deleteDataUpload } from "../actions/delete-data-upload";
+import { toast } from "sonner";
 
 export const columns: ColumnDef<DataUploadDetail>[] = [
   {
@@ -51,7 +53,19 @@ export const columns: ColumnDef<DataUploadDetail>[] = [
   },
   {
     id: "actions",
-    cell: () => {
+    cell: ({ row }) => {
+      const upload = row.original;
+      async function handleDataUpload() {
+        try {
+          await deleteDataUpload({
+            updateId: upload.id,
+            accountKey: upload.accountKey,
+          });
+          toast.success("Upload deleted successfully");
+        } catch (error: unknown) {
+          toast.error(`${error?.toString()}`);
+        }
+      }
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -63,7 +77,9 @@ export const columns: ColumnDef<DataUploadDetail>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem>View</DropdownMenuItem>
-            <DropdownMenuItem>Delete</DropdownMenuItem>
+            <DropdownMenuItem onClick={handleDataUpload}>
+              Delete
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );
