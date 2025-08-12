@@ -1,6 +1,6 @@
 import { registerSynceDeviceWithAccountSchema } from "@/features/sync-device/schemas";
 import { ApiResponse } from "@/lib/api-response";
-import { connectAccountDevice } from "@/lib/sync-device/connect-account-device";
+import { connectAccountDevice } from "@/features/sync-device/actions";
 import { NextRequest } from "next/server";
 
 export async function POST(req: NextRequest) {

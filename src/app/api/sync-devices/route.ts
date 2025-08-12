@@ -1,7 +1,9 @@
 import { createSyncDeviceSchema } from "@/features/sync-device/schemas";
 import { ApiResponse } from "@/lib/api-response";
-import { createSyncDevice } from "@/lib/sync-device/create-sync-device";
-import { fetchSyncDevices } from "@/lib/sync-device/fetch-sync-devices";
+import {
+  createSyncDevice,
+  fetchSyncDevices,
+} from "@/features/sync-device/actions";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET() {

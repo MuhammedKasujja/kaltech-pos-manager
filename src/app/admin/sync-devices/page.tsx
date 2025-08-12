@@ -1,4 +1,4 @@
-import { SyncDeviceList } from "./_components/sync-device-list";
+import { SyncDeviceList } from "@/features/sync-device/components/sync-device-list";
 
 export default function Page() {
   return (

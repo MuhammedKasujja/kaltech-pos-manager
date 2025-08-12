@@ -11,7 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { SyncDevice } from "@prisma/client";
-import { deleteSyncDevice } from "@/lib/sync-device/delete-sync-device";
+import { deleteSyncDevice } from "@/features/sync-device/actions";
 import { toast } from "sonner";
 import { formatDateTime } from "@/lib/utils";
 

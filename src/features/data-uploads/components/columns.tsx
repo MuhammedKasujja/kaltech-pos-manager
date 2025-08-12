@@ -55,7 +55,7 @@ export const columns: ColumnDef<DataUploadDetail>[] = [
     id: "actions",
     cell: ({ row }) => {
       const upload = row.original;
-      async function handleDataUpload() {
+      async function handleDeleteDataUpload() {
         try {
           await deleteDataUpload({
             updateId: upload.id,
@@ -77,7 +77,7 @@ export const columns: ColumnDef<DataUploadDetail>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem>View</DropdownMenuItem>
-            <DropdownMenuItem onClick={handleDataUpload}>
+            <DropdownMenuItem onClick={handleDeleteDataUpload}>
               Delete
             </DropdownMenuItem>
           </DropdownMenuContent>
