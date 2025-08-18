@@ -11,7 +11,6 @@ export type DataUploadDetail = Prisma.DataUploadGetPayload<typeof uploadQuery>;
 
 export async function fetchDataUploads(): Promise<DataUploadDetail[]> {
   await verifySession();
-  // await prisma.dataUpload.deleteMany()
   const updates = await prisma.dataUpload.findMany({
     orderBy: { createdAt: "desc" },
     include: {
