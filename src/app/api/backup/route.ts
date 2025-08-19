@@ -2,16 +2,18 @@ import { NextResponse } from "next/server";
 import { spawn } from "child_process";
 
 export async function GET() {
-  return new Promise((resolve, _) => {
-    const host = 'localhost';
-    const user = 'muhammed';
-    const database = 'kaltech_pos';
-    
-    const dump = spawn("pg_dump", [
-      "-U", user,
-      "-h", host,
-      "-d", database
-    ]);
+  return new Promise((resolve) => {
+    const host = "localhost";
+    const user = "muhammed";
+    const database = "kaltech_poshfhdhfd";
+
+    const dump = spawn("pg_dump", 
+      [
+       "-U", user,
+       "-h", host,
+       "-d", database
+      ]
+    );
 
     let data = "";
     dump.stdout.on("data", (chunk) => {
@@ -19,7 +21,12 @@ export async function GET() {
     });
 
     dump.stderr.on("data", (err) => {
-      console.error("Dump error:", err.toString());
+      resolve(
+        NextResponse.json(
+          { success: false, error: err.toString() },
+          { status: 500 }
+        )
+      );
     });
 
     dump.on("close", () => {
