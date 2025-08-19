@@ -1,17 +1,14 @@
 import { NextResponse } from "next/server";
 import { spawn } from "child_process";
+import { env } from "@/data/env/server";
 
 export async function GET() {
   return new Promise<NextResponse>((resolve) => {
-    const host = "localhost";
-    const user = "muhammed";
-    const database = "kaltech_poshfhdhfd";
-
     const dump = spawn("pg_dump", 
       [
-       "-U", user,
-       "-h", host,
-       "-d", database
+       "-U", env.PGUSER,
+       "-h", env.PGHOST,
+       "-d", env.PGDATABASE
       ]
     );
 
