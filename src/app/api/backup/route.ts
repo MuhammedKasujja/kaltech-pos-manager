@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { spawn } from "child_process";
 
 export async function GET() {
-  return new Promise((resolve) => {
+  return new Promise<NextResponse>((resolve) => {
     const host = "localhost";
     const user = "muhammed";
     const database = "kaltech_poshfhdhfd";
