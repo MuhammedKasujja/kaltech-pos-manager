@@ -9,6 +9,7 @@ export const env = createEnv({
     SEED_SECRET: z.string().min(1),
     SESSION_EXPIRY_TIME: z.string().min(1),
     SESSION_SECRET: z.string().min(1),
+    DATABASE_URL: z.string().min(1),
   },
   experimental__runtimeEnv: process.env,
 });
