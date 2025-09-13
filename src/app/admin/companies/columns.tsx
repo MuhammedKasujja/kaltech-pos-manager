@@ -15,6 +15,7 @@ import { toast } from "sonner";
 import { formatDateTime } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { IconCircleCheckFilled, IconLoader } from "@tabler/icons-react";
+import Link from "next/link";
 
 export const columns: ColumnDef<CompanyDetail>[] = [
   {
@@ -94,7 +95,11 @@ export const columns: ColumnDef<CompanyDetail>[] = [
             </DropdownMenuItem>
             <DropdownMenuItem>Edit</DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>View</DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link href={`/admin/companies/${company.account?.accountKey}`}>
+                View
+              </Link>
+            </DropdownMenuItem>
             <DropdownMenuItem>Delete</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
