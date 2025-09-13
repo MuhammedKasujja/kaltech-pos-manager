@@ -65,6 +65,8 @@ model SyncDevice {
   account   Account?           @relation(fields: [accountId], references: [id], onDelete: Cascade)
   accountId Int?
   uploads   DataUploadDevice[]
+  lastSyncDate  DateTime?
+  isActive      Boolean    @default(true)
 }
 
 model Company {
