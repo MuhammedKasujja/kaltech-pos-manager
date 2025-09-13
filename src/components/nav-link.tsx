@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
+import type { Route } from "next";
 
 export default function NavLink({
   href,
@@ -16,7 +17,7 @@ export default function NavLink({
 
   return (
     <Link
-      href={href}
+      href={href as Route}
       className={clsx("min-w-8 duration-200 ease-linear", {
         "bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground active:bg-primary/90 active:text-primary-foreground":
           isActive,

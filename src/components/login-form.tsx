@@ -33,7 +33,7 @@ export function LoginForm({
     try {
       await login(values);
       toast.success("User added successfully");
-      router.replace("admin/dashboard");
+      router.replace('/admin/dashboard');
     } catch (error: unknown) {
       toast.error(error?.toString());
     }
