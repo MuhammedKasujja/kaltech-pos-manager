@@ -8,15 +8,22 @@ export async function createDataUpload(data: CreateDataUpdateDto) {
   });
 
   if (!account) {
-    throw new Error("Account Key not found");
+    throw new Error("Account details not found");
   }
 
   const device = await prisma.syncDevice.findFirst({
-    where: { deviceId: data.deviceId },
+    where: {
+      deviceId: data.deviceId,
+      account: { accountKey: account.accountKey },
+    },
   });
 
   if (device == null) {
-    throw new Error("Sync Device not Registered");
+    throw new Error("Sync Device not recognized");
+  }
+
+  if (device.isActive === false) {
+    throw new Error("Sync Device is already deactivated");
   }
 
   const nextUpdateId = generateRandomString(16).toUpperCase();

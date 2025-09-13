@@ -2,6 +2,7 @@ import { verifySession } from "@/lib/auth/verify-session";
 import prisma from "@/lib/prisma";
 import { FetchDataUploadsDto } from "../schemas";
 import { Prisma } from "@prisma/client";
+import { DateTime } from "luxon";
 
 export const uploadQuery = Prisma.validator<Prisma.DataUploadDefaultArgs>()({
   include: { account: { include: { company: {} } } },
@@ -37,6 +38,7 @@ export async function fetchAccountDataUploads(data: FetchDataUploadsDto) {
   const device = await prisma.syncDevice.findFirst({
     where: {
       deviceId: data.deviceId,
+      isActive: true,
       account: { accountKey: account.accountKey },
     },
   });
@@ -60,6 +62,13 @@ export async function fetchAccountDataUploads(data: FetchDataUploadsDto) {
       data: { dataUploadId: update.id, uploadDeviceId: device.id },
     });
   }
+
+  const deviceLastSyncDate = DateTime.now().toJSDate();
+
+  prisma.syncDevice.update({
+    where: { id: device.id },
+    data: { lastSyncDate: deviceLastSyncDate },
+  });
 
   // const flattenedData = updates.flatMap((item) => item.data);
 
