@@ -93,7 +93,6 @@ export const columns: ColumnDef<CompanyDetail>[] = [
             >
               Copy License key
             </DropdownMenuItem>
-            <DropdownMenuItem>Edit</DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
               <Link href={`/admin/companies/${company.account?.accountKey}`}>

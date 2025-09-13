@@ -2,10 +2,21 @@
 
 import { LoadingShimmer } from "@/components/loading-shimmer";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardFooter, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardFooter,
+  CardTitle,
+} from "@/components/ui/card";
 import { useCompanyDetails } from "@/features/company/hooks";
+import { deleteSyncDevice } from "@/features/sync-device/actions";
+import { toggleSyncDeviceStatus } from "@/features/sync-device/actions/toggle-sync-device-status";
 import { IconCircleCheckFilled, IconXboxXFilled } from "@tabler/icons-react";
 import React from "react";
+import { toast } from "sonner";
+import { mutate } from "swr";
 
 export function SyncDeviceList({ companyKey }: { companyKey: string }) {
   const { company, isLoading } = useCompanyDetails(companyKey);
@@ -33,7 +44,7 @@ export function SyncDeviceList({ companyKey }: { companyKey: string }) {
                 {device.isActive ? (
                   <IconCircleCheckFilled className="fill-green-500 dark:fill-green-400" />
                 ) : (
-                  <IconXboxXFilled className="fill-red-500 dark:fill-red-400"/>
+                  <IconXboxXFilled className="fill-red-500 dark:fill-red-400" />
                 )}
                 {device.isActive ? "Active" : "Inactive"}
               </Badge>
@@ -46,6 +57,40 @@ export function SyncDeviceList({ companyKey }: { companyKey: string }) {
                 ? new Date(device.lastSyncDate).toLocaleString()
                 : "Never"}
             </div>
+            <CardAction className="flex gap-2">
+              <Button
+                variant="outline"
+                className="cursor-default"
+                onClick={async () => {
+                  try {
+                    const message = await toggleSyncDeviceStatus({
+                      deviceId: device.id,
+                    });
+                    toast.success(message);
+                    mutate(`api/company-${company?.account?.accountKey}`);
+                  } catch (error: unknown) {
+                    toast.error(<>{error?.toString()}</>);
+                  }
+                }}
+              >
+                {device.isActive ? "Deactivate" : "Activate"}
+              </Button>
+              <Button
+                variant="destructive"
+                className="cursor-default"
+                onClick={async () => {
+                  try {
+                    await deleteSyncDevice({ deviceId: device.id });
+                    toast.success("Account deleted successfully");
+                    mutate(`api/company-${company?.account?.accountKey}`);
+                  } catch (error: unknown) {
+                    toast.error(<>{error?.toString()}</>);
+                  }
+                }}
+              >
+                Delete
+              </Button>
+            </CardAction>
           </CardFooter>
         </Card>
       ))}

@@ -6,7 +6,7 @@ import useSWR from "swr";
 
 export function useCompanyDetails(accountKey: string) {
   const { data: company, error } = useSWR<CompanyDetailPreview>(
-    accountKey ? `company-${accountKey}` : null,
+    accountKey ? `api/company-${accountKey}` : null,
     () => getCompanyDetails(accountKey),
     {
       revalidateOnFocus: true,

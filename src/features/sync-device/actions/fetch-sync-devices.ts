@@ -1,3 +1,4 @@
+"server only"
 import prisma from "@/lib/prisma";
 import { Prisma, SyncDevice } from "@prisma/client";
 
