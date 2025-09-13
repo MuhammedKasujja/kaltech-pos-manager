@@ -38,7 +38,6 @@ export async function fetchAccountDataUploads(data: FetchDataUploadsDto) {
   const device = await prisma.syncDevice.findFirst({
     where: {
       deviceId: data.deviceId,
-      isActive: true,
       account: { accountKey: account.accountKey },
     },
   });
@@ -47,6 +46,10 @@ export async function fetchAccountDataUploads(data: FetchDataUploadsDto) {
     throw new Error("Sync Device not Registered");
   }
 
+  if (device.isActive === false) {
+    throw new Error("Sync Device is already deactivated");
+  }
+  
   const updates = await prisma.dataUpload.findMany({
     where: {
       accountId: account.id,
