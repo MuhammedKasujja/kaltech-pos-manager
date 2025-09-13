@@ -3,13 +3,7 @@
 import { verifySession } from "@/lib/auth/verify-session";
 import prisma from "@/lib/prisma";
 import { Prisma } from "@prisma/client";
-
-const companyQuery = Prisma.validator<Prisma.CompanyDefaultArgs>()({
-  include: {
-    admin: true,
-    account: { include: { licence: true, devices: true } },
-  },
-});
+import { companyQuery } from "../types";
 
 export type CompanyDetailPreview = Prisma.CompanyGetPayload<
   typeof companyQuery
