@@ -16,7 +16,9 @@ export async function getCompanyDetails(accountKey: string) {
     where: { account: { accountKey } },
     include: {
       admin: true,
-      account: { include: { licence: true, devices: true } },
+      account: {
+        include: { licence: true, devices: { orderBy: { createdAt: "desc" } } },
+      },
     },
   });
 }
