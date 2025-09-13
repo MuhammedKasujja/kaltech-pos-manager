@@ -63,14 +63,23 @@ export async function fetchAccountDataUploads(data: FetchDataUploadsDto) {
     });
   }
 
-  const deviceLastSyncDate = DateTime.now().toJSDate();
-
-  prisma.syncDevice.update({
-    where: { id: device.id },
-    data: { lastSyncDate: deviceLastSyncDate },
-  });
+  updateDeviceLastSyncDate({ deviceId: device.id });
 
   // const flattenedData = updates.flatMap((item) => item.data);
 
   return updates;
+}
+
+export function flattenData(updates: DataUploadDetail[]) {
+  const flattened = updates.flatMap((item) => item.data);
+  return flattened;
+}
+
+async function updateDeviceLastSyncDate({ deviceId }: { deviceId: number }) {
+  const deviceLastSyncDate = DateTime.now().toJSDate();
+
+  return prisma.syncDevice.update({
+    where: { id: deviceId },
+    data: { lastSyncDate: deviceLastSyncDate },
+  });
 }
