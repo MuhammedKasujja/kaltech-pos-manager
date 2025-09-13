@@ -1,5 +1,5 @@
 import prisma from "@/lib/prisma";
-import { Prisma } from "@prisma/client";
+import { Prisma, SyncDevice } from "@prisma/client";
 
 export const deviceQuery = Prisma.validator<Prisma.SyncDeviceDefaultArgs>()({
   include: { account: { include: { company: {} } } },
@@ -16,5 +16,15 @@ export async function fetchSyncDevices(): Promise<SyncDeviceDetail[]> {
         },
       },
     },
+  });
+}
+
+export async function fetchAccountSyncDevices({
+  accountKey,
+}: {
+  accountKey: string;
+}): Promise<SyncDevice[]> {
+  return await prisma.syncDevice.findMany({
+    where: { account: { accountKey } },
   });
 }

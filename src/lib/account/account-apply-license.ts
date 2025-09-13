@@ -60,6 +60,7 @@ export async function applyLicenceKey({
     planStarted: verifiedAccount.planStarted,
     trialDuration: verifiedAccount.trialDuration,
     trialDaysLeft: 0, //verifiedAccount.trialDuration,
+    isTrial: verifiedAccount.isTrial,
     planExpires: verifiedAccount.planExpires,
     isVerifiedAccount: verifiedAccount.isVerifiedAccount,
     accountPlan: verifiedAccount.plan,

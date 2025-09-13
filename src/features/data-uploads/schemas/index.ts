@@ -15,4 +15,8 @@ export const fetchDataUploadsSchema = z.object({
   deviceId: z.string().min(1, "Device ID is required"),
 });
 
+export const fetchSyncDeviceSchema = z.object({
+  accountKey: z.string().min(1, "Account Key is required"),
+});
+
 export type FetchDataUploadsDto = z.infer<typeof fetchDataUploadsSchema>;
