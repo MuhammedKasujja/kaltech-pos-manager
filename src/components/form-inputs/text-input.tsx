@@ -8,7 +8,7 @@ import {
 } from "../ui/form";
 import { Input } from "../ui/input";
 
-export type InputType = "password" | "text" | "number" | "email" | "url";
+export type InputType = "text" | "number" | "email" | "url";
 
 export type TextInputProps<F extends FieldValues> = {
   label?: string;

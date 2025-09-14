@@ -52,21 +52,20 @@ export function LoginForm({
                     {tr('common.welcomeBack')}
                   </p>
                 </div>
-                {/* <div className="grid gap-3"> */}
                 <TextInput
                   control={form.control}
-                  label="Email"
+                  label={tr("common.form.email")}
                   name={"email"}
                   placeholder="m@example.com"
                 />
                 <PasswordInput
                   control={form.control}
-                  label="Password"
+                  label={tr("common.form.password")}
                   name={"password"}
+                  showIcon={false}
                 />
-                {/* </div> */}
                 <Button type="submit" className="w-full">
-                  Login
+                  {tr('common.form.login')}
                 </Button>
               </div>
             </form>
