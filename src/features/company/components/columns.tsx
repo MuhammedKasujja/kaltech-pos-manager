@@ -1,17 +1,7 @@
 import { ColumnDef } from "@tanstack/react-table";
-import { MoreHorizontal } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { CompanyDetail } from "@/lib/swr/use-companies";
-import { toast } from "sonner";
 import { formatDateTime } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { IconCircleCheckFilled, IconLoader } from "@tabler/icons-react";
@@ -20,7 +10,7 @@ import Link from "next/link";
 export const columns: ColumnDef<CompanyDetail>[] = [
   {
     accessorKey: "name",
-    header: "Name",
+    header: "Company Name",
   },
   {
     accessorKey: "phone",
@@ -31,11 +21,11 @@ export const columns: ColumnDef<CompanyDetail>[] = [
     header: "Admin",
   },
   {
-    accessorKey: "admin.email",
-    header: "Admin Email",
+    accessorKey: "account.plan",
+    header: "Plan",
   },
   {
-    id: "status",
+    id: "license",
     header: "License Applied",
     cell: ({ row }) => {
       const company = row.original;
@@ -67,41 +57,12 @@ export const columns: ColumnDef<CompanyDetail>[] = [
     id: "actions",
     cell: ({ row }) => {
       const company = row.original;
-
       return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => {
-                const license = company.account?.licence.at(
-                  company.account?.licence.length - 1
-                );
-                if (!license) {
-                  toast.error("No license key found");
-                  return;
-                }
-                navigator.clipboard.writeText(license?.licenceKey ?? "");
-                toast.info("License key copied");
-              }}
-            >
-              Copy License key
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem asChild>
-              <Link href={`/admin/companies/${company.account?.accountKey}`}>
-                View
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem>Delete</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <Button variant={"outline"} asChild>
+          <Link href={`/admin/companies/${company.account?.accountKey}`}>
+            View
+          </Link>
+        </Button>
       );
     },
   },
