@@ -28,32 +28,32 @@ const data = {
   navMain: [
     {
       title: "Dashboard",
-      url: "dashboard",
+      url: "/admin/dashboard",
       icon: IconDashboard,
     },
     {
       title: "Companies",
-      url: "companies",
+      url: "/admin/companies",
       icon: IconListDetails,
     },
     {
       title: "Accounts",
-      url: "accounts",
+      url: "/admin/accounts",
       icon: IconListDetails,
     },
     {
       title: "Sync Devices",
-      url: "sync-devices",
+      url: "/admin/sync-devices",
       icon: IconFolder,
     },
     {
       title: "Data Uploads",
-      url: "data-uploads",
+      url: "/admin/data-uploads",
       icon: IconFileDescription,
     },
     {
       title: "Users",
-      url: "users",
+      url: "/admin/users",
       icon: IconUsersGroup,
     },
   ],

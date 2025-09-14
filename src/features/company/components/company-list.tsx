@@ -2,7 +2,7 @@
 
 import { useCompanies } from "@/lib/swr/use-companies";
 import { DataTable } from "@/components/data-table";
-import { columns } from "../columns";
+import { columns } from "./columns";
 import { LoadingShimmer } from "@/components/loading-shimmer";
 
 export function CompanyList() {

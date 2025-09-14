@@ -1,4 +1,4 @@
-import { CompanyList } from "./_components/company-list";
+import { CompanyList } from "@/features/company/components/company-list";
 
 export default function Page() {
   return (
