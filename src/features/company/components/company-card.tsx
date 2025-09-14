@@ -11,6 +11,8 @@ import {
 import { useCompanyDetails } from "@/features/company/hooks";
 import { formatDate } from "@/lib/formatters";
 import { AccountActionButtons } from "./account-action-buttons";
+import { Badge } from "@/components/ui/badge";
+import { IconCircleCheckFilled } from "@tabler/icons-react";
 
 export function CompanyCard({ companyKey }: { companyKey: string }) {
   const { company, isLoading } = useCompanyDetails(companyKey);
@@ -19,7 +21,13 @@ export function CompanyCard({ companyKey }: { companyKey: string }) {
   return (
     <Card className="w-full">
       <CardContent className="space-y-2.5">
-        <CardTitle className="text-2xl">{company?.name}</CardTitle>
+        <CardTitle className="flex justify-between text-2xl">
+          <>{company?.name}</>
+          <Badge variant="outline" className="text-muted-foreground px-2 capitalize">
+            <IconCircleCheckFilled className="fill-green-500 dark:fill-green-400" />
+            {company?.account?.plan}
+          </Badge>
+        </CardTitle>
         <div>{company?.phone}</div>
       </CardContent>
       <CardFooter className="flex-col items-start gap-2.5 text-sm">
