@@ -2,8 +2,15 @@
 
 import { LoadingShimmer } from "@/components/loading-shimmer";
 import { Button } from "@/components/ui/button";
-import { Card, CardAction, CardContent, CardFooter, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardFooter,
+  CardTitle,
+} from "@/components/ui/card";
 import { useCompanyDetails } from "@/features/company/hooks";
+import { ChangeAdminAccountPassword } from "./change-admin-password-form";
 
 export function AdminUserCard({ companyKey }: { companyKey: string }) {
   const { company, isLoading } = useCompanyDetails(companyKey);
@@ -19,8 +26,10 @@ export function AdminUserCard({ companyKey }: { companyKey: string }) {
         <div className="text-muted-foreground">
           {company?.admin.firstName} {company?.admin.lastName}
         </div>
-         <CardAction className="flex gap-4 justify-end w-full">
-          <Button variant={"outline"}>Reset Password</Button>
+        <CardAction className="flex gap-4 justify-end w-full">
+          <ChangeAdminAccountPassword
+            accountKey={company?.account?.accountKey}
+          />
         </CardAction>
       </CardFooter>
     </Card>

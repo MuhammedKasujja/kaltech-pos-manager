@@ -77,6 +77,13 @@ const en = {
       next: "Next",
       previous: "Previous",
     },
+    changePassword: "Change Password",
+    confirmPassword: "Confirm Password",
+    newPassword: "New Password",
+    currentPassword: "Current Password",
+    logout: "Logout",
+    changeAdminPasswordHelp: "Change Admin Account Password",
+    changePasswordSuccess: "Password changed successfully",
   },
   dashboard: {
     title: "Welcome back!",
