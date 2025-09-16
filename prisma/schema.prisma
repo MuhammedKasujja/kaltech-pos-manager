@@ -94,14 +94,14 @@ model CompanyAdmin {
 }
 
 model Licence {
-  id             Int          @id @default(autoincrement())
+  id             Int           @id @default(autoincrement())
   licenceKey     String
   days           Int
-  isApplied      Boolean      @default(false)
+  isApplied      Boolean       @default(false)
   appliedAt      DateTime?
-  createdAt      DateTime     @default(now())
-  updatedAt      DateTime     @updatedAt
-  account        Account      @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  account        Account       @relation(fields: [accountId], references: [id], onDelete: Cascade)
   accountId      Int
   subscription   Subscription? @relation(fields: [subscriptionId], references: [id], onDelete: Cascade)
   subscriptionId Int?
@@ -144,5 +144,5 @@ model Subscription {
   deletedAt       DateTime?
   createdAt       DateTime         @default(now())
   updatedAt       DateTime         @updatedAt
-  licenses         Licence[]
+  licenses        Licence[]
 }
