@@ -5,20 +5,24 @@ import {
   AccountSetupSubscriptionType,
   DataSyncSubscriptionType,
 } from "../schemas";
-import { SubscriptionType } from "@prisma/client";
+import { SubscriptionPlan, SubscriptionType } from "@prisma/client";
 
 export async function createAccountSubscriptionPlan(
-  data: AccountSetupSubscriptionType
+  data: Omit<AccountSetupSubscriptionType, "id">
 ) {
   return prisma.subscription.create({
-    data: { ...data, type: SubscriptionType.ACCOUNT_SETUP },
+    data: { ...data, type: SubscriptionType.ACCOUNT_SETUP, maxSyncDevices: 0 },
   });
 }
 
 export async function createDataSyncronizationSubscription(
-  data: DataSyncSubscriptionType
+  data: Omit<DataSyncSubscriptionType, "id">
 ) {
   return prisma.subscription.create({
-    data: { ...data, type: SubscriptionType.DATA_SYNC },
+    data: {
+      ...data,
+      type: SubscriptionType.DATA_SYNC,
+      plan: SubscriptionPlan.PRO,
+    },
   });
 }

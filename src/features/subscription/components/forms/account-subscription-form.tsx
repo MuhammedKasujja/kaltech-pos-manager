@@ -1,0 +1,85 @@
+"use client";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Form } from "@/components/ui/form";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from "sonner";
+import { TextInput } from "@/components/form-inputs";
+import {
+  AccountSetupSubscriptionType,
+  accountSetupSubscriptionSchema,
+} from "@/features/subscription/schemas";
+import { createAccountSubscriptionPlan } from "../../actions/save-subscription-plans";
+
+export function AccountSubscriptionForm() {
+  const form = useForm<AccountSetupSubscriptionType>({
+    resolver: zodResolver(accountSetupSubscriptionSchema),
+    defaultValues: { maxSyncDevices: 0 },
+  });
+
+  async function onSubmit(values: AccountSetupSubscriptionType) {
+    try {
+      await createAccountSubscriptionPlan(values);
+      toast.success("User added successfully");
+    } catch (error: unknown) {
+      toast.error(`${error?.toString()}`);
+    }
+  }
+
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button variant="outline">Account Plan</Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-md">
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            <DialogHeader>
+              <DialogTitle>Account Plan</DialogTitle>
+              <DialogDescription>Create Account Plan</DialogDescription>
+            </DialogHeader>
+            <div className="flex items-center gap-2">
+              <div className="grid flex-1 gap-4">
+                <TextInput
+                  label="Name"
+                  control={form.control}
+                  name={"name"}
+                />
+                <TextInput
+                  label="Tagline"
+                  control={form.control}
+                  name={"about"}
+                />
+                <TextInput
+                  label="Plan Days"
+                  type="number"
+                  control={form.control}
+                  name={"planDays"}
+                />
+                <TextInput
+                  label="Max Devices"
+                  control={form.control}
+                  name={"maxSyncDevices"}
+                />
+              </div>
+            </div>
+            <DialogFooter className="sm:justify-end">
+              <Button type="submit" variant="secondary">
+                Submit
+              </Button>
+            </DialogFooter>
+          </form>
+        </Form>
+      </DialogContent>
+    </Dialog>
+  );
+}
