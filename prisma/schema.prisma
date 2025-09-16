@@ -56,17 +56,17 @@ model User {
 }
 
 model SyncDevice {
-  id        Int                @id @default(autoincrement())
-  userId    String
-  deviceId  String             @unique
-  userName  String             @unique
-  createdAt DateTime           @default(now())
-  updatedAt DateTime           @updatedAt
-  account   Account?           @relation(fields: [accountId], references: [id], onDelete: Cascade)
-  accountId Int?
-  uploads   DataUploadDevice[]
-  lastSyncDate  DateTime?
-  isActive      Boolean    @default(true)
+  id           Int                @id @default(autoincrement())
+  userId       String
+  deviceId     String             @unique
+  userName     String             @unique
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
+  account      Account?           @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  accountId    Int?
+  uploads      DataUploadDevice[]
+  lastSyncDate DateTime?
+  isActive     Boolean            @default(true)
 }
 
 model Company {
@@ -94,22 +94,24 @@ model CompanyAdmin {
 }
 
 model Licence {
-  id         Int       @id @default(autoincrement())
-  licenceKey String
-  days       Int
-  isApplied  Boolean   @default(false)
-  appliedAt  DateTime?
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
-  account    Account   @relation(fields: [accountId], references: [id], onDelete: Cascade)
-  accountId  Int
+  id             Int          @id @default(autoincrement())
+  licenceKey     String
+  days           Int
+  isApplied      Boolean      @default(false)
+  appliedAt      DateTime?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  account        Account      @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  accountId      Int
+  subscription   Subscription? @relation(fields: [subscriptionId], references: [id], onDelete: Cascade)
+  subscriptionId Int?
 }
 
 model DataUploadDevice {
-  uploadDeviceId   Int
-  dataUploadId     Int
-  dataUpload DataUpload @relation(fields: [dataUploadId], references: [id], onDelete: Cascade)
-  device     SyncDevice @relation(fields: [uploadDeviceId], references: [id], onDelete: Cascade)
+  uploadDeviceId Int
+  dataUploadId   Int
+  dataUpload     DataUpload @relation(fields: [dataUploadId], references: [id], onDelete: Cascade)
+  device         SyncDevice @relation(fields: [uploadDeviceId], references: [id], onDelete: Cascade)
 
   @@id([uploadDeviceId, dataUploadId]) // composite primary key
 }
@@ -119,4 +121,28 @@ enum SubscriptionPlan {
   PRO
   ENTERPRISE
   WHITE_LABEL
+}
+
+enum SubscriptionType {
+  ACCOUNT_SETUP
+  DATA_SYNC
+}
+
+model Subscription {
+  id              Int              @id @default(autoincrement())
+  name            String
+  about           String
+  planDays        Int
+  plan            SubscriptionPlan
+  type            SubscriptionType
+  monthylyPrice   Float
+  yearlyPrice     Float
+  oldYearlyPrice  Float
+  oldMonthlyPrice Float
+  maxSyncDevices  Int
+  tags            String[]
+  deletedAt       DateTime?
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  licenses         Licence[]
 }
