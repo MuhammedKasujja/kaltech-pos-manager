@@ -7,7 +7,15 @@ const en = {
     license: "MIT License",
     copyright: "© 2025 Kaltech Inc.",
   },
+  subscriptions: {
+    TRIAL: "Trial",
+    PRO: "Pro",
+    ENTERPRISE: "Enterprise",
+    WHITE_LABEL: "White Label",
+  },
   common: {
+    plan: "Plan",
+    planDays: "Plan Days",
     locale: {
       header: "Locale",
       description: "Select your preferred language",

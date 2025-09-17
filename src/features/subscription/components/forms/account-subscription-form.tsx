@@ -13,17 +13,20 @@ import { Form } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
-import { TextInput } from "@/components/form-inputs";
+import { NumberInput, SelectInput, TextInput } from "@/components/form-inputs";
 import {
   AccountSetupSubscriptionType,
   accountSetupSubscriptionSchema,
 } from "@/features/subscription/schemas";
 import { createAccountSubscriptionPlan } from "../../actions/save-subscription-plans";
+import { SubscriptionPlan } from "@prisma/client";
+import { useTranslation } from "@/i18n";
 
 export function AccountSubscriptionForm() {
+  const tr = useTranslation();
+
   const form = useForm<AccountSetupSubscriptionType>({
     resolver: zodResolver(accountSetupSubscriptionSchema),
-    defaultValues: { maxSyncDevices: 0 },
   });
 
   async function onSubmit(values: AccountSetupSubscriptionType) {
@@ -49,32 +52,51 @@ export function AccountSubscriptionForm() {
             </DialogHeader>
             <div className="flex items-center gap-2">
               <div className="grid flex-1 gap-4">
-                <TextInput
-                  label="Name"
-                  control={form.control}
-                  name={"name"}
-                />
+                <TextInput label="Name" control={form.control} name={"name"} />
                 <TextInput
                   label="Tagline"
                   control={form.control}
                   name={"about"}
                 />
-                <TextInput
-                  label="Plan Days"
-                  type="number"
+                <NumberInput
+                  label="Monthyly Price"
+                  control={form.control}
+                  name={"monthylyPrice"}
+                />
+                <NumberInput
+                  label="Yearly Price"
+                  control={form.control}
+                  name={"yearlyPrice"}
+                />
+                <NumberInput
+                  label="Old Monthly Price"
+                  control={form.control}
+                  name={"oldMonthlyPrice"}
+                />
+                <NumberInput
+                  label="Old Yearly Price"
+                  control={form.control}
+                  name={"oldYearlyPrice"}
+                />
+                <SelectInput
+                  label={tr("common.plan")}
+                  control={form.control}
+                  name={"plan"}
+                  options={Object.values(SubscriptionPlan).map((plan) => ({
+                    label: tr(`subscriptions.${plan}`),
+                    value: plan,
+                  }))}
+                />
+                <NumberInput
+                  label={tr("common.planDays")}
                   control={form.control}
                   name={"planDays"}
-                />
-                <TextInput
-                  label="Max Devices"
-                  control={form.control}
-                  name={"maxSyncDevices"}
                 />
               </div>
             </div>
             <DialogFooter className="sm:justify-end">
               <Button type="submit" variant="secondary">
-                Submit
+                {tr("common.submit")}
               </Button>
             </DialogFooter>
           </form>

@@ -12,7 +12,6 @@ export const accountSetupSubscriptionSchema = z.object({
   yearlyPrice: z.number(),
   oldYearlyPrice: z.number(),
   oldMonthlyPrice: z.number(),
-  maxSyncDevices: z.number(),
   deletedAt: z.date().optional().nullable(),
   createdAt: z.date().optional(),
   updatedAt: z.date().optional(),
@@ -25,6 +24,7 @@ export type AccountSetupSubscriptionType = z.infer<
 export const dataSyncSubscriptionSchema = z.object({
   ...accountSetupSubscriptionSchema.shape,
   plan: z.nativeEnum(SubscriptionPlan).optional(),
+  maxSyncDevices: z.number(),
 });
 
 export type DataSyncSubscriptionType = z.infer<

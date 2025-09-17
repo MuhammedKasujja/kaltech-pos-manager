@@ -14,15 +14,18 @@ import { Form } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
-import { TextInput } from "@/components/form-inputs";
+import { NumberInput, TextInput } from "@/components/form-inputs";
 import {
   DataSyncSubscriptionType,
   dataSyncSubscriptionSchema,
 } from "@/features/subscription/schemas";
 import { createDataSyncronizationSubscription } from "../../actions/save-subscription-plans";
 import { SubscriptionPlan } from "@prisma/client";
+import { useTranslation } from "@/i18n";
 
 export function DataSyncSubscriptionForm() {
+  const tr = useTranslation();
+
   const form = useForm<DataSyncSubscriptionType>({
     resolver: zodResolver(dataSyncSubscriptionSchema),
     defaultValues: { plan: SubscriptionPlan.PRO },
@@ -57,22 +60,41 @@ export function DataSyncSubscriptionForm() {
                   control={form.control}
                   name={"about"}
                 />
-                <TextInput
-                  label="Plan Days"
-                  type="number"
+                <NumberInput
+                  label={tr("common.planDays")}
                   control={form.control}
                   name={"planDays"}
                 />
-                <TextInput
+                <NumberInput
                   label="Max Devices"
                   control={form.control}
                   name={"maxSyncDevices"}
+                />
+                <NumberInput
+                  label="Monthyly Price"
+                  control={form.control}
+                  name={"monthylyPrice"}
+                />
+                <NumberInput
+                  label="Yearly Price"
+                  control={form.control}
+                  name={"yearlyPrice"}
+                />
+                <NumberInput
+                  label="Old Monthly Price"
+                  control={form.control}
+                  name={"oldMonthlyPrice"}
+                />
+                <NumberInput
+                  label="Old Yearly Price"
+                  control={form.control}
+                  name={"oldYearlyPrice"}
                 />
               </div>
             </div>
             <DialogFooter className="sm:justify-end">
               <Button type="submit" variant="secondary">
-                Submit
+                {tr("common.form.submit")}
               </Button>
             </DialogFooter>
           </form>
