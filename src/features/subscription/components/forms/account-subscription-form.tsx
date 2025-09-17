@@ -13,7 +13,7 @@ import { Form } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
-import { NumberInput, SelectInput, TextInput } from "@/components/form-inputs";
+import { HiddenInput, NumberInput, SelectInput, TextInput } from "@/components/form-inputs";
 import {
   AccountSetupSubscriptionType,
   accountSetupSubscriptionSchema,
@@ -27,12 +27,13 @@ export function AccountSubscriptionForm() {
 
   const form = useForm<AccountSetupSubscriptionType>({
     resolver: zodResolver(accountSetupSubscriptionSchema),
+    defaultValues: { tags: [] },
   });
 
   async function onSubmit(values: AccountSetupSubscriptionType) {
     try {
       await createAccountSubscriptionPlan(values);
-      toast.success("User added successfully");
+      toast.success("Subscription Created Successfully");
     } catch (error: unknown) {
       toast.error(`${error?.toString()}`);
     }
@@ -52,6 +53,7 @@ export function AccountSubscriptionForm() {
             </DialogHeader>
             <div className="flex items-center gap-2">
               <div className="grid flex-1 gap-4">
+                <HiddenInput control={form.control} name={"id"}/>
                 <TextInput label="Name" control={form.control} name={"name"} />
                 <TextInput
                   label="Tagline"
@@ -95,7 +97,11 @@ export function AccountSubscriptionForm() {
               </div>
             </div>
             <DialogFooter className="sm:justify-end">
-              <Button type="submit" variant="secondary">
+              <Button
+                type="submit"
+                variant="secondary"
+                disabled={form.formState.isSubmitting}
+              >
                 {tr("common.submit")}
               </Button>
             </DialogFooter>

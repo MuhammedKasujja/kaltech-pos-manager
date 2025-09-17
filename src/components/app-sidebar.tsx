@@ -52,6 +52,11 @@ const data = {
       icon: IconFileDescription,
     },
     {
+      title: "Subscriptions",
+      url: "/admin/subscriptions",
+      icon: IconUsersGroup,
+    },
+    {
       title: "Users",
       url: "/admin/users",
       icon: IconUsersGroup,

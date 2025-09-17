@@ -46,8 +46,8 @@ export const SelectInput = <FValue extends FieldValues>({
             <SelectContent className="w-full">
               {options.map((opt) => (
                 <SelectItem
-                  value={opt.value.toString().toLowerCase()}
-                  key={opt.value.toString().toLowerCase()}
+                  value={opt.value.toString()}
+                  key={opt.value.toString()}
                 >
                   {opt.label}
                 </SelectItem>

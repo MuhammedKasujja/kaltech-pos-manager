@@ -14,7 +14,7 @@ import { Form } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
-import { NumberInput, TextInput } from "@/components/form-inputs";
+import { HiddenInput, NumberInput, TextInput } from "@/components/form-inputs";
 import {
   DataSyncSubscriptionType,
   dataSyncSubscriptionSchema,
@@ -54,6 +54,7 @@ export function DataSyncSubscriptionForm() {
             </DialogHeader>
             <div className="flex items-center gap-2">
               <div className="grid flex-1 gap-4">
+                <HiddenInput control={form.control} name={"id"}/>
                 <TextInput label="Name" control={form.control} name={"name"} />
                 <TextInput
                   label="Tagline"

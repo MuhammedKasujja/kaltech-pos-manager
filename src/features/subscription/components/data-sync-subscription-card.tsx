@@ -7,7 +7,7 @@ export function DataSyncSubscriptionCard({
   subscription: Subscription;
 }) {
   return (
-    <Card>
+    <Card className="p-5 min-h-80">
       <CardTitle>{subscription.plan}</CardTitle>
       <CardContent>{subscription.planDays}</CardContent>
     </Card>

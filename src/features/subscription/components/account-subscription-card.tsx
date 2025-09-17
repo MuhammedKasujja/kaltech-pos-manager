@@ -1,14 +1,14 @@
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { Subscription } from "@prisma/client";
 
-export function AccountSubacriptionCard({
+export function AccountSubscriptionCard({
   subscription,
 }: {
   subscription: Subscription;
 }) {
   return (
-    <Card>
-      <CardTitle>{subscription.plan}</CardTitle>
+    <Card className="p-5 min-h-80">
+      <CardTitle>{subscription.name}</CardTitle>
       <CardContent>{subscription.planDays}</CardContent>
     </Card>
   );
