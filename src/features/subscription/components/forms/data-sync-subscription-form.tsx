@@ -22,19 +22,20 @@ import {
 import { createDataSyncronizationSubscription } from "../../actions/save-subscription-plans";
 import { SubscriptionPlan } from "@prisma/client";
 import { useTranslation } from "@/i18n";
+import { IconCirclePlusFilled } from "@tabler/icons-react";
 
 export function DataSyncSubscriptionForm() {
   const tr = useTranslation();
 
   const form = useForm<DataSyncSubscriptionType>({
     resolver: zodResolver(dataSyncSubscriptionSchema),
-    defaultValues: { plan: SubscriptionPlan.PRO },
+    defaultValues: { plan: SubscriptionPlan.PRO, tags: [] },
   });
 
   async function onSubmit(values: DataSyncSubscriptionType) {
     try {
       await createDataSyncronizationSubscription(values);
-      toast.success("User added successfully");
+      toast.success(tr("subscriptions.createdSuccessfully"));
     } catch (error: unknown) {
       toast.error(`${error?.toString()}`);
     }
@@ -43,9 +44,12 @@ export function DataSyncSubscriptionForm() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">Data Sync Plan</Button>
+        <Button variant="outline">
+          <IconCirclePlusFilled />
+          <span>Data Sync Plan</span>
+        </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md max-h-[80vh] overflow-y-auto">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <DialogHeader>
@@ -54,8 +58,8 @@ export function DataSyncSubscriptionForm() {
             </DialogHeader>
             <div className="flex items-center gap-2">
               <div className="grid flex-1 gap-4">
-                <HiddenInput control={form.control} name={"id"}/>
-                <TextInput label="Name" control={form.control} name={"name"} />
+                <HiddenInput control={form.control} name={"id"} />
+                <TextInput label="Plan Name" control={form.control} name={"name"} />
                 <TextInput
                   label="Tagline"
                   control={form.control}
@@ -67,7 +71,7 @@ export function DataSyncSubscriptionForm() {
                   name={"planDays"}
                 />
                 <NumberInput
-                  label="Max Devices"
+                  label="Max Connection Devices"
                   control={form.control}
                   name={"maxSyncDevices"}
                 />

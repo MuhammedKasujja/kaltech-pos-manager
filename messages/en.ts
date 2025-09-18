@@ -12,6 +12,13 @@ const en = {
     PRO: "Pro",
     ENTERPRISE: "Enterprise",
     WHITE_LABEL: "White Label",
+    accountPlans: "Account Plans",
+    syncronizationPlans: "Syncronization Plans",
+    newSyncronizationPlan: "New Syncronization Plan",
+    newAccountPlan: "New Account Plan",
+    accountPlan: "Account Plan",
+    syncronizationPlan: "Syncronization Plan",
+    createdSuccessfully: "Subscription Created Successfully",
   },
   common: {
     plan: "Plan",

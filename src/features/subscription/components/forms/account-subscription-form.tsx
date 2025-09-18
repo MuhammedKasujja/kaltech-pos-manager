@@ -13,7 +13,12 @@ import { Form } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
-import { HiddenInput, NumberInput, SelectInput, TextInput } from "@/components/form-inputs";
+import {
+  HiddenInput,
+  NumberInput,
+  SelectInput,
+  TextInput,
+} from "@/components/form-inputs";
 import {
   AccountSetupSubscriptionType,
   accountSetupSubscriptionSchema,
@@ -21,6 +26,7 @@ import {
 import { createAccountSubscriptionPlan } from "../../actions/save-subscription-plans";
 import { SubscriptionPlan } from "@prisma/client";
 import { useTranslation } from "@/i18n";
+import { IconCirclePlusFilled } from "@tabler/icons-react";
 
 export function AccountSubscriptionForm() {
   const tr = useTranslation();
@@ -33,7 +39,7 @@ export function AccountSubscriptionForm() {
   async function onSubmit(values: AccountSetupSubscriptionType) {
     try {
       await createAccountSubscriptionPlan(values);
-      toast.success("Subscription Created Successfully");
+      toast.success(tr("subscriptions.createdSuccessfully"));
     } catch (error: unknown) {
       toast.error(`${error?.toString()}`);
     }
@@ -42,18 +48,21 @@ export function AccountSubscriptionForm() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">Account Plan</Button>
+        <Button variant="outline">
+          <IconCirclePlusFilled />
+          {tr("subscriptions.newAccountPlan")}
+        </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md max-h-[80vh] overflow-y-auto">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <DialogHeader>
-              <DialogTitle>Account Plan</DialogTitle>
+              <DialogTitle>{tr("subscriptions.accountPlan")}</DialogTitle>
               <DialogDescription>Create Account Plan</DialogDescription>
             </DialogHeader>
             <div className="flex items-center gap-2">
               <div className="grid flex-1 gap-4">
-                <HiddenInput control={form.control} name={"id"}/>
+                <HiddenInput control={form.control} name={"id"} />
                 <TextInput label="Name" control={form.control} name={"name"} />
                 <TextInput
                   label="Tagline"
