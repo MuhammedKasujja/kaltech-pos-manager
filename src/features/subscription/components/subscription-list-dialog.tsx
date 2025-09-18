@@ -31,7 +31,7 @@ export function SubscriptionListDialog({
         </DialogHeader>
         <div className="flex flex-row gap-5 flex-wrap">
           {subscriptions.map((subscription) => (
-            <DataSyncSubscriptionCard subscription={subscription} />
+            <DataSyncSubscriptionCard key={subscription.name} subscription={subscription} />
           ))}
         </div>
       </DialogContent>
