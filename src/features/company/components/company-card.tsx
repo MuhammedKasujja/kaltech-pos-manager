@@ -10,18 +10,22 @@ import {
 } from "@/components/ui/card";
 import { useCompanyDetails } from "@/features/company/hooks";
 import { formatDate } from "@/lib/formatters";
-import { AccountActionButtons } from "./account-action-buttons";
 import { Badge } from "@/components/ui/badge";
 import { IconCircleCheckFilled } from "@tabler/icons-react";
 import { Subscription } from "@prisma/client";
-import { SubscriptionListDialog } from "@/features/subscription/components";
+import {
+  AccountPlanListDialog,
+  SubscriptionListDialog,
+} from "@/features/subscription/components";
+import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 export function CompanyCard({
   companyKey,
   subscriptions,
 }: {
   companyKey: string;
-  subscriptions: Subscription[];
+  subscriptions: { account: Subscription[]; sync: Subscription[] };
 }) {
   const { company, isLoading } = useCompanyDetails(companyKey);
 
@@ -46,14 +50,38 @@ export function CompanyCard({
           {company?.createdAt && formatDate(company?.createdAt)}
         </div>
         <CardAction className="flex gap-4 flex-wrap">
-          <AccountActionButtons
-            license={company?.account?.licence.at(
-              company?.account.licence.length - 1
-            )}
+          <AccountPlanListDialog
+            subscriptions={subscriptions.account}
             accountKey={company?.account?.accountKey}
           />
+          <Button
+            variant={"outline"}
+            onClick={() => {
+              const license = company?.account?.licence.at(0);
+              if (!license) {
+                toast.error("No license key found");
+                return;
+              }
+              navigator.clipboard.writeText(license?.licenceKey ?? "");
+              toast.info("License key copied");
+            }}
+          >
+            Copy License
+          </Button>
+          <Button
+            variant={"outline"}
+            onClick={() => {
+              const account = company?.account;
+              if (account?.accountKey == undefined) return;
+
+              navigator.clipboard.writeText(account?.accountKey);
+              toast.info("Account Key Copied");
+            }}
+          >
+            Copy Account Key
+          </Button>
           <SubscriptionListDialog
-            subscriptions={subscriptions}
+            subscriptions={subscriptions.sync}
             accountKey={company?.account?.accountKey}
           />
         </CardAction>

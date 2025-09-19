@@ -1,6 +1,7 @@
 import { DateTime } from "luxon";
 import { z } from "zod";
 import prisma from "@/lib/prisma";
+import { SubscriptionPlan, SubscriptionType } from "@prisma/client";
 
 export const applyLicenceKeySchema = z.object({
   licenceKey: z.string().min(1),
@@ -14,12 +15,17 @@ export async function applyLicenceKey({
   const licence = await prisma.licence.findFirst({
     where: {
       licenceKey,
+      deletedAt: null,
       account: {
         accountKey,
+      },
+      subscription: {
+        type: SubscriptionType.ACCOUNT_SETUP,
       },
     },
     include: {
       account: true,
+      subscription: true,
     },
   });
 
@@ -35,14 +41,18 @@ export async function applyLicenceKey({
 
   const currentDataTime = systemDate.toJSDate();
 
+  const isTrial =
+    licence.subscription === null ||
+    licence.subscription?.plan == SubscriptionPlan.TRIAL;
+
   const verifiedAccount = await prisma.account.update({
     where: { id: licence.account.id },
     data: {
       trialStarted: currentDataTime,
       planStarted: currentDataTime,
-      trialDuration: licence?.days,
+      trialDuration: isTrial ? (licence?.days ?? 0) : 0,
       planExpires: systemDate.plus({ days: licence?.days }).toJSDate(),
-      isTrial: false,
+      isTrial: isTrial,
       isVerifiedAccount: true,
     },
   });
@@ -59,10 +69,10 @@ export async function applyLicenceKey({
     trialStarted: verifiedAccount.trialStarted,
     planStarted: verifiedAccount.planStarted,
     trialDuration: verifiedAccount.trialDuration,
-    trialDaysLeft: 0, //verifiedAccount.trialDuration,
+    trialDaysLeft: verifiedAccount.trialDuration,
     isTrial: verifiedAccount.isTrial,
     planExpires: verifiedAccount.planExpires,
     isVerifiedAccount: verifiedAccount.isVerifiedAccount,
-    accountPlan: verifiedAccount.plan,
+    accountPlan: verifiedAccount.plan.toLowerCase(),
   };
 }

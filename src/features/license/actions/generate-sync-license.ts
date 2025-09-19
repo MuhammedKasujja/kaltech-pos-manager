@@ -12,6 +12,37 @@ export async function generateDataSyncLicense({
   accountKey: string;
   subscriptionId: number;
 }) {
+  return generateLicense({
+    accountKey,
+    subscriptionId,
+    licenseType: SubscriptionType.DATA_SYNC,
+  });
+}
+
+export async function generateAccountLicence({
+  accountKey,
+  subscriptionId,
+}: {
+  accountKey: string;
+  subscriptionId: number;
+}) {
+  return generateLicense({
+    accountKey,
+    subscriptionId,
+    licenseType: SubscriptionType.ACCOUNT_SETUP,
+  });
+}
+
+
+export async function generateLicense({
+  accountKey,
+  subscriptionId,
+  licenseType,
+}: {
+  accountKey: string;
+  subscriptionId: number;
+  licenseType: SubscriptionType;
+}) {
   const account = await prisma.account.findFirst({
     where: {
       accountKey,
@@ -26,6 +57,7 @@ export async function generateDataSyncLicense({
     where: {
       id: subscriptionId,
       deletedAt: null,
+      type: licenseType,
     },
   });
 
@@ -38,7 +70,7 @@ export async function generateDataSyncLicense({
       deletedAt: null,
       subscription: {
         id: subscription.id,
-        type: SubscriptionType.DATA_SYNC,
+        type: licenseType,
       },
       account: {
         accountKey: account.accountKey,
@@ -74,11 +106,11 @@ export async function generateDataSyncLicense({
   if (oldLicense === null) {
     licenseCreateFlag = true;
 
-    // soft delete all Account previous licenses to ensure only a single data syncronization plan exists
+    // soft delete all Account previous licenses to ensure only a single active subscription plan exists
     await prisma.licence.updateMany({
       where: {
         subscription: {
-          type: SubscriptionType.DATA_SYNC,
+          type: licenseType,
         },
         account: {
           accountKey: account.accountKey,

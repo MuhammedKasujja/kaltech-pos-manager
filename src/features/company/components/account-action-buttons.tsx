@@ -1,7 +1,6 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { generateAccountLicence } from "@/features/license/actions/generate-license";
 import { toast } from "sonner";
 
 export function AccountActionButtons({
@@ -13,20 +12,6 @@ export function AccountActionButtons({
 }) {
   return (
     <>
-      <Button
-        onClick={async () => {
-          try {
-            if (accountKey == undefined) return;
-
-            await generateAccountLicence(accountKey);
-            toast.success("Licence generated successfully");
-          } catch (error: unknown) {
-            toast.error(<>{error?.toString()}</>);
-          }
-        }}
-      >
-        Generate License
-      </Button>
       <Button
         variant={"outline"}
         onClick={() => {
