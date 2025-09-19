@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -9,13 +10,17 @@ import {
 } from "@/components/ui/dialog";
 import { Subscription } from "@prisma/client";
 import { IconCirclePlusFilled } from "@tabler/icons-react";
-import { DataSyncSubscriptionCard } from "./data-sync-subscription-card";
+import { DataSyncActivationCard } from "./data-sync-activation-card";
+import { useState } from "react";
 
 export function SubscriptionListDialog({
   subscriptions,
+  accountKey,
 }: {
   subscriptions: Subscription[];
+  accountKey: string | undefined;
 }) {
+  const [selectedId, setSelectedId] = useState<number>();
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -31,7 +36,13 @@ export function SubscriptionListDialog({
         </DialogHeader>
         <div className="flex flex-row gap-5 flex-wrap">
           {subscriptions.map((subscription) => (
-            <DataSyncSubscriptionCard key={subscription.name} subscription={subscription} />
+            <DataSyncActivationCard
+              key={subscription.name}
+              subscription={subscription}
+              accountKey={accountKey}
+              isSelected={selectedId === subscription.id}
+              onClick={() => setSelectedId(subscription.id)}
+            />
           ))}
         </div>
       </DialogContent>

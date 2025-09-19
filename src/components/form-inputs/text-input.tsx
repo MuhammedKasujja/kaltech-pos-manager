@@ -7,6 +7,8 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
+import { AsteriskIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export type InputType = "text" | "number" | "email" | "url";
 
@@ -36,7 +38,12 @@ export function TextInput<T extends FieldValues>({
         <FormItem className={"w-full"}>
           {label && (
             <FormLabel>
-              {label} {required && <span className="text-red-500">*</span>}
+              {label}
+              {required && (
+                <AsteriskIcon
+                  className={cn("text-destructive inline size-2.5 align-top")}
+                />
+              )}
             </FormLabel>
           )}
           <FormControl>

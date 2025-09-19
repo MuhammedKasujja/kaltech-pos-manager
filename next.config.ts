@@ -3,7 +3,8 @@ import createNextIntlPlugin from "next-intl/plugin";
 
 const nextConfig: NextConfig = {
   /* config options here */
-  typedRoutes: true
+  typedRoutes: true,
+  // useCache: true,
 };
 
 const withNextIntl = createNextIntlPlugin();

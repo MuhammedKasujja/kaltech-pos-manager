@@ -52,7 +52,10 @@ export function CompanyCard({
             )}
             accountKey={company?.account?.accountKey}
           />
-          <SubscriptionListDialog subscriptions={subscriptions} />
+          <SubscriptionListDialog
+            subscriptions={subscriptions}
+            accountKey={company?.account?.accountKey}
+          />
         </CardAction>
       </CardFooter>
     </Card>

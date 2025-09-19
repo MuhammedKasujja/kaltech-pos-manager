@@ -8,8 +8,9 @@ import {
 } from "../ui/form";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { Eye, EyeOff } from "lucide-react";
+import { AsteriskIcon, Eye, EyeOff } from "lucide-react";
 import React from "react";
+import { cn } from "@/lib/utils";
 
 type PasswordInputProps<TValue extends FieldValues> = {
   label: string;
@@ -38,7 +39,12 @@ export const PasswordInput = <TValue extends FieldValues>({
         <FormItem className={"w-full"}>
           {label && (
             <FormLabel>
-              {label} {required && <span className="text-red-500">*</span>}
+              {label}
+              {required && (
+                <AsteriskIcon
+                  className={cn("text-destructive inline size-2.5 align-top")}
+                />
+              )}
             </FormLabel>
           )}
           <FormControl>
