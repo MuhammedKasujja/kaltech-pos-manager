@@ -1,5 +1,5 @@
 "use server";
-import prisma from "../prisma";
+import prisma from "@/lib/prisma";
 
 export async function deleteAccount(accountId: number) {
   const account = await prisma.account.delete({

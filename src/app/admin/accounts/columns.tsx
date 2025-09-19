@@ -12,9 +12,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { generateCompanyLicence } from "@/lib/licence/generate-license";
+import { generateAccountLicence } from "@/features/license/actions/generate-license";
 import { toast } from "sonner";
-import { deleteAccount } from "@/lib/account/delete-account";
+import { deleteAccount } from "@/features/accounts/actions/delete-account";
 import { formatDateTime } from "@/lib/utils";
 
 export const columns: ColumnDef<AccountDetail>[] = [
@@ -55,7 +55,7 @@ export const columns: ColumnDef<AccountDetail>[] = [
             <DropdownMenuItem
               onClick={async () => {
                 try {
-                  await generateCompanyLicence(account.accountKey);
+                  await generateAccountLicence(account.accountKey);
                   toast.success("Licence generated successfully");
                 } catch (error: unknown) {
                   toast.error(<>{error?.toString()}</>);

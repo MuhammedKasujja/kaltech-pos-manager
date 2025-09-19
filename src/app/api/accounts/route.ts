@@ -1,6 +1,6 @@
 import { CreateAccountSchema } from "@/features/accounts/schemas";
-import { createCompanyAccount } from "@/lib/account/create-account";
-import { getAllAccounts } from "@/lib/account/get-all-account";
+import { createCompanyAccount } from "@/features/accounts/actions/create-account";
+import { getAllAccounts } from "@/features/accounts/actions/get-all-account";
 import { ApiResponse } from "@/lib/api-response";
 import { NextRequest, NextResponse } from "next/server";
 

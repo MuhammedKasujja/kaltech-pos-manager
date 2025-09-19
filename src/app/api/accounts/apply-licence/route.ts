@@ -1,7 +1,7 @@
 import {
   applyLicenceKey,
   applyLicenceKeySchema,
-} from "@/lib/account/account-apply-license";
+} from "@/features/accounts/actions/account-apply-license";
 import { ApiResponse } from "@/lib/api-response";
 import { NextRequest } from "next/server";
 

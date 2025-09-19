@@ -207,3 +207,7 @@ export const formatExpirationTime = (seconds: number): string => {
 export function generateAccountKey() {
   return generateRandomString(32).toUpperCase();
 }
+
+export function generateLicenceKey() {
+  return generateRandomString(24).toUpperCase();
+}

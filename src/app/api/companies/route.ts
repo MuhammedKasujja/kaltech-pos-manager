@@ -1,4 +1,4 @@
-import { getAllCompanies } from "@/lib/company/get-all-companies";
+import { getAllCompanies } from "@/features/company/actions/get-all-companies";
 import { NextResponse } from "next/server";
 
 export async function GET() {

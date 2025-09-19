@@ -1,12 +1,12 @@
 import { Prisma } from "@prisma/client";
-import prisma from "../prisma";
+import prisma from "../../../lib/prisma";
 import { DateTime } from "luxon";
 import {
   DEFAULT_TRIAL_PLAN_DAYS,
   DEFAULT_PAYMENT_METHOD,
   LATEST_APP_VERSION,
 } from "@/lib/constants";
-import { AccountPlan } from "../types/enums";
+import { AccountPlan } from "../../../lib/types/enums";
 import {
   generateAccountKey,
   generateRandomString,

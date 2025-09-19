@@ -1,12 +1,8 @@
 "use server";
 import prisma from "@/lib/prisma";
-import { generateRandomString } from "../utils";
+import { generateLicenceKey } from "@/lib/utils";
 
-function generateLicence() {
-  return generateRandomString(24).toUpperCase();
-}
-
-export async function generateCompanyLicence(accountKey: string) {
+export async function generateAccountLicence(accountKey: string) {
   const account = await prisma.account.findFirst({
     where: {
       accountKey,
@@ -18,7 +14,7 @@ export async function generateCompanyLicence(accountKey: string) {
 
   const licence = await prisma.licence.create({
     data: {
-      licenceKey: generateLicence(),
+      licenceKey: generateLicenceKey(),
       accountId: account.id,
       days: 60,
     },

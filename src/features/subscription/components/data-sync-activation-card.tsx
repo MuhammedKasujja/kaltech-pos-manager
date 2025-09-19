@@ -1,22 +1,33 @@
+"use client"
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardTitle } from "@/components/ui/card";
+import { generateDataSyncLicense } from "@/features/license/actions/generate-sync-license";
 import { cn } from "@/lib/utils";
 import { Subscription } from "@prisma/client";
+import { toast } from "sonner";
 
 export function DataSyncActivationCard({
   subscription,
   isSelected,
   accountKey,
-  onClick,
+  onClickAction,
 }: {
   isSelected: boolean;
   accountKey: string | undefined;
   subscription: Subscription;
-  onClick: () => void;
+  onClickAction: () => void;
 }) {
-  function handleActivateSyncSubscription() {
+  async function handleActivateSyncSubscription() {
     if (isSelected && accountKey !== undefined) {
-      console.table(accountKey);
+      try {
+        await generateDataSyncLicense({
+          accountKey: accountKey!,
+          subscriptionId: subscription.id,
+        });
+        toast.success("Sync Plan Activated Successfully");
+      } catch (error) {
+        toast.error(`${error?.toString()}`);
+      }
     }
   }
 
@@ -28,7 +39,7 @@ export function DataSyncActivationCard({
           ? "border-primary bg-muted/30 shadow-xl scale-105 md:-mt-6"
           : "border border-muted"
       )}
-      onClick={onClick}
+      onClick={onClickAction}
     >
       <CardContent className="space-y-2.5 px-4">
         <CardTitle className="text-2xl flex justify-between">

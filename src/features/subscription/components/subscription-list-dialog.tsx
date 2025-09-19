@@ -41,7 +41,7 @@ export function SubscriptionListDialog({
               subscription={subscription}
               accountKey={accountKey}
               isSelected={selectedId === subscription.id}
-              onClick={() => setSelectedId(subscription.id)}
+              onClickAction={() => setSelectedId(subscription.id)}
             />
           ))}
         </div>
