@@ -12,7 +12,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { generateAccountLicence } from "@/features/license/actions/generate-license";
 import { toast } from "sonner";
 import { deleteAccount } from "@/features/accounts/actions/delete-account";
 import { formatDateTime } from "@/lib/utils";
@@ -52,18 +51,7 @@ export const columns: ColumnDef<AccountDetail>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={async () => {
-                try {
-                  await generateAccountLicence(account.accountKey);
-                  toast.success("Licence generated successfully");
-                } catch (error: unknown) {
-                  toast.error(<>{error?.toString()}</>);
-                }
-              }}
-            >
-              Generate Licence
-            </DropdownMenuItem>
+            <DropdownMenuItem>Generate Licence</DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem
               onClick={() => {
