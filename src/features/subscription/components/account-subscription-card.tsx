@@ -1,5 +1,8 @@
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { Subscription } from "@prisma/client";
+import { IconEdit } from "@tabler/icons-react";
+import { AccountSubscriptionForm } from "./forms/account-subscription-form";
 
 export function AccountSubscriptionCard({
   subscription,
@@ -8,7 +11,20 @@ export function AccountSubscriptionCard({
 }) {
   return (
     <Card className="p-5 min-h-80 flex">
-      <CardTitle className="text-xl">{subscription.name}</CardTitle>
+      <CardTitle className="text-xl flex justify-between">
+        {subscription.name}
+        <AccountSubscriptionForm
+          subscription={{
+            ...subscription,
+            features: subscription.features.map((feat) => ({ value: feat })),
+          }}
+          trigger={
+            <Button className="w-6 h-6">
+              <IconEdit />
+            </Button>
+          }
+        />
+      </CardTitle>
       <CardContent className="px-0 space-y-3">
         <div className="text-muted-foreground">{subscription.tagline}</div>
         <div className="text-2xl font-bold">

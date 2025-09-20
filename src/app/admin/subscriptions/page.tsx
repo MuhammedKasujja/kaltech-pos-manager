@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   fetchAccountSetupSubscriptionPlans,
@@ -10,6 +11,7 @@ import {
 import { AccountSubscriptionCard } from "@/features/subscription/components/account-subscription-card";
 import { AccountSubscriptionForm } from "@/features/subscription/components/forms/account-subscription-form";
 import { getTranslations } from "@/i18n/server";
+import { IconCirclePlusFilled } from "@tabler/icons-react";
 
 export default async function SubscriptionsPage() {
   const tr = await getTranslations("subscriptions");
@@ -39,7 +41,14 @@ async function AccountSubscriptionsView() {
     <div className="flex flex-col gap-4 w-full">
       <div className="flex justify-between">
         <div>{tr("accountPlans")}</div>
-        <AccountSubscriptionForm />
+        <AccountSubscriptionForm
+          trigger={
+            <Button>
+              <IconCirclePlusFilled />
+              {tr("newAccountPlan")}
+            </Button>
+          }
+        />
       </div>
       <div className="grid gap-4 md:grid-cols-2 grid-cols-1 lg:grid-cols-3">
         {subscriptions.map((subscription) => (
@@ -59,7 +68,14 @@ async function DataSyncSubscriptionsView() {
     <div className="flex flex-col gap-4 w-full">
       <div className="flex justify-between">
         <div>{tr("syncronizationPlans")}</div>
-        <DataSyncSubscriptionForm />
+        <DataSyncSubscriptionForm
+          trigger={
+            <Button>
+              <IconCirclePlusFilled />
+              <span>Data Sync Plan</span>
+            </Button>
+          }
+        />
       </div>
       <div className="grid gap-4 md:grid-cols-2 grid-cols-1 lg:grid-cols-3">
         {subscriptions.map((subscription) => (

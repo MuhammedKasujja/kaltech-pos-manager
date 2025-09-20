@@ -32,8 +32,10 @@ const defaultFeatures = Array.from({ length: 5 }, () => ({ value: "" }));
 
 export function AccountSubscriptionForm({
   subscription,
+  trigger,
 }: {
   subscription?: AccountSetupSubscriptionType;
+  trigger: React.ReactNode;
 }) {
   const tr = useTranslation();
 
@@ -51,7 +53,7 @@ export function AccountSubscriptionForm({
     try {
       await createAccountSubscriptionPlan(values);
       toast.success(tr("subscriptions.createdSuccessfully"));
-      form.reset()
+      form.reset();
     } catch (error: unknown) {
       toast.error(`${error?.toString()}`);
     }
@@ -59,12 +61,7 @@ export function AccountSubscriptionForm({
 
   return (
     <Dialog>
-      <DialogTrigger asChild>
-        <Button>
-          <IconCirclePlusFilled />
-          {tr("subscriptions.newAccountPlan")}
-        </Button>
-      </DialogTrigger>
+      <DialogTrigger asChild>{trigger}</DialogTrigger>
       <DialogContent className="md:min-w-[80vw] min-h-[90vh] max-h-[90vh] overflow-y-auto">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">

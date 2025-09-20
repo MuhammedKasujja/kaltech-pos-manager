@@ -22,14 +22,15 @@ import {
 import { createDataSyncronizationSubscription } from "../../actions/save-subscription-plans";
 import { SubscriptionPlan } from "@prisma/client";
 import { useTranslation } from "@/i18n";
-import { IconCirclePlusFilled } from "@tabler/icons-react";
 
 const defaultFeatures = Array.from({ length: 5 }, () => ({ value: "" }));
 
 export function DataSyncSubscriptionForm({
   subscription,
+  trigger,
 }: {
   subscription?: DataSyncSubscriptionType;
+  trigger: React.ReactNode;
 }) {
   const tr = useTranslation();
 
@@ -58,12 +59,7 @@ export function DataSyncSubscriptionForm({
 
   return (
     <Dialog>
-      <DialogTrigger asChild>
-        <Button>
-          <IconCirclePlusFilled />
-          <span>Data Sync Plan</span>
-        </Button>
-      </DialogTrigger>
+      <DialogTrigger asChild>{trigger}</DialogTrigger>
       <DialogContent className="md:min-w-[80vw] min-h-[90vh] max-h-[90vh] overflow-y-auto">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
