@@ -4,7 +4,7 @@ import { z } from "zod";
 export const accountSetupSubscriptionSchema = z.object({
   id: z.coerce.number().optional(),
   name: z.string().min(1).trim(),
-  features: z.array(z.string().trim()),
+  features: z.array(z.object({ value: z.string() })),
   plan: z.nativeEnum(SubscriptionPlan),
   tagline: z.string().min(1).trim(),
   planDays: z.coerce.number(),

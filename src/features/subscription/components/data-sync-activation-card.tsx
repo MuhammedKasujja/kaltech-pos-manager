@@ -34,14 +34,14 @@ export function DataSyncActivationCard({
   return (
     <Card
       className={cn(
-        "p-5 min-h-80 transition-all",
+        "p-5 min-h-80 transition-all flex",
         isSelected
           ? "border-primary bg-muted/30 shadow-xl scale-105 md:-mt-6"
           : "border border-muted"
       )}
       onClick={onClickAction}
     >
-      <CardContent className="space-y-2.5 px-4">
+      <CardContent className="space-y-2.5 px-4 flex-1">
         <CardTitle className="text-2xl flex justify-between">
           {subscription.name}
         </CardTitle>
