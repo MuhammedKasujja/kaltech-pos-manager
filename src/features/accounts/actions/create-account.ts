@@ -1,6 +1,5 @@
 import { Prisma } from "@prisma/client";
 import prisma from "../../../lib/prisma";
-import { DateTime } from "luxon";
 import {
   DEFAULT_TRIAL_PLAN_DAYS,
   DEFAULT_PAYMENT_METHOD,
@@ -11,6 +10,7 @@ import {
   generateAccountKey,
   generateRandomString,
   hashPassword,
+  systemDateTime,
 } from "@/lib/utils";
 import { CreateAccountRequest } from "@/features/accounts/schemas";
 
@@ -60,10 +60,10 @@ export async function createCompanyAccount({
       isVerifiedAccount: true,
       isTrial: true,
       plan: AccountPlan.pro,
-      trialStarted: DateTime.now().toUTC().toJSDate(),
-      planStarted: DateTime.now().toUTC().toJSDate(),
+      trialStarted: systemDateTime.toUTC().toJSDate(),
+      planStarted: systemDateTime.toUTC().toJSDate(),
       trialDuration: DEFAULT_TRIAL_PLAN_DAYS,
-      planExpires: DateTime.now()
+      planExpires: systemDateTime
         .plus({ days: DEFAULT_TRIAL_PLAN_DAYS })
         .toUTC()
         .toJSDate(),

@@ -2,9 +2,9 @@ import { verifySession } from "@/lib/auth/verify-session";
 import prisma from "@/lib/prisma";
 import { FetchDataUploadsDto } from "../schemas";
 import { Prisma } from "@prisma/client";
-import { DateTime } from "luxon";
 import { findAccountWithDataSyncByKey } from "@/features/accounts/actions";
 import { findSyncDeviceByDeviceId } from "@/features/sync-device/actions";
+import { systemDateTime } from "@/lib/utils";
 
 export const uploadQuery = Prisma.validator<Prisma.DataUploadDefaultArgs>()({
   include: { account: { include: { company: {} } } },
@@ -69,7 +69,7 @@ export function flattenData(updates: DataUploadDetail[]) {
 }
 
 async function updateDeviceLastSyncDate({ deviceId }: { deviceId: number }) {
-  const deviceLastSyncDate = DateTime.now().toJSDate();
+  const deviceLastSyncDate = systemDateTime.toJSDate();
 
   return prisma.syncDevice.update({
     where: { id: deviceId },

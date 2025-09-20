@@ -1,7 +1,7 @@
-import { DateTime } from "luxon";
 import { z } from "zod";
 import prisma from "@/lib/prisma";
 import { SubscriptionPlan, SubscriptionType } from "@prisma/client";
+import { systemDateTime } from "@/lib/utils";
 
 export const applyLicenceKeySchema = z.object({
   licenceKey: z.string().min(1),
@@ -37,7 +37,7 @@ export async function applyLicenceKey({
     throw Error("License key already used");
   }
 
-  const systemDate = DateTime.now();
+  const systemDate = systemDateTime;
 
   const currentDataTime = systemDate.toJSDate();
 

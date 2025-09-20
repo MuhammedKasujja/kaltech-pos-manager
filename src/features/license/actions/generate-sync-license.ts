@@ -1,7 +1,7 @@
 "use server";
 
 import prisma from "@/lib/prisma";
-import { generateLicenceKey } from "@/lib/utils";
+import { generateLicenceKey, systemDateTime } from "@/lib/utils";
 import { SubscriptionType } from "@prisma/client";
 import { DateTime } from "luxon";
 
@@ -32,7 +32,6 @@ export async function generateAccountLicence({
     licenseType: SubscriptionType.ACCOUNT_SETUP,
   });
 }
-
 
 export async function generateLicense({
   accountKey,
@@ -88,9 +87,8 @@ export async function generateLicense({
     const appliedAt = DateTime.fromJSDate(oldLicense.appliedAt);
     const expiryDate = appliedAt.plus({ days: oldLicense.days });
 
-    const currentSystemDate = DateTime.now();
     // check if the license is already running
-    if (currentSystemDate.diff(expiryDate).milliseconds < 0) {
+    if (systemDateTime.diff(expiryDate).milliseconds < 0) {
       throw new Error("Subscription already Activated");
     } else {
       /// if this license expired, allow creating a new license
@@ -98,7 +96,7 @@ export async function generateLicense({
       /// soft delete the license to avoid usage in the future once the license expires
       prisma.licence.update({
         where: { id: oldLicense.id },
-        data: { deletedAt: DateTime.now().toJSDate() },
+        data: { deletedAt: systemDateTime.toJSDate() },
       });
     }
   }
@@ -117,7 +115,7 @@ export async function generateLicense({
         },
       },
       data: {
-        deletedAt: DateTime.now().toJSDate(),
+        deletedAt: systemDateTime.toJSDate(),
       },
     });
   }

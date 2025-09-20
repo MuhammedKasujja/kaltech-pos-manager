@@ -216,3 +216,5 @@ export function generateLicenceKey() {
 export function getDateTime() {
   return DateTime.now();
 }
+
+export const systemDateTime = getDateTime()
