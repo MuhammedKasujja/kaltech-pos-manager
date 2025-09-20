@@ -30,12 +30,16 @@ import { IconCirclePlusFilled } from "@tabler/icons-react";
 
 const defaultFeatures = Array.from({ length: 5 }, () => ({ value: "" }));
 
-export function AccountSubscriptionForm() {
+export function AccountSubscriptionForm({
+  subscription,
+}: {
+  subscription?: AccountSetupSubscriptionType;
+}) {
   const tr = useTranslation();
 
   const form = useForm<AccountSetupSubscriptionType>({
     resolver: zodResolver(accountSetupSubscriptionSchema),
-    defaultValues: { features: defaultFeatures },
+    defaultValues: subscription ?? { features: defaultFeatures },
   });
 
   const { fields } = useFieldArray({
@@ -47,6 +51,7 @@ export function AccountSubscriptionForm() {
     try {
       await createAccountSubscriptionPlan(values);
       toast.success(tr("subscriptions.createdSuccessfully"));
+      form.reset()
     } catch (error: unknown) {
       toast.error(`${error?.toString()}`);
     }
@@ -124,10 +129,7 @@ export function AccountSubscriptionForm() {
               </div>
             </div>
             <DialogFooter className="sm:justify-end">
-              <Button
-                type="submit"
-                disabled={form.formState.isSubmitting}
-              >
+              <Button type="submit" disabled={form.formState.isSubmitting}>
                 {tr("common.submit")}
               </Button>
             </DialogFooter>

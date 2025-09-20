@@ -26,12 +26,19 @@ import { IconCirclePlusFilled } from "@tabler/icons-react";
 
 const defaultFeatures = Array.from({ length: 5 }, () => ({ value: "" }));
 
-export function DataSyncSubscriptionForm() {
+export function DataSyncSubscriptionForm({
+  subscription,
+}: {
+  subscription?: DataSyncSubscriptionType;
+}) {
   const tr = useTranslation();
 
   const form = useForm<DataSyncSubscriptionType>({
     resolver: zodResolver(dataSyncSubscriptionSchema),
-    defaultValues: { plan: SubscriptionPlan.PRO, features: defaultFeatures },
+    defaultValues: subscription ?? {
+      plan: SubscriptionPlan.PRO,
+      features: defaultFeatures,
+    },
   });
 
   const { fields } = useFieldArray({
@@ -43,7 +50,7 @@ export function DataSyncSubscriptionForm() {
     try {
       await createDataSyncronizationSubscription(values);
       toast.success(tr("subscriptions.createdSuccessfully"));
-      form.reset()
+      form.reset();
     } catch (error: unknown) {
       toast.error(`${error?.toString()}`);
     }
@@ -121,9 +128,7 @@ export function DataSyncSubscriptionForm() {
               </div>
             </div>
             <DialogFooter className="sm:justify-end">
-              <Button type="submit">
-                {tr("common.form.submit")}
-              </Button>
+              <Button type="submit">{tr("common.form.submit")}</Button>
             </DialogFooter>
           </form>
         </Form>
