@@ -13,6 +13,7 @@ export async function fetchAccountSetupSubscriptionPlans() {
   // cacheTag(getAccountSubscriptionGlobalTag());
   return prisma.subscription.findMany({
     where: { type: SubscriptionType.ACCOUNT_SETUP },
+    orderBy: {'createdAt': 'asc'}
   });
 }
 
@@ -21,5 +22,6 @@ export async function fetchDataSyncSubscriptionPlans() {
   // cacheTag(getDataSubscriptionGlobalTag());
   return prisma.subscription.findMany({
     where: { type: SubscriptionType.DATA_SYNC },
+    orderBy: {'createdAt': 'asc'}
   });
 }

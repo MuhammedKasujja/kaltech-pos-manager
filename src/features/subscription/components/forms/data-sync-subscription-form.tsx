@@ -19,7 +19,7 @@ import {
   DataSyncSubscriptionType,
   dataSyncSubscriptionSchema,
 } from "@/features/subscription/schemas";
-import { createDataSyncronizationSubscription } from "../../actions/save-subscription-plans";
+import { createDataSyncSubscription } from "../../actions/save-subscription-plans";
 import { SubscriptionPlan } from "@prisma/client";
 import { useTranslation } from "@/i18n";
 
@@ -49,7 +49,7 @@ export function DataSyncSubscriptionForm({
 
   async function onSubmit(values: DataSyncSubscriptionType) {
     try {
-      await createDataSyncronizationSubscription(values);
+      await createDataSyncSubscription(values);
       toast.success(tr("subscriptions.createdSuccessfully"));
       form.reset();
     } catch (error: unknown) {
@@ -64,8 +64,12 @@ export function DataSyncSubscriptionForm({
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <DialogHeader>
-              <DialogTitle>Data Sync Plan</DialogTitle>
-              <DialogDescription>Create Data Sync Plan</DialogDescription>
+              <DialogTitle>{tr("subscriptions.dataSyncPlan")}</DialogTitle>
+              <DialogDescription>
+                {subscription
+                  ? tr("subscriptions.editSyncPlan")
+                  : tr("subscriptions.createSyncPlan")}
+              </DialogDescription>
             </DialogHeader>
             <div className="grid items-start gap-5 md:grid-cols-2">
               <div className="grid flex-1 gap-4">

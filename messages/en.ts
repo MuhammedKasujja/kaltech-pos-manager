@@ -19,6 +19,11 @@ const en = {
     accountPlan: "Account Plan",
     syncronizationPlan: "Syncronization Plan",
     createdSuccessfully: "Subscription Created Successfully",
+    dataSyncPlan: "Data Sync Plan",
+    editSyncPlan: "Edit Data Sync Plan",
+    createSyncPlan: "Create Data Sync Plan",
+    editAccountPlan: "Edit Account Plan",
+    createAccountPlan: "Create Account Plan",
   },
   common: {
     plan: "Plan",

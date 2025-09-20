@@ -26,7 +26,6 @@ import {
 import { createAccountSubscriptionPlan } from "../../actions/save-subscription-plans";
 import { SubscriptionPlan } from "@prisma/client";
 import { useTranslation } from "@/i18n";
-import { IconCirclePlusFilled } from "@tabler/icons-react";
 
 const defaultFeatures = Array.from({ length: 5 }, () => ({ value: "" }));
 
@@ -67,7 +66,9 @@ export function AccountSubscriptionForm({
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <DialogHeader>
               <DialogTitle>{tr("subscriptions.accountPlan")}</DialogTitle>
-              <DialogDescription>Create Account Plan</DialogDescription>
+              <DialogDescription>
+                {subscription ? "Edit Account Plan" : "Create Account Plan"}
+              </DialogDescription>
             </DialogHeader>
             <div className="grid items-start gap-5 md:grid-cols-2">
               <div className="grid flex-1 gap-4">
