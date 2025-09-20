@@ -11,7 +11,8 @@ import {
 import { Subscription } from "@prisma/client";
 import { IconCirclePlusFilled } from "@tabler/icons-react";
 import { DataSyncActivationCard } from "./data-sync-activation-card";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useAccountLicenses } from "@/features/license/hooks";
 
 export function SubscriptionListDialog({
   subscriptions,
@@ -20,7 +21,14 @@ export function SubscriptionListDialog({
   subscriptions: Subscription[];
   accountKey: string | undefined;
 }) {
-  const [selectedId, setSelectedId] = useState<number>();
+  const { licenses } = useAccountLicenses(accountKey);
+
+  const [selectedId, setSelectedId] = useState<number | undefined | null>();
+
+  useEffect(() => {
+    setSelectedId(licenses?.subscription?.subscriptionId);
+  }, [licenses]);
+
   return (
     <Dialog>
       <DialogTrigger asChild>

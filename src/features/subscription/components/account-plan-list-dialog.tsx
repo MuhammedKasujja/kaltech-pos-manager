@@ -9,8 +9,9 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Subscription } from "@prisma/client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AccountPlanCard } from "./account-plan-card";
+import { useAccountLicenses } from "@/features/license/hooks";
 
 export function AccountPlanListDialog({
   subscriptions,
@@ -19,7 +20,14 @@ export function AccountPlanListDialog({
   subscriptions: Subscription[];
   accountKey: string | undefined;
 }) {
-  const [selectedId, setSelectedId] = useState<number>();
+  const { licenses } = useAccountLicenses(accountKey);
+
+  const [selectedId, setSelectedId] = useState<number | undefined | null>();
+
+  useEffect(() => {
+    setSelectedId(licenses?.activation?.subscriptionId);
+  }, [licenses]);
+
   return (
     <Dialog>
       <DialogTrigger asChild>

@@ -19,6 +19,7 @@ import {
 } from "@/features/subscription/components";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { useAccountLicenses } from "@/features/license/hooks";
 
 export function CompanyCard({
   companyKey,
