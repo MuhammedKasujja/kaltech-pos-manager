@@ -45,10 +45,10 @@ export function AccountPlanCard({
         <CardTitle className="text-2xl flex justify-between">
           {subscription.name}
         </CardTitle>
-        <div>{subscription.tagline}</div>
-        <div>
-          <span>Days: </span>
+        <div className="text-muted-foreground">{subscription.tagline}</div>
+        <div className="text-3xl font-bold">
           {subscription.planDays}
+          <span> Days</span>
         </div>
         <div>
           <span>Monthly Price: USh </span>
@@ -58,6 +58,16 @@ export function AccountPlanCard({
           <span>Yearly Price: USh </span>
           {subscription.yearlyPrice}
         </div>
+        <ul className="space-y-3 text-base text-muted-foreground">
+          {subscription.features
+            .filter((feat) => feat.length > 0)
+            .map((feature, i) => (
+              <li key={i} className="flex items-start gap-2">
+                <span className="text-primary text-xl leading-6">✓</span>{" "}
+                {feature}
+              </li>
+            ))}
+        </ul>
       </CardContent>
       <CardFooter className="flex w-full mt-4 px-1 pb-2">
         <Button className="flex w-full" onClick={handleAccountPlanSubscription}>
