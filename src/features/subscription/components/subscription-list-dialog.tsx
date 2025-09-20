@@ -29,12 +29,12 @@ export function SubscriptionListDialog({
           Change Plan
         </Button>
       </DialogTrigger>
-      <DialogContent className="md:min-w-[80vw] min-h-[90vh] overflow-y-auto flex flex-col">
+      <DialogContent className="md:min-w-[80vw] min-h-[90vh] max-h-[90vh] flex flex-col pb-2">
         <DialogHeader>
           <DialogTitle>Change Subscription Plan</DialogTitle>
           <DialogDescription>Change Data Syncronization Plan</DialogDescription>
         </DialogHeader>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-9 flex-1 overflow-y-auto px-6 py-8">
           {subscriptions.map((subscription) => (
             <DataSyncActivationCard
               key={subscription.name}

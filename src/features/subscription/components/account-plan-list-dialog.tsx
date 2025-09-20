@@ -25,12 +25,12 @@ export function AccountPlanListDialog({
       <DialogTrigger asChild>
         <Button>Generate License</Button>
       </DialogTrigger>
-      <DialogContent className="md:min-w-[80vw] min-h-[90vh] overflow-y-auto flex flex-col">
+      <DialogContent className="md:min-w-[80vw] min-h-[90vh] max-h-[90vh] flex flex-col">
         <DialogHeader>
           <DialogTitle>Change Account Plan</DialogTitle>
           <DialogDescription>Change Account Plan</DialogDescription>
         </DialogHeader>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-9 flex-1 overflow-y-auto px-6 py-10">
           {subscriptions.map((subscription) => (
             <AccountPlanCard
               key={subscription.name}
