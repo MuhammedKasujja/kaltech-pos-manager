@@ -1,6 +1,7 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import bcrypt from "bcryptjs";
+import { DateTime } from "luxon";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -210,4 +211,8 @@ export function generateAccountKey() {
 
 export function generateLicenceKey() {
   return generateRandomString(24).toUpperCase();
+}
+
+export function getDateTime() {
+  return DateTime.now();
 }

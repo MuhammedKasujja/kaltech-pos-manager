@@ -20,7 +20,7 @@ export async function createAccountSubscriptionPlan(
   };
 
   return prisma.subscription.upsert({
-    where: { id },
+    where: { id: id ?? 0 },
     update: { ...subscription },
     create: { ...subscription },
   });
@@ -39,7 +39,7 @@ export async function createDataSyncSubscription(
   };
 
   return prisma.subscription.upsert({
-    where: { id },
+    where: { id: id ?? 0 },
     update: { ...subscription },
     create: { ...subscription },
   });
