@@ -67,7 +67,9 @@ export function AccountSubscriptionForm({
             <DialogHeader>
               <DialogTitle>{tr("subscriptions.accountPlan")}</DialogTitle>
               <DialogDescription>
-                {subscription ? "Edit Account Plan" : "Create Account Plan"}
+                {subscription
+                  ? tr("subscriptions.editAccountPlan")
+                  : tr("subscriptions.createAccountPlan")}
               </DialogDescription>
             </DialogHeader>
             <div className="grid items-start gap-5 md:grid-cols-2">

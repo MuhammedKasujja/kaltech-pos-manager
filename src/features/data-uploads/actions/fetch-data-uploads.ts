@@ -3,6 +3,8 @@ import prisma from "@/lib/prisma";
 import { FetchDataUploadsDto } from "../schemas";
 import { Prisma } from "@prisma/client";
 import { DateTime } from "luxon";
+import { findAccountWithDataSyncByKey } from "@/features/accounts/actions";
+import { findSyncDeviceByDeviceId } from "@/features/sync-device/actions";
 
 export const uploadQuery = Prisma.validator<Prisma.DataUploadDefaultArgs>()({
   include: { account: { include: { company: {} } } },
@@ -27,29 +29,17 @@ export async function fetchDataUploads(): Promise<DataUploadDetail[]> {
 }
 
 export async function fetchAccountDataUploads(data: FetchDataUploadsDto) {
-  const account = await prisma.account.findFirst({
-    where: { accountKey: data.accountKey },
+  const account = await findAccountWithDataSyncByKey({ accountKey: data.accountKey });
+
+  const device = await findSyncDeviceByDeviceId({
+    deviceId: data.deviceId,
+    accountKey: account.accountKey,
   });
-
-  if (!account) {
-    throw new Error("Account Key not found");
-  }
-
-  const device = await prisma.syncDevice.findFirst({
-    where: {
-      deviceId: data.deviceId,
-      account: { accountKey: account.accountKey },
-    },
-  });
-
-  if (device == null) {
-    throw new Error("Sync Device not Registered");
-  }
 
   if (device.isActive === false) {
     throw new Error("Sync Device is already deactivated");
   }
-  
+
   const updates = await prisma.dataUpload.findMany({
     where: {
       accountId: account.id,
