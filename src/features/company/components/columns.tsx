@@ -59,7 +59,7 @@ export const columns: ColumnDef<CompanyDetail>[] = [
       const company = row.original;
       return (
         <Button variant={"outline"} asChild>
-          <Link href={`/admin/companies/${company.account?.accountKey}`}>
+          <Link href={`/admin/accounts/${company.account?.accountKey}`}>
             View
           </Link>
         </Button>

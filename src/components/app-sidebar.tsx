@@ -32,11 +32,6 @@ const data = {
       icon: IconDashboard,
     },
     {
-      title: "Companies",
-      url: "/admin/companies",
-      icon: IconListDetails,
-    },
-    {
       title: "Accounts",
       url: "/admin/accounts",
       icon: IconListDetails,

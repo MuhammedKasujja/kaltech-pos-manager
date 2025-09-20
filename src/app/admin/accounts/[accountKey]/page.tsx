@@ -9,9 +9,9 @@ import {
 } from "@/features/subscription/actions/fetch-subscription-plans";
 
 export default async function CompanyDetailsPage(
-  props: PageProps<"/admin/companies/[companyKey]">
+  props: PageProps<"/admin/accounts/[accountKey]">
 ) {
-  const { companyKey } = await props.params;
+  const { accountKey } = await props.params;
   const dataSubscriptions = await fetchDataSyncSubscriptionPlans();
   const accountSubscriptions = await fetchAccountSetupSubscriptionPlans();
 
@@ -19,15 +19,15 @@ export default async function CompanyDetailsPage(
     <div className="container flex flex-col gap-4 p-6">
       <div className="flex flex-col md:flex-row gap-4 mb-4">
         <CompanyCard
-          companyKey={companyKey}
+          companyKey={accountKey}
           subscriptions={{
             account: accountSubscriptions,
             sync: dataSubscriptions,
           }}
         />
-        <AdminUserCard companyKey={companyKey} />
+        <AdminUserCard companyKey={accountKey} />
       </div>
-      <SyncDeviceList companyKey={companyKey} />
+      <SyncDeviceList companyKey={accountKey} />
     </div>
   );
 }
