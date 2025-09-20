@@ -20,7 +20,7 @@ export function DataSyncSubscriptionCard({
         <CardTitle className="text-2xl flex justify-between">{subscription.name}
           <Button className="w-6 h-6" ><IconEdit/></Button>
         </CardTitle>
-        <div>{subscription.about}</div>
+        <div>{subscription.tagline}</div>
         <div>
           <span>Days: </span>
           {subscription.planDays}

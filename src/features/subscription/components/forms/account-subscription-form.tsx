@@ -33,7 +33,7 @@ export function AccountSubscriptionForm() {
 
   const form = useForm<AccountSetupSubscriptionType>({
     resolver: zodResolver(accountSetupSubscriptionSchema),
-    defaultValues: { tags: [] },
+    defaultValues: { features: [] },
   });
 
   async function onSubmit(values: AccountSetupSubscriptionType) {
@@ -67,7 +67,7 @@ export function AccountSubscriptionForm() {
                 <TextInput
                   label="Tagline"
                   control={form.control}
-                  name={"about"}
+                  name={"tagline"}
                 />
                 <NumberInput
                   label="Monthyly Price"

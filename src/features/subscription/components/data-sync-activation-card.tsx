@@ -45,7 +45,7 @@ export function DataSyncActivationCard({
         <CardTitle className="text-2xl flex justify-between">
           {subscription.name}
         </CardTitle>
-        <div>{subscription.about}</div>
+        <div>{subscription.tagline}</div>
         <div>
           <span>Days: </span>
           {subscription.planDays}

@@ -29,7 +29,7 @@ export function DataSyncSubscriptionForm() {
 
   const form = useForm<DataSyncSubscriptionType>({
     resolver: zodResolver(dataSyncSubscriptionSchema),
-    defaultValues: { plan: SubscriptionPlan.PRO, tags: [] },
+    defaultValues: { plan: SubscriptionPlan.PRO, features: [] },
   });
 
   async function onSubmit(values: DataSyncSubscriptionType) {
@@ -63,7 +63,7 @@ export function DataSyncSubscriptionForm() {
                 <TextInput
                   label="Tagline"
                   control={form.control}
-                  name={"about"}
+                  name={"tagline"}
                 />
                 <NumberInput
                   label={tr("common.planDays")}
