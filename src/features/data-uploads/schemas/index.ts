@@ -1,3 +1,4 @@
+import { Prisma } from "@prisma/client";
 import { z } from "zod";
 
 export const createDataUpdateSchema = z.object({
@@ -20,3 +21,7 @@ export const fetchSyncDeviceSchema = z.object({
 });
 
 export type FetchDataUploadsDto = z.infer<typeof fetchDataUploadsSchema>;
+
+export const uploadQuery = Prisma.validator<Prisma.DataUploadDefaultArgs>()({
+  include: { account: { include: { company: {} } } },
+});

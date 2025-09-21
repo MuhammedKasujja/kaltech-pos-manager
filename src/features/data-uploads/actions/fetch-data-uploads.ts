@@ -1,14 +1,10 @@
-import { verifySession } from "@/lib/auth/verify-session";
+ import { verifySession } from "@/lib/auth/verify-session";
 import prisma from "@/lib/prisma";
-import { FetchDataUploadsDto } from "../schemas";
+import { FetchDataUploadsDto, uploadQuery } from "../schemas";
 import { Prisma } from "@prisma/client";
 import { findAccountWithDataSyncByKey } from "@/features/accounts/actions";
 import { findSyncDeviceByDeviceId } from "@/features/sync-device/actions";
 import { systemDateTime } from "@/lib/utils";
-
-export const uploadQuery = Prisma.validator<Prisma.DataUploadDefaultArgs>()({
-  include: { account: { include: { company: {} } } },
-});
 
 export type DataUploadDetail = Prisma.DataUploadGetPayload<typeof uploadQuery>;
 
@@ -77,4 +73,35 @@ async function updateDeviceLastSyncDate({ deviceId }: { deviceId: number }) {
     where: { id: deviceId },
     data: { lastSyncDate: deviceLastSyncDate },
   });
+}
+
+export async function getDataUploadStatistics() {
+  const totalUploads = await prisma.dataUpload.count();
+
+  const totalAccountsWithUploads = await prisma.dataUpload.findMany({
+    distinct: ["accountId"],
+    select: { id: true },
+  });
+
+  const totalAccounts = await prisma.account.count();
+
+  const weekStart = systemDateTime.startOf("week").toJSDate();
+  const weekEnd = systemDateTime.endOf("week").toJSDate();
+
+  // Count uploads for this week
+  const countThisWeek = await prisma.dataUpload.count({
+    where: {
+      createdAt: {
+        gte: weekStart,
+        lte: weekEnd,
+      },
+    },
+  });
+
+  return {
+    totalAccounts,
+    totalUploads,
+    accountsWithUploads: totalAccountsWithUploads.length,
+    weeklyUploads: countThisWeek,
+  };
 }
