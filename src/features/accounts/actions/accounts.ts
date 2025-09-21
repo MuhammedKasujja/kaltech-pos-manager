@@ -18,7 +18,7 @@ export async function findAccountByKey({
 }
 
 /**
- * Returns Account if `Data Syncronization` feature enabled
+ * Returns Account if `Data Syncronization` feature is enabled
  * @param accountKey
  * @returns Account
  */
