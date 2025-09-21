@@ -40,7 +40,7 @@ export async function fetchActivationLicense({
   });
 
   if (!activationLicense) {
-    throw Error("Account has now recognized");
+    throw Error("Account is not recognized");
   }
   return activationLicense;
 }
