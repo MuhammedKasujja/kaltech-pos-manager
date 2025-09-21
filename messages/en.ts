@@ -149,6 +149,14 @@ const en = {
   ProfilePage: {
     title: "Profile",
   },
+  routes: {
+    dashboard: "Dashboard",
+    accounts: "Account Management",
+    "sync-devices": "Sync Devices",
+    "data-uploads": "Data Uploads",
+    subscriptions: "Subscriptions",
+    users: "System Users",
+  },
 } as const;
 
 export default en;
