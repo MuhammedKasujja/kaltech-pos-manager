@@ -89,11 +89,7 @@ async function verifySubscriptionLicense({
 
   let createLicenseFlag = false;
 
-  if (
-    oldLicense !== null &&
-    oldLicense.isApplied &&
-    oldLicense.appliedAt !== null
-  ) {
+  if (oldLicense !== null && oldLicense.isApplied) {
     // check if the license is already running
     if (
       isSubscriptionActive({

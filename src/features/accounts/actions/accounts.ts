@@ -1,3 +1,4 @@
+import { isSubscriptionActive } from "@/features/subscription/util";
 import prisma from "@/lib/prisma";
 import { Account, SubscriptionType } from "@prisma/client";
 
@@ -34,11 +35,11 @@ export async function findAccountWithDataSyncByKey({
     throw new Error("Account details not found");
   }
 
-  // TODO: need to check if the license is still valid using [appliedAt] field plus license days against current DateTime
   const license = await prisma.licence.findFirst({
     where: {
       accountId: account.id,
       deletedAt: null,
+      isApplied: true,
       subscription: { deletedAt: null, type: SubscriptionType.DATA_SYNC },
     },
     orderBy: { createdAt: "desc" },
@@ -46,8 +47,17 @@ export async function findAccountWithDataSyncByKey({
 
   if (!license) {
     throw new Error(
-      "Data syncronization is disabled for this Account, Please contact admin.",
+      "Data syncronization is disabled for this Account, Please contact admin."
     );
+  }
+
+  if (
+    !isSubscriptionActive({
+      appliedAt: license.appliedAt,
+      subDays: license.days,
+    })
+  ) {
+    throw new Error("Data syncronization expired, Please contact admin.");
   }
 
   return account;
