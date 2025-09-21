@@ -11,7 +11,7 @@ export function generateRandomString(length: number): string {
   const array = new Uint8Array(length);
   crypto.getRandomValues(array);
   return Array.from(array, (byte) =>
-    ("0" + (byte % 36).toString(36)).slice(-1)
+    ("0" + (byte % 36).toString(36)).slice(-1),
   ).join("");
 }
 
@@ -23,7 +23,7 @@ export async function hashPassword(password: string): Promise<string> {
 
 export async function checkPassword(
   password: string,
-  hashedPassword: string
+  hashedPassword: string,
 ): Promise<boolean> {
   const match = await bcrypt.compare(password, hashedPassword);
   return match;
@@ -31,7 +31,7 @@ export async function checkPassword(
 
 export const formatDateTime = (
   datetime: Date | string,
-  options?: Intl.DateTimeFormatOptions
+  options?: Intl.DateTimeFormatOptions,
 ) => {
   if (datetime.toString() === "Invalid Date") return "";
   return new Date(datetime).toLocaleTimeString("en-US", {
@@ -69,7 +69,7 @@ export const getFirstAndLastDay = (day: number) => {
 
 export const daysLeft = (
   accountCreationDate: Date,
-  maxDays: number
+  maxDays: number,
 ): number => {
   const now = new Date();
   const endPeriodDate = new Date(accountCreationDate);
@@ -217,4 +217,4 @@ export function getDateTime() {
   return DateTime.now();
 }
 
-export const systemDateTime = getDateTime()
+export const systemDateTime = getDateTime();

@@ -33,7 +33,7 @@ export async function findAccountWithDataSyncByKey({
   if (!account) {
     throw new Error("Account details not found");
   }
-  
+
   // TODO: need to check if the license is still valid using [appliedAt] field plus license days against current DateTime
   const license = await prisma.licence.findFirst({
     where: {
@@ -46,7 +46,7 @@ export async function findAccountWithDataSyncByKey({
 
   if (!license) {
     throw new Error(
-      "Data syncronization is disabled for this Account, Please contact admin."
+      "Data syncronization is disabled for this Account, Please contact admin.",
     );
   }
 

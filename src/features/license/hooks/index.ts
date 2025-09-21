@@ -7,7 +7,7 @@ export function useAccountLicenses(accountKey?: string) {
     () => fetchAccountLicenses({ accountKey: accountKey }),
     {
       revalidateOnFocus: true,
-    }
+    },
   );
 
   return {

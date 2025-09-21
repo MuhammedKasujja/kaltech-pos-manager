@@ -11,7 +11,7 @@ export function formatPrice(amount: number, { showZeroAsNumber = false } = {}) {
 
 export function formatNumber(
   number: number,
-  options?: Intl.NumberFormatOptions
+  options?: Intl.NumberFormatOptions,
 ) {
   const formatter = new Intl.NumberFormat(undefined, options);
   return formatter.format(number);
@@ -29,7 +29,7 @@ export function formatDate(date: Date) {
 export function formatPlural(
   count: number,
   { singular, plural }: { singular: string; plural: string },
-  { includeCount = true } = {}
+  { includeCount = true } = {},
 ) {
   const word = count === 1 ? singular : plural;
 

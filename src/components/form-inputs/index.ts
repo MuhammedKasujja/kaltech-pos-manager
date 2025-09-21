@@ -8,4 +8,4 @@ export * from "./password-input";
 export * from "./number-input";
 export * from "./money-input";
 export * from "./switch-input";
-export * from "./hidden-input"
+export * from "./hidden-input";

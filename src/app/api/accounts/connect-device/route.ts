@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
       });
     }
     const request = parseResult.data;
-    
+
     const data = await connectAccountDevice(request);
     return ApiResponse.success({
       data: data,

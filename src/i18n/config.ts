@@ -9,7 +9,7 @@ export const supportedLocales = Object.entries(appSupportedLocales).map(
   ([key, value]) => ({
     value: key as Locale,
     label: value,
-  })
+  }),
 );
 
 export const defaultLocale = "en";

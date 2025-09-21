@@ -9,7 +9,7 @@ import {
 } from "@/features/subscription/actions/fetch-subscription-plans";
 
 export default async function CompanyDetailsPage(
-  props: PageProps<"/admin/accounts/[accountKey]">
+  props: PageProps<"/admin/accounts/[accountKey]">,
 ) {
   const { accountKey } = await props.params;
   const dataSubscriptions = await fetchDataSyncSubscriptionPlans();

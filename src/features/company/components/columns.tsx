@@ -30,7 +30,7 @@ export const columns: ColumnDef<CompanyDetail>[] = [
     cell: ({ row }) => {
       const company = row.original;
       const license = company.account?.licence.at(
-        company.account?.licence.length - 1
+        company.account?.licence.length - 1,
       );
 
       return (

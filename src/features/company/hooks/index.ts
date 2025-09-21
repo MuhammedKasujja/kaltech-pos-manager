@@ -10,7 +10,7 @@ export function useCompanyDetails(accountKey: string) {
     () => getCompanyDetails(accountKey),
     {
       revalidateOnFocus: true,
-    }
+    },
   );
 
   return {

@@ -29,7 +29,9 @@ export async function fetchDataUploads(): Promise<DataUploadDetail[]> {
 }
 
 export async function fetchAccountDataUploads(data: FetchDataUploadsDto) {
-  const account = await findAccountWithDataSyncByKey({ accountKey: data.accountKey });
+  const account = await findAccountWithDataSyncByKey({
+    accountKey: data.accountKey,
+  });
 
   const device = await findSyncDeviceByDeviceId({
     deviceId: data.deviceId,

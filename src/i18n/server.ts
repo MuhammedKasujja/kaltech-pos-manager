@@ -10,7 +10,7 @@ export async function getTranslations<
 
   return <K extends N extends string ? NamespaceKeys<N> : GlobalKeys>(
     key: K,
-    values?: TranslationValues
+    values?: TranslationValues,
   ) => {
     return t(key as string, values);
   };

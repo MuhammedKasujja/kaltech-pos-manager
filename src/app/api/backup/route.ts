@@ -4,13 +4,14 @@ import { env } from "@/data/env/server";
 
 export async function GET() {
   return new Promise<NextResponse>((resolve) => {
-    const dump = spawn("pg_dump", 
-      [
-       "-U", env.PGUSER,
-       "-h", env.PGHOST,
-       "-d", env.PGDATABASE
-      ]
-    );
+    const dump = spawn("pg_dump", [
+      "-U",
+      env.PGUSER,
+      "-h",
+      env.PGHOST,
+      "-d",
+      env.PGDATABASE,
+    ]);
 
     let data = "";
     dump.stdout.on("data", (chunk) => {
@@ -21,8 +22,8 @@ export async function GET() {
       resolve(
         NextResponse.json(
           { success: false, error: err.toString() },
-          { status: 500 }
-        )
+          { status: 500 },
+        ),
       );
     });
 
@@ -33,7 +34,7 @@ export async function GET() {
             "Content-Type": "application/sql",
             "Content-Disposition": "attachment; filename=dump.sql",
           },
-        })
+        }),
       );
     });
   });

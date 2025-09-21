@@ -59,8 +59,8 @@ export function DataUploadListPreview({
             ))}
           </TableBody>
         </Table>
-        // </div>
       ) : (
+        // </div>
         <JsonPreview key={upload.id.toString()} data={upload.data} />
       )}
     </div>

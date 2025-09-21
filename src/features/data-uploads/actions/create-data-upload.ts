@@ -5,7 +5,9 @@ import { findAccountWithDataSyncByKey } from "@/features/accounts/actions";
 import { findSyncDeviceByDeviceId } from "@/features/sync-device/actions";
 
 export async function createDataUpload(data: CreateDataUpdateDto) {
-  const account = await findAccountWithDataSyncByKey({ accountKey: data.accountKey });
+  const account = await findAccountWithDataSyncByKey({
+    accountKey: data.accountKey,
+  });
 
   const device = await findSyncDeviceByDeviceId({
     deviceId: data.deviceId,

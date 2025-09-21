@@ -73,10 +73,10 @@ export function CollapsibleDataTable<TData>({
                       ? null
                       : flexRender(
                           header.column.columnDef.header,
-                          header.getContext()
+                          header.getContext(),
                         )}
                   </TableHead>
-                ))
+                )),
               )}
           </TableRow>
         </TableHeader>
@@ -113,7 +113,7 @@ export function CollapsibleDataTable<TData>({
                         <TableCell key={cell.id}>
                           {flexRender(
                             cell.column.columnDef.cell,
-                            cell.getContext()
+                            cell.getContext(),
                           )}
                         </TableCell>
                       ))}

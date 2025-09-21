@@ -8,7 +8,7 @@ import {
 import { SubscriptionPlan, SubscriptionType } from "@prisma/client";
 
 export async function createAccountSubscriptionPlan(
-  data: AccountSetupSubscriptionType
+  data: AccountSetupSubscriptionType,
 ) {
   const { id, ...rest } = data;
 
@@ -27,7 +27,7 @@ export async function createAccountSubscriptionPlan(
 }
 
 export async function createDataSyncSubscription(
-  data: DataSyncSubscriptionType
+  data: DataSyncSubscriptionType,
 ) {
   const { id, ...rest } = data;
 

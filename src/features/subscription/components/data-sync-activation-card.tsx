@@ -1,7 +1,7 @@
-"use client"
+"use client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardTitle } from "@/components/ui/card";
-import { generateDataSyncLicense } from "@/features/license/actions/generate-sync-license";
+import { generateDataSyncLicense } from "@/features/license/actions/generate-licenses";
 import { cn } from "@/lib/utils";
 import { Subscription } from "@prisma/client";
 import { toast } from "sonner";
@@ -37,7 +37,7 @@ export function DataSyncActivationCard({
         "p-5 min-h-80 transition-all flex",
         isSelected
           ? "border-primary bg-muted/30 shadow-xl scale-105 md:-mt-6"
-          : "border border-muted"
+          : "border border-muted",
       )}
       onClick={onClickAction}
     >

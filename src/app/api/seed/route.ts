@@ -36,5 +36,5 @@ export async function GET(req: NextRequest) {
     console.error(error);
     await prisma.$disconnect();
     return ApiResponse.error({ error: error?.toString(), statusCode: 500 });
-  } 
+  }
 }

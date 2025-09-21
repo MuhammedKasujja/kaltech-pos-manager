@@ -33,7 +33,7 @@ export function LoginForm({
     try {
       await login(values);
       toast.success("User added successfully");
-      router.replace('/admin/dashboard');
+      router.replace("/admin/dashboard");
     } catch (error: unknown) {
       toast.error(error?.toString());
     }
@@ -47,9 +47,11 @@ export function LoginForm({
             <form className="p-6 md:p-8" onSubmit={form.handleSubmit(onSubmit)}>
               <div className="flex flex-col gap-6">
                 <div className="flex flex-col items-center text-center">
-                  <h1 className="text-2xl font-bold">{tr('common.welcomeBack')}</h1>
+                  <h1 className="text-2xl font-bold">
+                    {tr("common.welcomeBack")}
+                  </h1>
                   <p className="text-muted-foreground text-balance">
-                    {tr('common.welcomeBack')}
+                    {tr("common.welcomeBack")}
                   </p>
                 </div>
                 <TextInput
@@ -65,7 +67,7 @@ export function LoginForm({
                   showIcon={false}
                 />
                 <Button type="submit" className="w-full">
-                  {tr('common.form.login')}
+                  {tr("common.form.login")}
                 </Button>
               </div>
             </form>
