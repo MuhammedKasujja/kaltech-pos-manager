@@ -1,5 +1,5 @@
 "use client";
-import { useAccounts } from "@/lib/swr/use-accounts";
+import { useAccounts } from "@/features/accounts/hooks/use-accounts";
 import { DataTable } from "@/components/data-table";
 import { columns } from "../columns";
 import { LoadingShimmer } from "@/components/loading-shimmer";

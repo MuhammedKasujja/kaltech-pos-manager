@@ -1,7 +1,7 @@
 "use client";
 
 import { Card, CardContent, CardFooter, CardTitle } from "@/components/ui/card";
-import { AccountDetail } from "@/lib/swr/use-accounts";
+import { AccountDetail } from "@/features/accounts/hooks/use-accounts";
 
 export function AccountCard({ account }: { account: AccountDetail }) {
   return (

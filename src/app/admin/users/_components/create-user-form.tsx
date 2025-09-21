@@ -13,7 +13,7 @@ import { Form } from "@/components/ui/form";
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createSystemUser } from "@/lib/user/create-user";
+import { createSystemUser } from "@/features/users/actions/create-user";
 import { toast } from "sonner";
 import { PasswordInput, TextInput } from "@/components/form-inputs";
 import {

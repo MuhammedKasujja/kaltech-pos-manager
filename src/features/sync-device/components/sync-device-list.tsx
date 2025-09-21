@@ -1,5 +1,5 @@
 "use client";
-import { useSyncDevices } from "@/lib/swr/use-sync-devices";
+import { useSyncDevices } from "@/features/sync-device/hooks/use-sync-devices";
 import { DataTable } from "@/components/data-table";
 import { LoadingShimmer } from "@/components/loading-shimmer";
 import { columns } from "./columns";

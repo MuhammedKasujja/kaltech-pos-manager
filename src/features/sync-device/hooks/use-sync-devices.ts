@@ -1,6 +1,6 @@
 import useSWR from "swr";
-import { fetcher } from "../fetcher";
 import { SyncDeviceDetail } from "@/features/sync-device/actions";
+import { fetcher } from "@/lib/fetcher";
 
 export function useSyncDevices() {
   const { data: devices, error } = useSWR<SyncDeviceDetail[]>(

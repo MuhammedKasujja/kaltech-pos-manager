@@ -1,6 +1,6 @@
 "use client";
 
-import { useDataUploads } from "@/lib/swr/use-data-uploads";
+import { useDataUploads } from "@/features/data-uploads/hooks/use-data-uploads";
 import { JsonPreview } from "./json-preview";
 
 export function DataUploadJsonViewer() {

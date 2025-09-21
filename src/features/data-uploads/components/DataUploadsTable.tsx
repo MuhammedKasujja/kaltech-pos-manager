@@ -1,7 +1,7 @@
 "use client";
 
 import { columns } from "./columns";
-import { useDataUploads } from "@/lib/swr/use-data-uploads";
+import { useDataUploads } from "@/features/data-uploads/hooks/use-data-uploads";
 import { LoadingShimmer } from "@/components/loading-shimmer";
 import { CollapsibleDataTable } from "@/components/collapsible-data-table";
 import { DataUploadListPreview } from "./DataUpdatePreview";

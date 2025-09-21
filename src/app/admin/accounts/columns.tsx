@@ -1,5 +1,5 @@
 "use client";
-import { AccountDetail } from "@/lib/swr/use-accounts";
+import { AccountDetail } from "@/features/accounts/hooks/use-accounts";
 import { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
 

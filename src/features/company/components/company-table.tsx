@@ -1,6 +1,6 @@
 "use client";
 
-import { useCompanies } from "@/lib/swr/use-companies";
+import { useCompanies } from "@/features/company/hooks/use-companies";
 import { DataTable } from "@/components/data-table";
 import { columns } from "./columns";
 import { LoadingShimmer } from "@/components/loading-shimmer";

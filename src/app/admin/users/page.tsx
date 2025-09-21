@@ -1,6 +1,6 @@
 "use client";
 
-import { useSystemUsers } from "@/lib/swr/use-system-users";
+import { useSystemUsers } from "@/features/users/hooks/use-system-users";
 import { DataTable } from "@/components/data-table";
 import { columns } from "./columns";
 import { CreateUserForm } from "./_components/create-user-form";

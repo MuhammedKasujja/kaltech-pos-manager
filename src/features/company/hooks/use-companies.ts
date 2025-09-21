@@ -1,6 +1,6 @@
 import { Prisma } from "@prisma/client";
 import useSWR from "swr";
-import { fetcher } from "../fetcher";
+import { fetcher } from "../../../lib/fetcher";
 
 export const companyQuery = Prisma.validator<Prisma.CompanyDefaultArgs>()({
   include: { admin: true, account: { include: { licence: true } } },
