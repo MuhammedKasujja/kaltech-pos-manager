@@ -213,6 +213,10 @@ export function generateLicenceKey() {
   return generateRandomString(24).toUpperCase();
 }
 
+export function generateNextUploadID() {
+  return generateRandomString(16).toUpperCase();
+}
+
 export function getDateTime() {
   return DateTime.now();
 }

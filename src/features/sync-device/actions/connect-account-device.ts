@@ -1,18 +1,15 @@
 "use server";
+import { findAccountWithDataSyncByKey } from "@/features/accounts/actions";
 import { RegisterSynceDeviceWithAccountDto } from "@/features/sync-device/schemas";
 import prisma from "@/lib/prisma";
 import { checkPassword } from "@/lib/utils";
 
 export async function connectAccountDevice(
-  data: RegisterSynceDeviceWithAccountDto,
+  data: RegisterSynceDeviceWithAccountDto
 ) {
-  const account = await prisma.account.findFirst({
-    where: { accountKey: data.accountKey },
+  const account = await findAccountWithDataSyncByKey({
+    accountKey: data.accountKey,
   });
-
-  if (!account) {
-    throw new Error("Account not found");
-  }
 
   const admin = await prisma.account.findFirst({
     where: {
@@ -38,7 +35,7 @@ export async function connectAccountDevice(
 
   const isPasswordValid = await checkPassword(
     data.adminPassword,
-    admin?.company.admin.password,
+    admin?.company.admin.password
   );
 
   if (!isPasswordValid) {

@@ -1,16 +1,13 @@
 "use server";
+import { findAccountWithDataSyncByKey } from "@/features/accounts/actions";
 import { CreateSyncDeviceDto } from "@/features/sync-device/schemas";
-import prisma from "../../../lib/prisma";
+import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 
 export async function createSyncDevice(data: CreateSyncDeviceDto) {
-  const account = await prisma.account.findFirst({
-    where: { accountKey: data.accountKey },
+  const account = await findAccountWithDataSyncByKey({
+    accountKey: data.accountKey,
   });
-
-  if (!account) {
-    throw new Error("Account not found");
-  }
 
   const device = await prisma.syncDevice.upsert({
     create: {
@@ -28,6 +25,7 @@ export async function createSyncDevice(data: CreateSyncDeviceDto) {
       account: { accountKey: account.accountKey },
     },
   });
+
   revalidatePath("admin/sync-devices");
   return device;
 }

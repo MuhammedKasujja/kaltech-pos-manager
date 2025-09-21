@@ -1,5 +1,5 @@
 import prisma from "@/lib/prisma";
-import { generateRandomString } from "@/lib/utils";
+import { generateNextUploadID } from "@/lib/utils";
 import { CreateDataUpdateDto } from "../schemas";
 import { findAccountWithDataSyncByKey } from "@/features/accounts/actions";
 import { findSyncDeviceByDeviceId } from "@/features/sync-device/actions";
@@ -18,7 +18,7 @@ export async function createDataUpload(data: CreateDataUpdateDto) {
     throw new Error("Sync Device is already deactivated");
   }
 
-  const nextUpdateId = generateRandomString(16).toUpperCase();
+  const nextUpdateId = generateNextUploadID();
 
   const update = await prisma.dataUpload.create({
     data: {
