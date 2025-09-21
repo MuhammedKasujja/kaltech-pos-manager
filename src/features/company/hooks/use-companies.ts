@@ -1,9 +1,15 @@
+import { fetcher } from "@/lib/fetcher";
 import { Prisma } from "@prisma/client";
 import useSWR from "swr";
-import { fetcher } from "../../../lib/fetcher";
 
 export const companyQuery = Prisma.validator<Prisma.CompanyDefaultArgs>()({
-  include: { admin: true, account: { include: { licence: true } } },
+  include: {
+    admin: true,
+    account: {
+      select: { accountKey: true, id: true },
+      include: { licence: true },
+    },
+  },
 });
 
 export type CompanyDetail = Prisma.CompanyGetPayload<typeof companyQuery>;
@@ -14,7 +20,7 @@ export function useCompanies() {
     fetcher,
     {
       dedupingInterval: 60000,
-    },
+    }
   );
 
   return {

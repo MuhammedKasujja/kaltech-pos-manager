@@ -11,6 +11,19 @@ export const columns: ColumnDef<CompanyDetail>[] = [
   {
     accessorKey: "name",
     header: "Company Name",
+    cell: ({ row }) => {
+      const account = row.original.account;
+      return (
+        <Button variant={"link"} asChild>
+          <Link
+            href={`/admin/accounts/${account?.accountKey}`}
+            className="text-foreground"
+          >
+            {row.original.name}
+          </Link>
+        </Button>
+      );
+    },
   },
   {
     accessorKey: "phone",
@@ -30,7 +43,7 @@ export const columns: ColumnDef<CompanyDetail>[] = [
     cell: ({ row }) => {
       const company = row.original;
       const license = company.account?.licence.at(
-        company.account?.licence.length - 1,
+        company.account?.licence.length - 1
       );
 
       return (

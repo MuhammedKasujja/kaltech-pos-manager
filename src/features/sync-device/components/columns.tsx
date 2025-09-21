@@ -14,14 +14,24 @@ import { SyncDeviceDetail } from "@/features/sync-device/actions";
 import { toast } from "sonner";
 import { formatDateTime } from "@/lib/utils";
 import { deleteSyncDevice } from "../actions/delete-sync-device";
+import Link from "next/link";
 
 export const columns: ColumnDef<SyncDeviceDetail>[] = [
   {
     id: "accountKey",
     header: "Account",
     cell: ({ row }) => {
-      const device = row.original;
-      return <div>{device.account?.company.name}</div>;
+      const account = row.original.account;
+      return (
+        <Button variant={"link"} asChild>
+          <Link
+            href={`/admin/accounts/${account?.accountKey}`}
+            className="text-foreground"
+          >
+            {account?.company.name}
+          </Link>
+        </Button>
+      );
     },
   },
   {

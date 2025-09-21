@@ -15,6 +15,7 @@ import { DataUploadDetail } from "../actions";
 import { Badge } from "@/components/ui/badge";
 import { deleteDataUpload } from "../actions/delete-data-upload";
 import { toast } from "sonner";
+import Link from "next/link";
 
 export const columns: ColumnDef<DataUploadDetail>[] = [
   {
@@ -22,7 +23,16 @@ export const columns: ColumnDef<DataUploadDetail>[] = [
     header: "Company",
     cell: ({ row }) => {
       const account = row.original.account;
-      return <div className="text-foreground">{account?.company.name}</div>;
+      return (
+        <Button variant={"link"} asChild>
+          <Link
+            href={`/admin/accounts/${account?.accountKey}`}
+            className="text-foreground"
+          >
+            {account?.company.name}
+          </Link>
+        </Button>
+      );
     },
   },
   {
