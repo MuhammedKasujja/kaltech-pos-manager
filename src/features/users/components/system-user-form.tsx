@@ -16,17 +16,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { createSystemUser } from "@/features/users/actions/create-user";
 import { toast } from "sonner";
 import { PasswordInput, TextInput } from "@/components/form-inputs";
-import {
-  CreateSystemUserType,
-  createUserSchema,
-} from "@/features/users/schemas";
+import { SystemUserType, systemUserSchema } from "@/features/users/schemas";
 
-export function CreateUserForm() {
-  const form = useForm<CreateSystemUserType>({
-    resolver: zodResolver(createUserSchema),
+export function SystemUserForm({ trigger }: { trigger?: React.ReactNode }) {
+  const form = useForm<SystemUserType>({
+    resolver: zodResolver(systemUserSchema),
   });
 
-  async function onSubmit(values: CreateSystemUserType) {
+  async function onSubmit(values: SystemUserType) {
     try {
       await createSystemUser(values);
       toast.success("User added successfully");
@@ -38,7 +35,7 @@ export function CreateUserForm() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">Add User</Button>
+        {trigger ?? <Button>Add User</Button>}
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <Form {...form}>

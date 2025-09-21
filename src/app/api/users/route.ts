@@ -1,4 +1,4 @@
-import { createUserSchema } from "@/features/users/schemas";
+import { systemUserSchema } from "@/features/users/schemas";
 import prisma from "@/lib/prisma";
 import { hashPassword } from "@/lib/utils";
 import { NextRequest, NextResponse } from "next/server";
@@ -11,7 +11,7 @@ export async function GET() {
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
-  const parseResult = createUserSchema.safeParse(body);
+  const parseResult = systemUserSchema.safeParse(body);
 
   if (!parseResult.success) {
     return NextResponse.json(

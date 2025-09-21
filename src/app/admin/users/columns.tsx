@@ -11,6 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { User } from "@prisma/client";
+import { SystemUserForm } from "@/features/users/components/system-user-form";
 
 export const columns: ColumnDef<User>[] = [
   {
@@ -46,7 +47,11 @@ export const columns: ColumnDef<User>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem>Edit</DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <SystemUserForm
+                trigger={<Button variant={"ghost"}>Edit</Button>}
+              />
+            </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>View</DropdownMenuItem>
             <DropdownMenuItem>Delete</DropdownMenuItem>

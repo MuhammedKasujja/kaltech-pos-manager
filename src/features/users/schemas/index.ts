@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const createUserSchema = z.object({
+export const systemUserSchema = z.object({
   id: z.coerce.number().optional(),
   age: z.coerce.number().min(1),
   firstName: z.string().min(1).trim(),
@@ -9,4 +9,4 @@ export const createUserSchema = z.object({
   password: z.string().min(8).trim(),
 });
 
-export type CreateSystemUserType = z.infer<typeof createUserSchema>;
+export type SystemUserType = z.infer<typeof systemUserSchema>;
