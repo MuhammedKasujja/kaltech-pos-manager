@@ -25,3 +25,25 @@ export type FetchDataUploadsDto = z.infer<typeof fetchDataUploadsSchema>;
 export const uploadQuery = Prisma.validator<Prisma.DataUploadDefaultArgs>()({
   include: { account: { include: { company: {} } } },
 });
+
+export const accountDataUploadQuery =
+  Prisma.validator<Prisma.DataUploadDefaultArgs>()({
+    include: {
+      account: { include: { company: {} } },
+      uploads: { include: { device: {} } },
+    },
+  });
+
+export type AccountDataUploadType = Prisma.DataUploadGetPayload<
+  typeof accountDataUploadQuery
+>;
+
+export type EntityUpload = {
+  state: string;
+  entity: string;
+  entityId: string;
+  data: {
+    updated_at?: string;
+    updatedAt: string;
+  };
+};

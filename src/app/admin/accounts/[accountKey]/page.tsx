@@ -1,15 +1,18 @@
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   CompanyCard,
   AdminUserCard,
   SyncDeviceList,
 } from "@/features/company/components";
+import { AccountDataUploadsTable } from "@/features/data-uploads/components/AccountDataUploadsTable";
 import {
   fetchDataSyncSubscriptionPlans,
   fetchAccountSetupSubscriptionPlans,
 } from "@/features/subscription/actions/fetch-subscription-plans";
+import { IconDevicesPc, IconRefresh } from "@tabler/icons-react";
 
 export default async function CompanyDetailsPage(
-  props: PageProps<"/admin/accounts/[accountKey]">,
+  props: PageProps<"/admin/accounts/[accountKey]">
 ) {
   const { accountKey } = await props.params;
   const dataSubscriptions = await fetchDataSyncSubscriptionPlans();
@@ -27,7 +30,26 @@ export default async function CompanyDetailsPage(
         />
         <AdminUserCard companyKey={accountKey} />
       </div>
-      <SyncDeviceList companyKey={accountKey} />
+      <div className="flex w-full flex-col gap-6">
+        <Tabs defaultValue="devices">
+          <TabsList>
+            <TabsTrigger value="devices">
+              <IconDevicesPc />
+              <span className="uppercase">Devices</span>
+            </TabsTrigger>
+            <TabsTrigger value="data_uploads">
+              <IconRefresh />
+              <span className="uppercase">Data Uploads</span>
+            </TabsTrigger>
+          </TabsList>
+          <TabsContent value="devices">
+            <SyncDeviceList companyKey={accountKey} />
+          </TabsContent>
+          <TabsContent value="data_uploads">
+            <AccountDataUploadsTable accountKey={accountKey} />
+          </TabsContent>
+        </Tabs>
+      </div>
     </div>
   );
 }

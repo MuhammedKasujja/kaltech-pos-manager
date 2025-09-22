@@ -156,6 +156,9 @@ const en = {
     "data-uploads": "Data Uploads",
     subscriptions: "Subscriptions",
     users: "System Users",
+    params: {
+      accountKey: "Account Details"
+    },
   },
 } as const;
 

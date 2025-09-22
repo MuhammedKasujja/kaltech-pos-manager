@@ -11,16 +11,7 @@ import { JsonPreview } from "./json-preview";
 import { formatDateTime } from "@/lib/utils";
 import { useState } from "react";
 import { FileJson2Icon, Table2Icon } from "lucide-react";
-
-type EntityUpload = {
-  state: string;
-  entity: string;
-  entityId: string;
-  data: {
-    updated_at?: string;
-    updatedAt: string;
-  };
-};
+import { EntityUpload } from "../schemas";
 
 type DataViewMode = "table" | "json";
 
