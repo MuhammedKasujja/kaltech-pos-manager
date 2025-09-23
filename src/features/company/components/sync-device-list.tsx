@@ -13,7 +13,7 @@ import {
 import { useCompanyDetails } from "@/features/company/hooks";
 import { deleteSyncDevice } from "@/features/sync-device/actions";
 import { toggleSyncDeviceStatus } from "@/features/sync-device/actions/toggle-sync-device-status";
-import { IconCircleCheckFilled, IconXboxXFilled } from "@tabler/icons-react";
+import { IconCircleCheckFilled, IconDevicesPcOff, IconXboxXFilled } from "@tabler/icons-react";
 import React from "react";
 import { toast } from "sonner";
 import { mutate } from "swr";
@@ -25,8 +25,9 @@ export function SyncDeviceList({ companyKey }: { companyKey: string }) {
 
   if (company?.account?.devices.length === 0) {
     return (
-      <div className="p-4 text-sm text-muted-foreground">
-        No sync devices found.
+      <div className="p-4 text-sm text-muted-foreground border rounded-lg h-72 text-center flex gap-2 items-center justify-center">
+        <IconDevicesPcOff/>
+        <span>No sync devices found.</span>
       </div>
     );
   }
