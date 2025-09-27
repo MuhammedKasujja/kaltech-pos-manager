@@ -28,7 +28,7 @@ import {
 import { MoreHorizontal } from "lucide-react";
 import { toast } from "sonner";
 import { EntityUpload } from "../types";
-import { formatDataUpload, formatDataUploadList } from "../utils/format-data";
+import { formatDataUploadList } from "../utils/format-data";
 import { JsonPreview } from "./json-preview";
 
 export function AccountDataUploadsTable({
@@ -44,14 +44,14 @@ export function AccountDataUploadsTable({
   }
   if (isLoading) return <LoadingShimmer />;
 
-  function Preview({ data }: { data: EntityUpload[] }) {
-    return data?.map((ele) => (
-      <div key={ele.data.uuid}>
-        <div>{ele.entity}</div>
-        <JsonPreview data={formatDataUpload(ele)}/>
-      </div>
-    ));
-  }
+  // function Preview({ data }: { data: EntityUpload[] }) {
+  //   return data?.map((ele) => (
+  //     <div key={ele.data.uuid}>
+  //       <div>{ele.entity}</div>
+  //       <JsonPreview data={formatDataUpload(ele)}/>
+  //     </div>
+  //   ));
+  // }
 
   return (
     <div className="space-y-5">

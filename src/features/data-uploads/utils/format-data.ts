@@ -21,7 +21,7 @@ export function formatDataUploadList(uploads: EntityUpload[]) {
 
   const relations: EntityRelation[] = [];
 
-  for (let data of uploads) {
+  for (const data of uploads) {
     relations.push(...formatDataUpload(data));
     if (!entities.has(data.entityId)) {
       const entity = {
