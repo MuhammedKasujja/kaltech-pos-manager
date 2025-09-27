@@ -21,6 +21,8 @@ export function formatDataUploadList(uploads: EntityUpload[]) {
 
   const relations: EntityRelation[] = [];
 
+  const setRelations = new Set<string>();
+
   for (const data of uploads) {
     relations.push(...formatDataUpload(data));
     if (!entities.has(data.entityId)) {
@@ -35,15 +37,13 @@ export function formatDataUploadList(uploads: EntityUpload[]) {
     }
   }
 
-  const pending = relations.filter((rel) => rel.is_synced === false);
+  for (const relation of relations) {
+    if (!relation.is_synced && !setRelations.has(relation.uuid)) {
+      setRelations.add(relation.uuid);
+    }
+  }
 
-  return { entities: entities.size };
-
-  return {
-    relations: relations.length,
-    entities: entities.size,
-    pending: pending.length,
-  };
+  return combineDataUpload(setRelations, entities);
 }
 
 export function formatAccountDataUploadList(
@@ -66,6 +66,35 @@ export function filterMapNulls<T>(
   const nonNullMap = Object.fromEntries(
     Object.entries(obj).filter(([, v]) => v != null)
   ) as Record<string, T>;
-  
+
   return Object.keys(nonNullMap).length === 0 ? undefined : nonNullMap;
+}
+
+function combineDataUpload(
+  relations: Set<string>,
+  entities: Map<string, EntityUpload>
+) {
+  const result = new Map<string, EntityUpload>();
+  const models = new Map<string, EntityUpload>();
+
+  for (const value of relations) {
+    const entity = entities.get(value);
+
+    if (entity)
+      result.set(value, {
+        ...entity,
+        data: { ...entity.data, relations: undefined },
+      });
+  }
+
+  for (const [key, entity] of entities) {
+    if (!result.has(key)) {
+      models.set(key, entity);
+    }
+  }
+
+  return {
+    relations: Array.from(result.values()),
+    entities: Array.from(models.values()),
+  };
 }

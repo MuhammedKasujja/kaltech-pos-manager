@@ -5,7 +5,7 @@ import { Prisma } from "@prisma/client";
 import { findAccountWithDataSyncByKey } from "@/features/accounts/actions";
 import { findSyncDeviceByDeviceId } from "@/features/sync-device/actions";
 import { systemDateTime } from "@/lib/utils";
-import { formatAccountDataUploadList } from "../utils/format-data";
+import { formatDataUploadList } from "../utils/format-data";
 import { EntityUpload } from "../types";
 
 export type DataUploadDetail = Prisma.DataUploadGetPayload<typeof uploadQuery>;
@@ -60,7 +60,7 @@ export async function fetchAccountDataUploads(data: FetchDataUploadsDto) {
 
   return updates.flatMap((update) => ({
     ...update,
-    data: formatAccountDataUploadList(update.data as EntityUpload[]),
+    data: formatDataUploadList(update.data as EntityUpload[]),
   }));
 }
 
