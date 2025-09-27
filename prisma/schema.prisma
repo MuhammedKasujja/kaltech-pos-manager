@@ -59,7 +59,7 @@ model SyncDevice {
   id           Int                @id @default(autoincrement())
   userId       String
   deviceId     String             @unique
-  userName     String             @unique
+  userName     String             
   createdAt    DateTime           @default(now())
   updatedAt    DateTime           @updatedAt
   account      Account?           @relation(fields: [accountId], references: [id], onDelete: Cascade)
