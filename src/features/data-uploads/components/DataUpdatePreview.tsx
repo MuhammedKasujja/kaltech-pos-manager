@@ -11,7 +11,8 @@ import { JsonPreview } from "./json-preview";
 import { formatDateTime } from "@/lib/utils";
 import { useState } from "react";
 import { FileJson2Icon, Table2Icon } from "lucide-react";
-import { EntityUpload } from "../schemas";
+import { EntityUpload } from "../types";
+import { formatAccountDataUploadList } from "../utils/format-data";
 
 type DataViewMode = "table" | "json";
 
@@ -52,7 +53,10 @@ export function DataUploadListPreview({
         </Table>
       ) : (
         // </div>
-        <JsonPreview key={upload.id.toString()} data={upload.data} />
+        <JsonPreview
+          key={upload.id.toString()}
+          data={formatAccountDataUploadList(upload.data as EntityUpload[])}
+        />
       )}
     </div>
   );

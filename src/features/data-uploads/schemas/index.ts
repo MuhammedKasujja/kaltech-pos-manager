@@ -37,13 +37,3 @@ export const accountDataUploadQuery =
 export type AccountDataUploadType = Prisma.DataUploadGetPayload<
   typeof accountDataUploadQuery
 >;
-
-export type EntityUpload = {
-  state: string;
-  entity: string;
-  entityId: string;
-  data: {
-    updated_at?: string;
-    updatedAt: string;
-  };
-};
