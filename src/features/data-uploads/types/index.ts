@@ -2,8 +2,8 @@ export type EntityUpload = {
   state: "updated" | "created" | "deleted";
   entity: string;
   entityId: string;
+  isSaved?: boolean;
   data: {
-    is_saved?: boolean
     uuid: string;
     is_synced: boolean;
     relations?: {
@@ -20,8 +20,8 @@ export type EntityRelationUpload = {
   state: "updated" | "created" | "deleted";
   entity: string;
   entityId: string;
+  isSaved?: boolean;
   data: {
-    is_saved: boolean
     uuid: string;
     relations?: {
       [key: string]: EntityRelation | EntityRelation[] | undefined | null;

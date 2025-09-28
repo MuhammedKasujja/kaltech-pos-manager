@@ -97,10 +97,10 @@ function combineDataUpload(
         entity.data;
       const savedEntity = {
         ...entity,
+        isSaved: true,
         data: {
           uuid,
           is_synced,
-          is_saved: true,
           relations: entity.data.relations,
           updated_at,
           updatedAt,
