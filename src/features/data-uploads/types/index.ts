@@ -3,6 +3,7 @@ export type EntityUpload = {
   entity: string;
   entityId: string;
   data: {
+    is_saved?: boolean
     uuid: string;
     is_synced: boolean;
     relations?: {
@@ -12,6 +13,19 @@ export type EntityUpload = {
     updatedAt: string;
     created_at: string;
     deleted_at?: string;
+  };
+};
+
+export type EntityRelationUpload = {
+  state: "updated" | "created" | "deleted";
+  entity: string;
+  entityId: string;
+  data: {
+    is_saved: boolean
+    uuid: string;
+    relations?: {
+      [key: string]: EntityRelation | EntityRelation[] | undefined | null;
+    };
   };
 };
 

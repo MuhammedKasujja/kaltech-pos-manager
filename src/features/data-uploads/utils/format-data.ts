@@ -42,8 +42,12 @@ export function formatDataUploadList(uploads: EntityUpload[]) {
       setRelations.add(relation.uuid);
     }
   }
-
-  return combineDataUpload(setRelations, entities);
+  return combineDataUpload(setRelations, entities)
+  const { relations: mapRela, entities: mapEntities } = combineDataUpload(
+    setRelations,
+    entities
+  );
+  return { relations: mapRela.length, entities: mapEntities.length };
 }
 
 export function formatAccountDataUploadList(
@@ -88,7 +92,24 @@ function combineDataUpload(
   }
 
   for (const [key, entity] of entities) {
-    if (!result.has(key)) {
+    if (result.has(key)) {
+      const { is_synced, updatedAt, uuid, updated_at, deleted_at, created_at } =
+        entity.data;
+      const savedEntity = {
+        ...entity,
+        data: {
+          uuid,
+          is_synced,
+          is_saved: true,
+          relations: entity.data.relations,
+          updated_at,
+          updatedAt,
+          created_at,
+          deleted_at,
+        },
+      };
+      models.set(key, savedEntity);
+    } else {
       models.set(key, entity);
     }
   }
