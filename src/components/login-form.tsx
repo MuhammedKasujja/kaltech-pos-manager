@@ -6,11 +6,12 @@ import { Form } from "@/components/ui/form";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { login } from "@/lib/auth/login";
+import { loginUser } from "@/lib/auth/login";
 import { toast } from "sonner";
 import { PasswordInput, TextInput } from "@/components/form-inputs";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "@/i18n";
+import { tryCatch } from "@/lib/try-catch";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email." }).trim(),
@@ -30,12 +31,12 @@ export function LoginForm({
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    try {
-      await login(values);
+    const { data, error } = await loginUser(values);
+    if (data) {
       toast.success("User added successfully");
       router.replace("/admin/dashboard");
-    } catch (error: unknown) {
-      toast.error(error?.toString());
+    } else {
+      toast.error(error);
     }
   }
 
