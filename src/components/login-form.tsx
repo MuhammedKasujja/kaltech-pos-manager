@@ -11,7 +11,6 @@ import { toast } from "sonner";
 import { PasswordInput, TextInput } from "@/components/form-inputs";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "@/i18n";
-import { tryCatch } from "@/lib/try-catch";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email." }).trim(),
