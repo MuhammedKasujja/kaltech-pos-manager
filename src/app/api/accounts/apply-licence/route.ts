@@ -8,6 +8,7 @@ import { NextRequest } from "next/server";
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
+    console.log('Body:', body)
     const parseResult = applyLicenceKeySchema.safeParse(body);
 
     if (!parseResult.success) {
