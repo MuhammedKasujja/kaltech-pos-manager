@@ -2,7 +2,7 @@
 
 import { verifySession } from "@/lib/auth/verify-session";
 import prisma from "@/lib/prisma";
-import { Prisma } from "@prisma/client";
+import { Prisma, SubscriptionType } from "@prisma/client";
 import { companyQuery } from "../types";
 
 export type CompanyDetailPreview = Prisma.CompanyGetPayload<
@@ -17,7 +17,14 @@ export async function getCompanyDetails(accountKey: string) {
     include: {
       admin: true,
       account: {
-        include: { licence: true, devices: { orderBy: { createdAt: "desc" } } },
+        include: {
+          licence: {
+            orderBy: { createdAt: "desc" },
+            take: 1,
+            where: { subscription: { type: SubscriptionType.ACCOUNT_SETUP } },
+          },
+          devices: { orderBy: { createdAt: "desc" } },
+        },
       },
     },
   });
