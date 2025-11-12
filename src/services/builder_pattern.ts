@@ -48,13 +48,13 @@ export class Builder<T extends Partial<InvoiceBuilderInput>> {
   }
 }
 
-const invoice = Builder.create("Macbook M4")
+export const invoice = Builder.create("Macbook M4")
   .setCost(50000)
   .setAmount(5)
   .setTaxRate(2)
   .build();
 
-abstract class AbstractBuilder<T, E extends Partial<E>> {
+export abstract class AbstractBuilder<T, E extends Partial<E>> {
   #actual: T;
 
   private constructor(actual: T) {
