@@ -10,10 +10,21 @@ import {
   CardFooter,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  Empty,
+  EmptyContent,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+} from "@/components/ui/empty";
 import { useCompanyDetails } from "@/features/company/hooks";
 import { deleteSyncDevice } from "@/features/sync-device/actions";
 import { toggleSyncDeviceStatus } from "@/features/sync-device/actions/toggle-sync-device-status";
-import { IconCircleCheckFilled, IconDevicesPcOff, IconXboxXFilled } from "@tabler/icons-react";
+import {
+  IconCircleCheckFilled,
+  IconDevicesPcOff,
+  IconXboxXFilled,
+} from "@tabler/icons-react";
 import React from "react";
 import { toast } from "sonner";
 import { mutate } from "swr";
@@ -25,10 +36,16 @@ export function SyncDeviceList({ companyKey }: { companyKey: string }) {
 
   if (company?.account?.devices.length === 0) {
     return (
-      <div className="p-4 text-sm text-muted-foreground border rounded-lg h-72 text-center flex gap-2 items-center justify-center">
-        <IconDevicesPcOff/>
-        <span>No sync devices found.</span>
-      </div>
+      <Empty className="p-4 text-sm text-muted-foreground border rounded-lg h-72 text-center flex gap-2 items-center justify-center border-dashed">
+        <EmptyHeader>
+          <EmptyMedia variant="icon">
+            <IconDevicesPcOff />
+          </EmptyMedia>
+        </EmptyHeader>
+        <EmptyContent>
+          <EmptyDescription>No sync devices found.</EmptyDescription>
+        </EmptyContent>
+      </Empty>
     );
   }
 
