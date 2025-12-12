@@ -6,6 +6,7 @@ export const accountSetupSubscriptionSchema = z.object({
   name: z.string().min(1).trim(),
   features: z.array(z.object({ value: z.string() })),
   plan: z.nativeEnum(SubscriptionPlan),
+  enabledModules: z.coerce.number().optional(),
   tagline: z.string().min(1).trim(),
   planDays: z.coerce.number(),
   monthylyPrice: z.coerce.number(),

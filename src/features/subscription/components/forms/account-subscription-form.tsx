@@ -26,6 +26,8 @@ import {
 import { createAccountSubscriptionPlan } from "../../actions/save-subscription-plans";
 import { SubscriptionPlan } from "@prisma/client";
 import { useTranslation } from "@/i18n";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { Label } from "@/components/ui/label";
 
 const defaultFeatures = Array.from({ length: 5 }, () => ({ value: "" }));
 
@@ -56,6 +58,14 @@ export function AccountSubscriptionForm({
     } catch (error: unknown) {
       toast.error(`${error?.toString()}`);
     }
+  }
+
+  function bitmaskToValues(mask: number): string[] {
+    return mask === 0
+      ? []
+      : Array.from({ length: 32 }, (_, i) => 1 << i)
+          .filter((bit) => mask & bit)
+          .map((bit) => bit.toString());
   }
 
   return (
@@ -116,16 +126,44 @@ export function AccountSubscriptionForm({
                   name={"planDays"}
                 />
               </div>
-              <div className="grid gap-4">
-                {fields.map((field, index) => (
-                  <TextInput
-                    key={field.id}
-                    label={`Feature - ${index + 1}`}
-                    required={false}
-                    control={form.control}
-                    name={`features.${index}.value`}
-                  />
-                ))}
+              <div className="grid flex-1 gap-4">
+                <div className="grid gap-4">
+                  {fields.map((field, index) => (
+                    <TextInput
+                      key={field.id}
+                      label={`Feature - ${index + 1}`}
+                      required={false}
+                      control={form.control}
+                      name={`features.${index}.value`}
+                    />
+                  ))}
+                </div>
+                <Label className="mb-2">Enabled Modules</Label>
+                <ToggleGroup
+                  type="multiple"
+                  variant="outline"
+                  value={bitmaskToValues(form.watch("enabledModules") ?? 0)}
+                  spacing={2}
+                  size="sm"
+                  className="flex-col items-stretch"
+                >
+                  {modules.map((module) => (
+                    <ToggleGroupItem
+                      value={module.bitmask.toString()}
+                      key={module.bitmask}
+                      onClick={() => {
+                        form.setValue(
+                          "enabledModules",
+                          (form.getValues("enabledModules") ?? 0) ^
+                            module.bitmask
+                        );
+                      }}
+                    >
+                      {/* <StarIcon /> */}
+                      {module.label}
+                    </ToggleGroupItem>
+                  ))}
+                </ToggleGroup>
               </div>
             </div>
             <DialogFooter className="sm:justify-end">
@@ -139,3 +177,47 @@ export function AccountSubscriptionForm({
     </Dialog>
   );
 }
+
+interface Module {
+  label: string;
+  bitmask: number;
+}
+
+enum ModuleBitmask {
+  // RecurringInvoices = 1,
+  // Credits = 2,
+  // Quotes = 4,
+  // Tasks = 8,
+  Expenses = 16,
+  // Projects = 32,
+  Vendors = 64,
+  Documents = 128,
+  // Transactions = 256,
+  // RecurringExpenses = 512,
+  // RecurringTasks = 1024,
+  // RecurringQuotes = 2048,
+  Invoices = 4096,
+  // ProformaInvoices = 8192,
+  PurchaseOrders = 16384,
+  Services = 32768,
+  Sales = 65536,
+  ClientProjects = 131072,
+}
+
+const modules: Module[] = [
+  { label: "sales", bitmask: ModuleBitmask.Sales },
+  { label: "invoices", bitmask: ModuleBitmask.Invoices },
+  { label: "purchase_orders", bitmask: ModuleBitmask.PurchaseOrders },
+  { label: "expenses", bitmask: ModuleBitmask.Expenses },
+  { label: "vendors", bitmask: ModuleBitmask.Vendors },
+  { label: "services", bitmask: ModuleBitmask.Services },
+  { label: "client_projects", bitmask: ModuleBitmask.ClientProjects },
+  // {
+  //   label: "recurring_invoices",
+  //   bitmask: ModuleBitmask.RecurringInvoices,
+  // },
+  // {
+  //   label: "recurring_expenses",
+  //   bitmask: ModuleBitmask.RecurringExpenses,
+  // },
+];
