@@ -141,6 +141,7 @@ model Subscription {
   oldYearlyPrice  Float
   oldMonthlyPrice Float
   maxSyncDevices  Int
+  enabledModules  Int @default(0)
   features        String[] @default([])
   deletedAt       DateTime?
   createdAt       DateTime         @default(now())
