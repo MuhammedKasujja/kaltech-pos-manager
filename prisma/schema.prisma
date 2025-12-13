@@ -23,6 +23,7 @@ model Account {
   trialDuration     Int
   planExpires       DateTime
   deletedAt         DateTime?
+  enabledModules  Int @default(0)
   createdAt         DateTime     @default(now())
   updatedAt         DateTime     @updatedAt
   company           Company      @relation(fields: [companyId], references: [id], onDelete: Cascade)

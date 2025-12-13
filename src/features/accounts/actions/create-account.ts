@@ -99,6 +99,7 @@ function accountResponse(account: AccountResponse) {
     trialDuration: account.trialDuration,
     trialDaysLeft: account.trialDuration,
     planExpires: account.planExpires,
+    enabledModules: account.enabledModules,
     reportErrors: true,
     referralCode: generateRandomString(10),
     paymentTypeId: DEFAULT_PAYMENT_METHOD,
