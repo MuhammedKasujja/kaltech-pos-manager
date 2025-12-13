@@ -1,11 +1,7 @@
 import { Prisma } from "@prisma/client";
-import prisma from "../../../lib/prisma";
-import {
-  DEFAULT_TRIAL_PLAN_DAYS,
-  DEFAULT_PAYMENT_METHOD,
-  LATEST_APP_VERSION,
-} from "@/lib/constants";
-import { AccountPlan } from "../../../lib/types/enums";
+import prisma from "@/lib/prisma";
+import { DEFAULT_PAYMENT_METHOD, LATEST_APP_VERSION } from "@/lib/constants";
+import { AccountPlan } from "@/lib/types/enums";
 import {
   generateAccountKey,
   generateRandomString,
@@ -13,6 +9,7 @@ import {
   systemDateTime,
 } from "@/lib/utils";
 import { CreateAccountRequest } from "@/features/accounts/schemas";
+import { getAccountTrialPlan } from "@/features/subscription/actions/fetch-subscription-plans";
 
 export const accountQuery = Prisma.validator<Prisma.AccountDefaultArgs>()({
   include: {
@@ -30,6 +27,12 @@ export async function createCompanyAccount({
   user,
   company,
 }: CreateAccountRequest) {
+  const trialPlan = await getAccountTrialPlan();
+
+  if (!trialPlan) {
+    throw new Error("No trial plan found");
+  }
+
   const encryptedPassword = await hashPassword(user.password);
 
   const admin = await prisma.companyAdmin.create({
@@ -60,11 +63,12 @@ export async function createCompanyAccount({
       isVerifiedAccount: true,
       isTrial: true,
       plan: AccountPlan.pro,
+      enabledModules: trialPlan.enabledModules,
       trialStarted: systemDateTime.toUTC().toJSDate(),
       planStarted: systemDateTime.toUTC().toJSDate(),
-      trialDuration: DEFAULT_TRIAL_PLAN_DAYS,
+      trialDuration: trialPlan.planDays,
       planExpires: systemDateTime
-        .plus({ days: DEFAULT_TRIAL_PLAN_DAYS })
+        .plus({ days: trialPlan.planDays })
         .toUTC()
         .toJSDate(),
     },

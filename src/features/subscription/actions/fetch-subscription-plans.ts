@@ -25,3 +25,10 @@ export async function fetchDataSyncSubscriptionPlans() {
     orderBy: { createdAt: "asc" },
   });
 }
+
+export async function getAccountTrialPlan() {
+  return prisma.subscription.findFirst({
+    where: { type: SubscriptionType.ACCOUNT_SETUP, plan: "TRIAL" },
+    orderBy: { createdAt: "asc" },
+  });
+}
