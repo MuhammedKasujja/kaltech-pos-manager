@@ -28,6 +28,7 @@ import { SubscriptionPlan } from "@prisma/client";
 import { useTranslation } from "@/i18n";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Label } from "@/components/ui/label";
+import { on } from "events";
 
 const defaultFeatures = Array.from({ length: 5 }, () => ({ value: "" }));
 
@@ -50,22 +51,18 @@ export function AccountSubscriptionForm({
     control: form.control,
   });
 
-  async function onSubmit(values: AccountSetupSubscriptionType) {
+  async function onSubmit(data: AccountSetupSubscriptionType) {
     try {
-      await createAccountSubscriptionPlan(values);
-      toast.success(tr("subscriptions.createdSuccessfully"));
+      await createAccountSubscriptionPlan(data);
+      if (data.id) {
+        toast.success(tr("subscriptions.updatedSuccessfully"));
+      } else {
+        toast.success(tr("subscriptions.createdSuccessfully"));
+      }
       form.reset();
     } catch (error: unknown) {
       toast.error(`${error?.toString()}`);
     }
-  }
-
-  function bitmaskToValues(mask: number): string[] {
-    return mask === 0
-      ? []
-      : Array.from({ length: 32 }, (_, i) => 1 << i)
-          .filter((bit) => mask & bit)
-          .map((bit) => bit.toString());
   }
 
   return (
@@ -138,32 +135,15 @@ export function AccountSubscriptionForm({
                     />
                   ))}
                 </div>
-                <Label className="mb-2">Enabled Modules</Label>
-                <ToggleGroup
-                  type="multiple"
-                  variant="outline"
-                  value={bitmaskToValues(form.watch("enabledModules") ?? 0)}
-                  spacing={2}
-                  size="sm"
-                  className="flex-col items-stretch"
-                >
-                  {modules.map((module) => (
-                    <ToggleGroupItem
-                      value={module.bitmask.toString()}
-                      key={module.bitmask}
-                      onClick={() => {
-                        form.setValue(
-                          "enabledModules",
-                          (form.getValues("enabledModules") ?? 0) ^
-                            module.bitmask
-                        );
-                      }}
-                    >
-                      {/* <StarIcon /> */}
-                      {module.label}
-                    </ToggleGroupItem>
-                  ))}
-                </ToggleGroup>
+                <Label className="mb-2">
+                  {tr("subscriptions.enabledModules")}
+                </Label>
+                <EnabledModules
+                  enabledModules={form.watch("enabledModules") ?? 0}
+                  onChange={(enabledModules) => {
+                    form.setValue("enabledModules", enabledModules);
+                  }}
+                />
               </div>
             </div>
             <DialogFooter className="sm:justify-end">
@@ -179,7 +159,14 @@ export function AccountSubscriptionForm({
 }
 
 interface Module {
-  label: string;
+  label:
+    | "sales"
+    | "invoices"
+    | "purchase_orders"
+    | "expenses"
+    | "vendors"
+    | "services"
+    | "client_projects";
   bitmask: number;
 }
 
@@ -220,4 +207,46 @@ const modules: Module[] = [
   //   label: "recurring_expenses",
   //   bitmask: ModuleBitmask.RecurringExpenses,
   // },
-];
+] as const;
+
+type EnabledModulesProps = {
+  enabledModules: number;
+  onChange: (enabledModules: number) => void;
+};
+
+function EnabledModules({ onChange, enabledModules }: EnabledModulesProps) {
+  const tr = useTranslation();
+
+  function bitmaskToValues(mask: number): string[] {
+    return mask === 0
+      ? []
+      : Array.from({ length: 32 }, (_, i) => 1 << i)
+          .filter((bit) => mask & bit)
+          .map((bit) => bit.toString());
+  }
+
+  return (
+    <ToggleGroup
+      type="multiple"
+      variant="outline"
+      value={bitmaskToValues(enabledModules)}
+      spacing={2}
+      size="sm"
+      className="flex-col items-stretch"
+    >
+      {modules.map((module) => (
+        <ToggleGroupItem
+          value={module.bitmask.toString()}
+          key={module.bitmask}
+          onClick={() => {
+            // checked: Boolean(enabledModules & module.bitmask)
+            onChange(enabledModules ^ module.bitmask);
+          }}
+        >
+          {/* <StarIcon /> */}
+          {tr(`subscriptions.modules.${module.label}`)}
+        </ToggleGroupItem>
+      ))}
+    </ToggleGroup>
+  );
+}

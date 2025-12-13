@@ -19,11 +19,25 @@ const en = {
     accountPlan: "Account Plan",
     syncronizationPlan: "Syncronization Plan",
     createdSuccessfully: "Subscription Created Successfully",
+    updatedSuccessfully: "Subscription Updated Successfully",
+    deletedSuccessfully: "Subscription Deleted Successfully",
     dataSyncPlan: "Data Sync Plan",
     editSyncPlan: "Edit Data Sync Plan",
     createSyncPlan: "Create Data Sync Plan",
     editAccountPlan: "Edit Account Plan",
     createAccountPlan: "Create Account Plan",
+    enabledModules: "Enabled Modules",
+    modules: {
+      sales: "Sales",
+      invoices: "Invoices",
+      purchase_orders: "Purchase Orders",
+      expenses: "Expenses",
+      vendors: "Vendors",
+      employees: "Employees",
+      services: "Services",
+      client_projects: "Client Projects",
+      documents: "Documents",
+    },
   },
   common: {
     plan: "Plan",
@@ -157,7 +171,7 @@ const en = {
     subscriptions: "Subscriptions",
     users: "System Users",
     params: {
-      accountKey: "Account Details"
+      accountKey: "Account Details",
     },
   },
 } as const;
