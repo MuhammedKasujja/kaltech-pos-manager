@@ -28,7 +28,6 @@ import { SubscriptionPlan } from "@prisma/client";
 import { useTranslation } from "@/i18n";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Label } from "@/components/ui/label";
-import { on } from "events";
 
 const defaultFeatures = Array.from({ length: 5 }, () => ({ value: "" }));
 
