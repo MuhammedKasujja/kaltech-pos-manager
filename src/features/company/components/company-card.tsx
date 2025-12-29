@@ -36,19 +36,21 @@ export function CompanyCard({
       <CardContent className="space-y-2.5">
         <CardTitle className="flex justify-between text-2xl">
           <>{company?.name}</>
-          <Badge
-            variant="outline"
-            className="text-muted-foreground px-2 capitalize"
-          >
-            <IconCircleCheckFilled className="fill-green-500 dark:fill-green-400" />
-            {company?.account?.plan}
-          </Badge>
-          <AccountEnableModuleDialog
-            data={{
-              enabledModules: company!.account?.enabledModules ?? 0,
-              accountKey: company!.account!.accountKey,
-            }}
-          />
+          <div className="flex gap-4">
+            <Badge
+              variant="outline"
+              className="text-muted-foreground px-2 capitalize"
+            >
+              <IconCircleCheckFilled className="fill-green-500 dark:fill-green-400" />
+              {company?.account?.plan}
+            </Badge>
+            <AccountEnableModuleDialog
+              data={{
+                enabledModules: company!.account?.enabledModules ?? 0,
+                accountKey: company!.account!.accountKey,
+              }}
+            />
+          </div>
         </CardTitle>
         <div>{company?.phone}</div>
       </CardContent>

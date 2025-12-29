@@ -28,8 +28,8 @@ import {
 import { MoreHorizontal } from "lucide-react";
 import { toast } from "sonner";
 import { EntityUpload } from "../types";
-import { formatDataUploadList } from "../utils/format-data";
-import { JsonPreview } from "./json-preview";
+// import { formatDataUploadList } from "../utils/format-data";
+// import { JsonPreview } from "./json-preview";
 
 export function AccountDataUploadsTable({
   accountKey,
@@ -85,9 +85,9 @@ export function AccountDataUploadsTable({
       {/* {dataUploads?.map((upload) => (
         <Preview key={upload.updateId} data={upload.data as EntityUpload[]} />
       ))} */}
-      {dataUploads?.map((upload) => (
+      {/* {dataUploads?.map((upload) => (
         <JsonPreview key={upload.updateId} data={formatDataUploadList(upload.data as EntityUpload[])} />
-      ))}
+      ))} */}
     </div>
   );
 }
