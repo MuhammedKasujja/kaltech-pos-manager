@@ -16,3 +16,12 @@ export const CreateAccountSchema = z.object({
 });
 
 export type CreateAccountRequest = z.infer<typeof CreateAccountSchema>;
+
+export const accountEnabledModuleSchema = z.object({
+  accountKey: z.string(),
+  enabledModules: z.number(),
+});
+
+export const syncAccountModulesSchema = z.object({
+  accountKey: z.string(),
+});

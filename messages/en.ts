@@ -28,6 +28,7 @@ const en = {
     createAccountPlan: "Create Account Plan",
     enabledModules: "Enabled Modules",
     modules: {
+      key: "Modules",
       sales: "Sales",
       invoices: "Invoices",
       purchase_orders: "Purchase Orders",
@@ -140,6 +141,8 @@ const en = {
     role: "Role",
     status: "Status",
     actions: "Actions",
+    modules: "Account Modules",
+    modulesSyncSuccessfully: "Account modules sync successfully",
   },
   AppLayout: {
     home: "Home",

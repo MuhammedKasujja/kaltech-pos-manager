@@ -19,6 +19,7 @@ import {
 } from "@/features/subscription/components";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { AccountEnableModuleDialog } from "@/features/accounts/components/enabled-modules-dialog";
 
 export function CompanyCard({
   companyKey,
@@ -42,6 +43,12 @@ export function CompanyCard({
             <IconCircleCheckFilled className="fill-green-500 dark:fill-green-400" />
             {company?.account?.plan}
           </Badge>
+          <AccountEnableModuleDialog
+            data={{
+              enabledModules: company!.account?.enabledModules ?? 0,
+              accountKey: company!.account!.accountKey,
+            }}
+          />
         </CardTitle>
         <div>{company?.phone}</div>
       </CardContent>
