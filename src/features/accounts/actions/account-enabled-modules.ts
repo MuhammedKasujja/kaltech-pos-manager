@@ -31,7 +31,7 @@ export async function adminSyncAccountModules({
   const account = await findAccountByKey({ accountKey });
 
   return {
-    enabledModule: account.enabledModules,
-    lastSyncModules: systemDateTime.toUTC().toJSDate(),
+    enabledModules: account.enabledModules,
+    lastSyncModules: systemDateTime.toUTC(),
   };
 }
