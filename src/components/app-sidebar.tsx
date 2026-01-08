@@ -27,32 +27,32 @@ import {
 const data = {
   navMain: [
     {
-      title: "Dashboard",
+      title: "routes.dashboard",
       url: "/admin/dashboard",
       icon: IconDashboard,
     },
     {
-      title: "Accounts",
+      title: "routes.accounts",
       url: "/admin/accounts",
       icon: IconListDetails,
     },
     {
-      title: "Sync Devices",
+      title: "routes.sync-devices",
       url: "/admin/sync-devices",
       icon: IconFolder,
     },
     {
-      title: "Data Uploads",
+      title: "routes.data-uploads",
       url: "/admin/data-uploads",
       icon: IconFileDescription,
     },
     {
-      title: "Subscriptions",
+      title: "routes.subscriptions",
       url: "/admin/subscriptions",
       icon: IconUsersGroup,
     },
     {
-      title: "Users",
+      title: "routes.users",
       url: "/admin/users",
       icon: IconUsersGroup,
     },

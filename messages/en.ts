@@ -172,7 +172,7 @@ const en = {
     "sync-devices": "Sync Devices",
     "data-uploads": "Data Uploads",
     subscriptions: "Subscriptions",
-    users: "System Users",
+    users: "Users",
     params: {
       accountKey: "Account Details",
     },

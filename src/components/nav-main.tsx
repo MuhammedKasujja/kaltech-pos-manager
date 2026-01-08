@@ -13,6 +13,7 @@ import Link from "next/link";
 import type { Route } from "next";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { useTranslation, GlobalKeys } from "@/i18n";
 
 export function NavMain({
   items,
@@ -24,6 +25,7 @@ export function NavMain({
   }[];
 }) {
   const pathname = usePathname();
+  const tr = useTranslation();
   return (
     <SidebarGroup>
       <SidebarGroupContent className="flex flex-col gap-2">
@@ -39,7 +41,7 @@ export function NavMain({
                   )}
                 >
                   {item.icon && <item.icon />}
-                  <span>{item.title}</span>
+                  <span>{tr(item.title as GlobalKeys)}</span>
                 </SidebarMenuButton>
               </Link>
             </SidebarMenuItem>
