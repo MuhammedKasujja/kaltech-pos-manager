@@ -18,6 +18,7 @@ import { EnabledModules } from "@/components/enabled-modules";
 import z from "zod";
 import { accountEnabledModuleSchema } from "@/features/accounts/schemas";
 import { activateAccountEnabledModules } from "../actions/account-enabled-modules";
+import { IconRefresh } from "@tabler/icons-react";
 
 export function AccountEnableModuleDialog({
   data,
@@ -48,6 +49,7 @@ export function AccountEnableModuleDialog({
           variant="outline"
           className="text-muted-foreground px-2 capitalize"
         >
+          <IconRefresh/>
           {tr("subscriptions.modules.key")}
         </Button>
       </DialogTrigger>

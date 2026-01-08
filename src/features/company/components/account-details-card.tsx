@@ -6,6 +6,7 @@ import {
   CardAction,
   CardContent,
   CardFooter,
+  CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { useCompanyDetails } from "@/features/company/hooks";
@@ -21,7 +22,7 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { AccountEnableModuleDialog } from "@/features/accounts/components/enabled-modules-dialog";
 
-export function CompanyCard({
+export function AccountDetailsCard({
   companyKey,
   subscriptions,
 }: {
@@ -33,27 +34,27 @@ export function CompanyCard({
   if (isLoading) return <LoadingShimmer />;
   return (
     <Card className="w-full">
-      <CardContent className="space-y-2.5">
-        <CardTitle className="flex justify-between text-2xl">
-          <>{company?.name}</>
-          <div className="flex gap-4">
-            <Badge
-              variant="outline"
-              className="text-muted-foreground px-2 capitalize"
-            >
-              <IconCircleCheckFilled className="fill-green-500 dark:fill-green-400" />
-              {company?.account?.plan}
-            </Badge>
-            <AccountEnableModuleDialog
-              data={{
-                enabledModules: company!.account?.enabledModules ?? 0,
-                accountKey: company!.account!.accountKey,
-              }}
-            />
-          </div>
+      <CardHeader>
+        <CardTitle className="flex justify-start items-center text-2xl gap-2">
+          {company?.name}
+          <Badge
+            variant="outline"
+            className="text-muted-foreground px-2 capitalize"
+          >
+            <IconCircleCheckFilled className="fill-green-500 dark:fill-green-400" />
+            {company?.account?.plan}
+          </Badge>
         </CardTitle>
-        <div>{company?.phone}</div>
-      </CardContent>
+        <CardAction>
+          <AccountEnableModuleDialog
+            data={{
+              enabledModules: company!.account?.enabledModules ?? 0,
+              accountKey: company!.account!.accountKey,
+            }}
+          />
+        </CardAction>
+      </CardHeader>
+      <CardContent className="space-y-2.5">{company?.phone}</CardContent>
       <CardFooter className="flex-col items-start gap-2.5 text-sm">
         <div className="text-muted-foreground">
           {company?.createdAt && formatDate(company?.createdAt)}
