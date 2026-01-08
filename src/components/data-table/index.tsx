@@ -17,15 +17,20 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { DataTablePagination } from "./data-table-pagination";
+import { DataTableSearchInput } from "./data-table-search-input";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  tableActions?: () => React.ReactNode
+  onSearch?: (value?: string) => void
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  onSearch,
+  tableActions,
 }: DataTableProps<TData, TValue>) {
   const table = useReactTable({
     data,
@@ -41,6 +46,10 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className="flex flex-col gap-4">
+      <div className="flex items-center justify-between gap-4">
+        {onSearch && <DataTableSearchInput onSearch={onSearch} />}
+        {tableActions?.()}
+      </div>
       <div className="overflow-hidden rounded-lg border">
         <Table>
           <TableHeader className="bg-muted sticky top-0 z-10">

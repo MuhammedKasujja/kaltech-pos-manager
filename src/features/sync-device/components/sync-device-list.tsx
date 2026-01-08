@@ -10,5 +10,7 @@ export function SyncDeviceList() {
   if (error) return <div>{`${error}`}</div>;
   if (isLoading) return <LoadingShimmer />;
 
-  return <DataTable columns={columns} data={devices ?? []} />;
+  return (
+    <DataTable columns={columns} data={devices ?? []} onSearch={(_) => {}} />
+  );
 }

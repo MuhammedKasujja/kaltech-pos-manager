@@ -10,5 +10,11 @@ export function CompanyTable() {
   if (error) return <div>{`${error}`}</div>;
   if (isLoading) return <LoadingShimmer />;
 
-  return <DataTable columns={columns} data={companies ?? []} />;
+  return (
+    <DataTable
+      columns={columns}
+      data={companies ?? []}
+      onSearch={(query) => {}}
+    />
+  );
 }

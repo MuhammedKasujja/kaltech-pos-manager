@@ -18,10 +18,12 @@ export default function Page() {
 
   return (
     <div className="space-y-4 md:gap-6 md:p-6">
-      <div className="flex justify-end">
-        <SystemUserForm />
-      </div>
-      <DataTable columns={columns} data={users ?? []} />
+      <DataTable
+        columns={columns}
+        data={users ?? []}
+        onSearch={(_) => {}}
+        tableActions={() => <SystemUserForm />}
+      />
     </div>
   );
 }
