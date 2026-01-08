@@ -26,6 +26,7 @@ import {
 } from "@/components/ui/sidebar";
 
 const data = {
+  appName: "Kaltech Inc.",
   navMain: [
     {
       title: "routes.dashboard",
@@ -91,6 +92,7 @@ type Props = React.ComponentProps<typeof Sidebar> & {
     email: string;
     name: string;
     avatar: string;
+    initials: string;
   } | null>;
 };
 
@@ -108,7 +110,7 @@ export function AppSidebar({ userPromise, ...props }: Props) {
             >
               <a href="#">
                 <IconInnerShadowTop className="!size-5" />
-                <span className="text-base font-semibold">Kaltech Inc.</span>
+                <span className="text-base font-semibold">{data.appName}</span>
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>

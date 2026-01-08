@@ -3,7 +3,7 @@
 import prisma from "@/lib/prisma";
 import { checkPassword } from "@/lib/utils";
 import { createSession } from "@/lib/session";
-import { getUserDTO } from "../dto/user-dto";
+import { getUserById } from "@/features/users/actions/get-users";
 import { tryCatch } from "../try-catch";
 
 async function login({ email, password }: { email: string; password: string }) {
@@ -22,7 +22,7 @@ async function login({ email, password }: { email: string; password: string }) {
 
   await createSession(user.id.toString());
 
-  return await getUserDTO(user.id);
+  return await getUserById(user.id);
 }
 
 export async function loginUser({

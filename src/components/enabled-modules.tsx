@@ -57,7 +57,10 @@ type EnabledModulesProps = {
   onChange: (enabledModules: number) => void;
 };
 
-export function EnabledModules({ onChange, enabledModules }: EnabledModulesProps) {
+export function EnabledModules({
+  onChange,
+  enabledModules,
+}: EnabledModulesProps) {
   const tr = useTranslation();
 
   function bitmaskToValues(mask: number): string[] {
