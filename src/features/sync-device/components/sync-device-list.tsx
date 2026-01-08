@@ -11,6 +11,6 @@ export function SyncDeviceList() {
   if (isLoading) return <LoadingShimmer />;
 
   return (
-    <DataTable columns={columns} data={devices ?? []} onSearch={(_) => {}} />
+    <DataTable columns={columns} data={devices ?? []} onSearch={() => {}} />
   );
 }

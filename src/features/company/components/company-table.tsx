@@ -14,7 +14,7 @@ export function CompanyTable() {
     <DataTable
       columns={columns}
       data={companies ?? []}
-      onSearch={(query) => {}}
+      onSearch={() => {}}
     />
   );
 }

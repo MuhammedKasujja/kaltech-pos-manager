@@ -21,7 +21,7 @@ export default function Page() {
       <DataTable
         columns={columns}
         data={users ?? []}
-        onSearch={(_) => {}}
+        onSearch={() => {}}
         tableActions={() => <SystemUserForm />}
       />
     </div>
