@@ -9,6 +9,7 @@ import {
   IconListDetails,
   IconSettings,
   IconUsersGroup,
+  IconListCheck,
 } from "@tabler/icons-react";
 
 import { NavMain } from "@/components/nav-main";
@@ -49,7 +50,7 @@ const data = {
     {
       title: "routes.subscriptions",
       url: "/admin/subscriptions",
-      icon: IconUsersGroup,
+      icon: IconListCheck,
     },
     {
       title: "routes.users",
@@ -97,7 +98,7 @@ export function AppSidebar({ userPromise, ...props }: Props) {
   const user = React.use(userPromise);
 
   return (
-    <Sidebar collapsible="offcanvas" {...props}>
+    <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
