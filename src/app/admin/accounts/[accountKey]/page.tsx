@@ -19,7 +19,7 @@ export default async function CompanyDetailsPage(
   const accountSubscriptions = await fetchAccountSetupSubscriptionPlans();
 
   return (
-    <div className="container flex flex-col gap-4 p-6">
+    <div className="flex flex-col gap-4 p-6">
       <div className="flex flex-col md:flex-row gap-4 mb-4">
         <AccountDetailsCard
           companyKey={accountKey}
