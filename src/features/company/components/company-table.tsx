@@ -1,6 +1,9 @@
 "use client";
 
-import { useCompanies } from "@/features/company/hooks/use-companies";
+import {
+  CompanyDetail,
+  useCompanies,
+} from "@/features/company/hooks/use-companies";
 import { DataTable } from "@/components/data-table";
 import { columns } from "./columns";
 import { DataTableSkeleton } from "@/components/data-table/data-table-skeleton";
@@ -20,19 +23,17 @@ export function CompanyTable({ queryKeys }: CompanyTableProps) {
       <DataTableSkeleton
         columnCount={columns.length}
         filterCount={1}
-        cellWidths={[
-          "10rem",
-          "10rem",
-          "15rem",
-          "6rem",
-          "10rem",
-          "10rem",
-          "6rem",
-        ]}
         shrinkZero
       />
     );
 
+  return <AccountTable data={data} />;
+}
+
+function AccountTable({
+  data,
+  queryKeys,
+}: { data: CompanyDetail[] } & CompanyTableProps) {
   const { table, shallow, debounceMs, throttleMs } = useDataTable({
     data,
     columns,
@@ -42,7 +43,7 @@ export function CompanyTable({ queryKeys }: CompanyTableProps) {
       columnPinning: { right: ["actions"] },
     },
     queryKeys,
-    getRowId: (originalRow) => originalRow.account!.id.toString(),
+    getRowId: (originalRow) => originalRow.companyAdminId.toString(),
     shallow: false,
     clearOnDefault: true,
   });
