@@ -1,4 +1,4 @@
-import { DataUploadsTable } from "@/features/data-uploads/components/DataUploadsTable";
+import { DataUploadsTable } from "@/features/data-uploads/components/data-uploads-table";
 import { DataUploadStatisticsCard } from "@/features/data-uploads/components/data-upload-statistics-card";
 
 export default async function DataUploadsPage() {

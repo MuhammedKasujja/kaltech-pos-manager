@@ -4,7 +4,7 @@ import { columns } from "./columns";
 import { useDataUploads } from "@/features/data-uploads/hooks/use-data-uploads";
 import { LoadingShimmer } from "@/components/loading-shimmer";
 import { CollapsibleDataTable } from "@/components/collapsible-data-table";
-import { DataUploadListPreview } from "./DataUpdatePreview";
+import { DataUploadListPreview } from "./data-update-preview";
 
 export function DataUploadsTable() {
   const { updates, error, isLoading } = useDataUploads();

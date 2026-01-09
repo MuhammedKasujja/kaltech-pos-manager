@@ -4,7 +4,7 @@ import {
   AdminUserCard,
   SyncDeviceList,
 } from "@/features/company/components";
-import { AccountDataUploadsTable } from "@/features/data-uploads/components/AccountDataUploadsTable";
+import { AccountDataUploadsTable } from "@/features/data-uploads/components/account-data-uploads-table";
 import {
   fetchDataSyncSubscriptionPlans,
   fetchAccountSetupSubscriptionPlans,
