@@ -31,7 +31,7 @@ export function formatDate(
       timeStyle: "short",
       ...opts,
     }).format(new Date(date));
-  } catch (_err) {
+  } catch (_) {
     return "";
   }
 }
