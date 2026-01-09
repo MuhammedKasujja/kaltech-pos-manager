@@ -1,7 +1,7 @@
 "use client";
 
 import { useCompanies } from "@/features/company/hooks/use-companies";
-import { DataTable } from "@/components/data-table";
+import { DataTableLegacy } from "@/components/data-table/data-table-old";
 import { columns } from "./columns";
 import { DataTableSkeleton } from "@/components/data-table/data-table-skeleton";
 
@@ -27,6 +27,6 @@ export function CompanyTable() {
     );
 
   return (
-    <DataTable columns={columns} data={companies ?? []} onSearch={() => {}} />
+    <DataTableLegacy columns={columns} data={companies ?? []} onSearch={() => {}} />
   );
 }

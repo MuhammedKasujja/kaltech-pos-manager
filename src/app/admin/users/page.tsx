@@ -1,7 +1,7 @@
 "use client";
 
 import { useSystemUsers } from "@/features/users/hooks/use-system-users";
-import { DataTable } from "@/components/data-table";
+import { DataTableLegacy } from "@/components/data-table/data-table-old";
 import { columns } from "./columns";
 import { SystemUserForm } from "../../../features/users/components/system-user-form";
 import { DataTableSkeleton } from "@/components/data-table/data-table-skeleton";
@@ -23,7 +23,7 @@ export default function Page() {
 
   return (
     <div className="space-y-4 md:gap-6 md:p-6">
-      <DataTable
+      <DataTableLegacy
         columns={columns}
         data={users ?? []}
         onSearch={() => {}}
