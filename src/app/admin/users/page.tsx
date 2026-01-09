@@ -4,7 +4,7 @@ import { useSystemUsers } from "@/features/users/hooks/use-system-users";
 import { DataTable } from "@/components/data-table";
 import { columns } from "./columns";
 import { SystemUserForm } from "../../../features/users/components/system-user-form";
-import { LoadingShimmer } from "@/components/loading-shimmer";
+import { DataTableSkeleton } from "@/components/data-table/data-table-skeleton";
 
 export default function Page() {
   const { users, error, isLoading } = useSystemUsers();
@@ -12,7 +12,12 @@ export default function Page() {
   if (isLoading)
     return (
       <div className="md:gap-6 md:p-6">
-        <LoadingShimmer />
+        <DataTableSkeleton
+          columnCount={columns.length}
+          filterCount={1}
+          cellWidths={["10rem", "15rem", "25rem", "6rem"]}
+          shrinkZero
+        />
       </div>
     );
 
