@@ -1,14 +1,10 @@
 "server only";
 import prisma from "@/lib/prisma";
-import { Prisma, SyncDevice } from "@prisma/client";
+import { SyncDevice } from "@prisma/client";
 
-export const deviceQuery = Prisma.validator<Prisma.SyncDeviceDefaultArgs>()({
-  include: { account: { include: { company: {} } } },
-});
+export type SyncDeviceDetail = Awaited<ReturnType<typeof fetchSyncDevices>>[0];
 
-export type SyncDeviceDetail = Prisma.SyncDeviceGetPayload<typeof deviceQuery>;
-
-export async function fetchSyncDevices(): Promise<SyncDeviceDetail[]> {
+export async function fetchSyncDevices() {
   return await prisma.syncDevice.findMany({
     include: {
       account: {

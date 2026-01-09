@@ -2,11 +2,10 @@
 
 import { verifySession } from "@/lib/auth/verify-session";
 import prisma from "@/lib/prisma";
-import { Prisma, SubscriptionType } from "@prisma/client";
-import { companyQuery } from "../types";
+import { SubscriptionType } from "@prisma/client";
 
-export type CompanyDetailPreview = Prisma.CompanyGetPayload<
-  typeof companyQuery
+export type CompanyDetailPreview = Awaited<
+  ReturnType<typeof getCompanyDetails>
 >;
 
 export async function getCompanyDetails(accountKey: string) {

@@ -1,16 +1,15 @@
 import { verifySession } from "@/lib/auth/verify-session";
 import prisma from "@/lib/prisma";
-import { FetchDataUploadsDto, uploadQuery } from "../schemas";
-import { Prisma } from "@prisma/client";
+import { FetchDataUploadsDto } from "../schemas";
 import { findAccountWithDataSyncByKey } from "@/features/accounts/actions";
 import { findSyncDeviceByDeviceId } from "@/features/sync-device/actions";
 import { systemDateTime } from "@/lib/utils";
 import { formatDataUploadList } from "../utils/format-data";
 import { EntityUpload } from "../types";
 
-export type DataUploadDetail = Prisma.DataUploadGetPayload<typeof uploadQuery>;
+export type DataUploadDetail = Awaited<ReturnType<typeof fetchDataUploads>>[0];
 
-export async function fetchDataUploads(): Promise<DataUploadDetail[]> {
+export async function fetchDataUploads() {
   await verifySession();
   const updates = await prisma.dataUpload.findMany({
     orderBy: { createdAt: "desc" },

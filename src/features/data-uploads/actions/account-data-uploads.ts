@@ -1,9 +1,11 @@
-'use server'
+"use server";
 import { verifySession } from "@/lib/auth/verify-session";
-import { AccountDataUploadType } from "../schemas";
 import { findAccountByKey } from "@/features/accounts/actions";
 import prisma from "@/lib/prisma";
 
+export type AccountDataUploadType = Awaited<
+  ReturnType<typeof fetchAccountAllDataUploads>
+>[0];
 /**
  * Get account data uploads
  * @param accountKey string
@@ -14,7 +16,7 @@ export async function fetchAccountAllDataUploads({
 }: {
   accountKey: string;
   page?: number;
-}): Promise<AccountDataUploadType[]> {
+}) {
   await verifySession();
   const account = await findAccountByKey({ accountKey: accountKey });
 

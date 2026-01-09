@@ -1,4 +1,3 @@
-import { Prisma } from "@prisma/client";
 import prisma from "@/lib/prisma";
 import { DEFAULT_PAYMENT_METHOD, LATEST_APP_VERSION } from "@/lib/constants";
 import { AccountPlan } from "@/lib/types/enums";
@@ -11,22 +10,17 @@ import {
 import { CreateAccountRequest } from "@/features/accounts/schemas";
 import { getAccountTrialPlan } from "@/features/subscription/actions/fetch-subscription-plans";
 
-export const accountQuery = Prisma.validator<Prisma.AccountDefaultArgs>()({
-  include: {
-    company: {
-      include: {
-        admin: true,
-      },
-    },
-  },
-});
-
-type AccountResponse = Prisma.AccountGetPayload<typeof accountQuery>;
+type AccountResponse = Awaited<ReturnType<typeof createCompanyAccountFn>>;
 
 export async function createCompanyAccount({
   user,
   company,
 }: CreateAccountRequest) {
+  const data = await createCompanyAccountFn({ user, company });
+  return accountResponse(data!);
+}
+
+async function createCompanyAccountFn({ user, company }: CreateAccountRequest) {
   const trialPlan = await getAccountTrialPlan();
 
   if (!trialPlan) {
@@ -74,7 +68,7 @@ export async function createCompanyAccount({
     },
   });
 
-  const response = await prisma.account.findFirst({
+  const result = await prisma.account.findFirst({
     where: {
       id: account.id,
     },
@@ -87,7 +81,11 @@ export async function createCompanyAccount({
     },
   });
 
-  return accountResponse(response!);
+  if (!result) {
+    throw new Error("Failed to Register company");
+  }
+
+  return result;
 }
 
 function accountResponse(account: AccountResponse) {

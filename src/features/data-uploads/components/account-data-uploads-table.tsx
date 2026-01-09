@@ -11,7 +11,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { formatDateTime } from "@/lib/format";
-import { AccountDataUploadType } from "../schemas";
 import { useAccountDataUploads } from "../hooks/use-account-data-uploads";
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
@@ -28,6 +27,7 @@ import {
 import { MoreHorizontal } from "lucide-react";
 import { toast } from "sonner";
 import { EntityUpload } from "../types";
+import { AccountDataUploadType } from "../actions/account-data-uploads";
 // import { formatDataUploadList } from "../utils/format-data";
 // import { JsonPreview } from "./json-preview";
 
