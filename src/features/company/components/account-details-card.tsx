@@ -10,7 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useCompanyDetails } from "@/features/company/hooks";
-import { formatDate } from "@/lib/formatters";
+import { formatDate } from "@/lib/format";
 import { Badge } from "@/components/ui/badge";
 import { IconCircleCheckFilled } from "@tabler/icons-react";
 import { Subscription } from "@prisma/client";

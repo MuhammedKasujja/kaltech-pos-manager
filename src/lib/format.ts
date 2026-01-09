@@ -11,25 +11,35 @@ export function formatPrice(amount: number, { showZeroAsNumber = false } = {}) {
 
 export function formatNumber(
   number: number,
-  options?: Intl.NumberFormatOptions,
+  options?: Intl.NumberFormatOptions
 ) {
   const formatter = new Intl.NumberFormat(undefined, options);
   return formatter.format(number);
 }
 
-const DATE_FORMATTER = new Intl.DateTimeFormat(undefined, {
-  dateStyle: "medium",
-  timeStyle: "short",
-});
-
-export function formatDate(date: Date) {
-  return DATE_FORMATTER.format(date);
+export function formatDate(
+  date: Date | string | number | undefined,
+  opts: Intl.DateTimeFormatOptions = {}
+) {
+  if (!date) return "";
+  try {
+    return new Intl.DateTimeFormat(undefined, {
+      // month: opts.month ?? "long",
+      // day: opts.day ?? "numeric",
+      // year: opts.year ?? "numeric",
+      dateStyle: "medium",
+      timeStyle: "short",
+      ...opts,
+    }).format(new Date(date));
+  } catch (_err) {
+    return "";
+  }
 }
 
 export function formatPlural(
   count: number,
   { singular, plural }: { singular: string; plural: string },
-  { includeCount = true } = {},
+  { includeCount = true } = {}
 ) {
   const word = count === 1 ? singular : plural;
 
