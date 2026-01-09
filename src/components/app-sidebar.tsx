@@ -29,32 +29,32 @@ const data = {
   appName: "Kaltech Inc.",
   navMain: [
     {
-      title: "routes.dashboard",
+      title: "routes.dashboard" as const,
       url: "/admin/dashboard",
       icon: IconDashboard,
     },
     {
-      title: "routes.accounts",
+      title: "routes.accounts" as const,
       url: "/admin/accounts",
       icon: IconListDetails,
     },
     {
-      title: "routes.sync-devices",
+      title: "routes.sync-devices" as const,
       url: "/admin/sync-devices",
       icon: IconFolder,
     },
     {
-      title: "routes.data-uploads",
+      title: "routes.data-uploads" as const,
       url: "/admin/data-uploads",
       icon: IconFileDescription,
     },
     {
-      title: "routes.subscriptions",
+      title: "routes.subscriptions" as const,
       url: "/admin/subscriptions",
       icon: IconListCheck,
     },
     {
-      title: "routes.users",
+      title: "routes.users" as const,
       url: "/admin/users",
       icon: IconUsersGroup,
     },

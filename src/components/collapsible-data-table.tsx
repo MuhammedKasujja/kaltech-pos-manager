@@ -73,10 +73,10 @@ export function CollapsibleDataTable<TData>({
                       ? null
                       : flexRender(
                           header.column.columnDef.header,
-                          header.getContext(),
+                          header.getContext()
                         )}
                   </TableHead>
-                )),
+                ))
               )}
           </TableRow>
         </TableHeader>
@@ -93,7 +93,7 @@ export function CollapsibleDataTable<TData>({
                   onOpenChange={() => toggleRow(id)}
                   asChild
                 >
-                  <>
+                  <React.Fragment key={id + 1}>
                     {/* main row */}
                     <TableRow
                       data-state={row.getIsSelected() ? "selected" : undefined}
@@ -113,7 +113,7 @@ export function CollapsibleDataTable<TData>({
                         <TableCell key={cell.id}>
                           {flexRender(
                             cell.column.columnDef.cell,
-                            cell.getContext(),
+                            cell.getContext()
                           )}
                         </TableCell>
                       ))}
@@ -130,7 +130,7 @@ export function CollapsibleDataTable<TData>({
                         </TableCell>
                       </TableRow>
                     </CollapsibleContent>
-                  </>
+                  </React.Fragment>
                 </Collapsible>
               );
             })

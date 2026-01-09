@@ -19,7 +19,7 @@ export function NavMain({
   items,
 }: {
   items: {
-    title: string;
+    title: GlobalKeys;
     url: string;
     icon?: Icon;
   }[];
@@ -34,14 +34,14 @@ export function NavMain({
             <SidebarMenuItem key={item.title}>
               <Link href={item.url as Route}>
                 <SidebarMenuButton
-                  tooltip={tr(item.title as GlobalKeys)}
+                  tooltip={tr(item.title)}
                   className={cn(
                     pathname.includes(item.url) &&
                       "bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground active:bg-primary/90 active:text-primary-foreground min-w-8 duration-200 ease-linear"
                   )}
                 >
                   {item.icon && <item.icon />}
-                  <span>{tr(item.title as GlobalKeys)}</span>
+                  <span>{tr(item.title)}</span>
                 </SidebarMenuButton>
               </Link>
             </SidebarMenuItem>
