@@ -15,7 +15,7 @@ export const companyQuery = Prisma.validator<Prisma.CompanyDefaultArgs>()({
 export type CompanyDetail = Prisma.CompanyGetPayload<typeof companyQuery>;
 
 export function useCompanies() {
-  const { data: companies, error } = useSWR<CompanyDetail[]>(
+  const { data, error } = useSWR<CompanyDetail[]>(
     `/api/companies`,
     fetcher,
     {
@@ -24,8 +24,8 @@ export function useCompanies() {
   );
 
   return {
-    companies,
-    isLoading: !companies && !error,
+    data,
+    isLoading: !data && !error,
     error,
   };
 }

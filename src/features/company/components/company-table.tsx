@@ -1,14 +1,21 @@
 "use client";
 
 import { useCompanies } from "@/features/company/hooks/use-companies";
-import { DataTableLegacy } from "@/components/data-table/data-table-old";
+import { DataTable } from "@/components/data-table";
 import { columns } from "./columns";
 import { DataTableSkeleton } from "@/components/data-table/data-table-skeleton";
+import { useDataTable } from "@/hooks/use-data-table";
+import { QueryKeys } from "@/types/data-table";
 
-export function CompanyTable() {
-  const { companies, error, isLoading } = useCompanies();
+type CompanyTableProps = {
+  queryKeys?: Partial<QueryKeys>;
+};
+
+export function CompanyTable({ queryKeys }: CompanyTableProps) {
+  const { data, error, isLoading } = useCompanies();
+
   if (error) return <div>{`${error}`}</div>;
-  if (isLoading)
+  if (isLoading || data == null)
     return (
       <DataTableSkeleton
         columnCount={columns.length}
@@ -26,7 +33,19 @@ export function CompanyTable() {
       />
     );
 
-  return (
-    <DataTableLegacy columns={columns} data={companies ?? []} onSearch={() => {}} />
-  );
+  const { table, shallow, debounceMs, throttleMs } = useDataTable({
+    data,
+    columns,
+    pageCount: 2,
+    initialState: {
+      sorting: [{ id: "createdAt", desc: true }],
+      columnPinning: { right: ["actions"] },
+    },
+    queryKeys,
+    getRowId: (originalRow) => originalRow.account!.id.toString(),
+    shallow: false,
+    clearOnDefault: true,
+  });
+
+  return <DataTable table={table} />;
 }

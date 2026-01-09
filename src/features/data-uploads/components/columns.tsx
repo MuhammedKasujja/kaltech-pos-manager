@@ -10,7 +10,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Prisma } from "@prisma/client";
-import { formatDateTime } from "@/lib/utils";
+import { formatDateTime } from "@/lib/format";
 import { DataUploadDetail } from "../actions";
 import { Badge } from "@/components/ui/badge";
 import { deleteDataUpload } from "../actions/delete-data-upload";

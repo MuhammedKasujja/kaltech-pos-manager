@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { SyncDeviceDetail } from "@/features/sync-device/actions";
 import { toast } from "sonner";
-import { formatDateTime } from "@/lib/utils";
+import { formatDateTime } from "@/lib/format";
 import { deleteSyncDevice } from "../actions/delete-sync-device";
 import Link from "next/link";
 

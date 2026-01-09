@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { toast } from "sonner";
 import { deleteAccount } from "@/features/accounts/actions/delete-account";
-import { formatDateTime } from "@/lib/utils";
+import { formatDateTime } from "@/lib/format";
 
 export const columns: ColumnDef<AccountDetail>[] = [
   {

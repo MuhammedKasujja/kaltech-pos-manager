@@ -45,3 +45,23 @@ export function formatPlural(
 
   return includeCount ? `${count} ${word}` : word;
 }
+
+export const formatDateTime = (
+  datetime: Date | string | number | undefined | null,
+  options?: Intl.DateTimeFormatOptions
+) => {
+  if (!datetime) return "";
+  try {
+    return new Date(datetime).toLocaleTimeString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+      ...options,
+    });
+  } catch (_) {
+    return "";
+  }
+};

@@ -2,7 +2,7 @@ import { ColumnDef } from "@tanstack/react-table";
 
 import { Button } from "@/components/ui/button";
 import { CompanyDetail } from "@/features/company/hooks/use-companies";
-import { formatDateTime } from "@/lib/utils";
+import { formatDateTime } from "@/lib/format";
 import { Badge } from "@/components/ui/badge";
 import { IconCircleCheckFilled, IconLoader } from "@tabler/icons-react";
 import Link from "next/link";
@@ -30,6 +30,7 @@ export const columns: ColumnDef<CompanyDetail>[] = [
     header: "Telephone",
   },
   {
+    id: "firstName",
     accessorKey: "admin.firstName",
     header: "Admin",
   },
@@ -53,7 +54,7 @@ export const columns: ColumnDef<CompanyDetail>[] = [
           ) : (
             <IconLoader />
           )}
-          {license?.appliedAt && formatDateTime(license?.appliedAt)}
+          {formatDateTime(license?.appliedAt)}
         </Badge>
       );
     },

@@ -29,22 +29,6 @@ export async function checkPassword(
   return match;
 }
 
-export const formatDateTime = (
-  datetime: Date | string,
-  options?: Intl.DateTimeFormatOptions,
-) => {
-  if (datetime.toString() === "Invalid Date") return "";
-  return new Date(datetime).toLocaleTimeString("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-    hour: "numeric",
-    minute: "numeric",
-    hour12: true,
-    ...options,
-  });
-};
-
 export const getFirstAndLastDay = (day: number) => {
   const today = new Date();
   const currentDay = today.getDate();

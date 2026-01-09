@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/table";
 import { DataUploadDetail } from "../actions";
 import { JsonPreview } from "./json-preview";
-import { formatDateTime } from "@/lib/utils";
+import { formatDateTime } from "@/lib/format";
 import { useState } from "react";
 import { FileJson2Icon, Table2Icon } from "lucide-react";
 import { EntityUpload } from "../types";

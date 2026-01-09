@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/theme-provider";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale } from "next-intl/server";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,9 +40,11 @@ export default async function RootLayout({
           disableTransitionOnChange
         >
           <main>
-            <NextIntlClientProvider locale={locale}>
-              {children}
-            </NextIntlClientProvider>
+            <NuqsAdapter>
+              <NextIntlClientProvider locale={locale}>
+                {children}
+              </NextIntlClientProvider>
+            </NuqsAdapter>
           </main>
           <Toaster />
         </ThemeProvider>
