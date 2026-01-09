@@ -31,9 +31,9 @@ export function DataTable<TData>({
       {...props}
     >
       {children}
-      <div className="overflow-hidden rounded-md border">
+      <div className="overflow-hidden rounded-lg border">
         <Table>
-          <TableHeader>
+          <TableHeader className="bg-muted">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
@@ -42,6 +42,7 @@ export function DataTable<TData>({
                     colSpan={header.colSpan}
                     style={{
                       ...getColumnPinningStyle({ column: header.column }),
+                      background: "var(--bg-muted)",
                     }}
                   >
                     {header.isPlaceholder

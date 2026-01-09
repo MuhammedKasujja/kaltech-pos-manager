@@ -79,4 +79,5 @@ export const dataTableConfig = {
     "isRelativeToToday",
   ] as const,
   joinOperators: ["and", "or"] as const,
+  pageSizes: [10, 25, 50, 100],
 };
