@@ -17,6 +17,7 @@ import { createSystemUser } from "@/features/users/actions/create-user";
 import { toast } from "sonner";
 import { PasswordInput, TextInput } from "@/components/form-inputs";
 import { SystemUserType, systemUserSchema } from "@/features/users/schemas";
+import { PlusIcon } from "lucide-react";
 
 export function SystemUserForm({ trigger }: { trigger?: React.ReactNode }) {
   const form = useForm<SystemUserType>({
@@ -35,7 +36,12 @@ export function SystemUserForm({ trigger }: { trigger?: React.ReactNode }) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        {trigger ?? <Button>Add User</Button>}
+        {trigger ?? (
+          <Button size="sm" className="font-normal">
+            <PlusIcon/>
+            Add User
+          </Button>
+        )}
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <Form {...form}>

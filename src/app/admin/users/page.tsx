@@ -1,34 +1,46 @@
-"use client";
-
-import { useSystemUsers } from "@/features/users/hooks/use-system-users";
-import { DataTableLegacy } from "@/components/data-table/data-table-old";
-import { columns } from "./columns";
-import { SystemUserForm } from "../../../features/users/components/system-user-form";
+import { columns } from "@/features/users/components/user-table-columns";
 import { DataTableSkeleton } from "@/components/data-table/data-table-skeleton";
+import { UsersTable } from "@/features/users/components/user-table";
+import { getUsers } from "@/features/users/actions/get-users";
+import { getValidFilters } from "@/lib/data-table";
+import { userSearchParamsCache } from "@/features/users/types";
+import { SearchParams } from "@/types";
+import { Shell } from "@/components/shell";
+import { Suspense } from "react";
 
-export default function Page() {
-  const { users, error, isLoading } = useSystemUsers();
-  if (error) return <div>Could not fetch users</div>;
-  if (isLoading)
-    return (
-      <div className="md:gap-6 md:p-6">
-        <DataTableSkeleton
-          columnCount={columns.length}
-          filterCount={1}
-          cellWidths={["10rem", "15rem", "25rem", "6rem"]}
-          shrinkZero
-        />
-      </div>
-    );
+interface PageProps {
+  searchParams: Promise<SearchParams>;
+}
 
+export default function Page(props: PageProps) {
   return (
-    <div className="space-y-4 md:gap-6 md:p-6">
-      <DataTableLegacy
-        columns={columns}
-        data={users ?? []}
-        onSearch={() => {}}
-        tableActions={() => <SystemUserForm />}
-      />
-    </div>
+    <Shell>
+      <Suspense
+        fallback={
+          <DataTableSkeleton
+            columnCount={columns.length}
+            filterCount={1}
+            shrinkZero
+          />
+        }
+      >
+        <UsersTableWrapper {...props} />
+      </Suspense>
+    </Shell>
   );
+}
+
+async function UsersTableWrapper(props: PageProps) {
+  const searchParams = await props.searchParams;
+  const search = userSearchParamsCache.parse(searchParams);
+
+  const validFilters = getValidFilters(search.filters);
+
+  const promises = Promise.all([
+    getUsers({
+      ...search,
+      filters: validFilters,
+    }),
+  ]);
+  return <UsersTable promises={promises} />;
 }

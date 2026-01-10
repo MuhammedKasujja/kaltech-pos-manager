@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { User } from "@prisma/client";
 import { SystemUserForm } from "@/features/users/components/system-user-form";
+import { formatDateTime } from "@/lib/format";
 
 export const columns: ColumnDef<User>[] = [
   {
@@ -33,6 +34,10 @@ export const columns: ColumnDef<User>[] = [
   {
     accessorKey: "createdAt",
     header: "Date",
+    cell: ({ row }) => {
+      const account = row.original;
+      return <>{formatDateTime(account.createdAt)}</>;
+    },
   },
   {
     id: "actions",
