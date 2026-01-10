@@ -10,11 +10,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { User } from "@prisma/client";
 import { SystemUserForm } from "@/features/users/components/system-user-form";
 import { formatDateTime } from "@/lib/format";
+import { SystemUser } from "../actions/get-users";
 
-export const columns: ColumnDef<User>[] = [
+export const columns: ColumnDef<SystemUser>[] = [
   {
     id: "name",
     header: "Name",

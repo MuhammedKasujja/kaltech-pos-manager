@@ -4,6 +4,8 @@ import prisma from "@/lib/prisma";
 import { GetUsersSchema } from "../types";
 import { Prisma } from "@prisma/client";
 
+export type SystemUser = Awaited<ReturnType<typeof getUsers>>['data'][0]
+
 export async function getUsers(input: GetUsersSchema) {
   const { page, perPage, search } = input;
 
