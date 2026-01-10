@@ -28,6 +28,7 @@ export interface QueryKeys {
   sort: string;
   filters: string;
   joinOperator: string;
+  search: string;
 }
 
 export interface Option {
