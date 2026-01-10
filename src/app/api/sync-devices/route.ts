@@ -1,15 +1,7 @@
 import { createSyncDeviceSchema } from "@/features/sync-device/schemas";
 import { ApiResponse } from "@/lib/api-response";
-import {
-  createSyncDevice,
-  fetchSyncDevices,
-} from "@/features/sync-device/actions";
-import { NextRequest, NextResponse } from "next/server";
-
-export async function GET() {
-  const devices = await fetchSyncDevices();
-  return NextResponse.json(devices);
-}
+import { createSyncDevice } from "@/features/sync-device/actions";
+import { NextRequest } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
