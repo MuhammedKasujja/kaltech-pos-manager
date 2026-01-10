@@ -3,6 +3,7 @@ import "server-only";
 import prisma from "@/lib/prisma";
 import { verifySession } from "@/lib/auth/verify-session";
 import { GetAccountsSchema } from "@/features/accounts/types";
+import { Prisma } from "@prisma/client";
 
 export async function getCompanies(input: GetAccountsSchema) {
   await verifySession();
@@ -13,7 +14,10 @@ export async function getCompanies(input: GetAccountsSchema) {
   const skip = (safePage - 1) * safePageSize;
 
   // Build dynamic where clause
-  const where: any = {};
+  // const where: any = {};
+  const where: Prisma.CompanyWhereInput = {
+    AND: [],
+  };
 
   // Full/ Free text search (simple version - case insensitive)
   if (search?.trim()) {

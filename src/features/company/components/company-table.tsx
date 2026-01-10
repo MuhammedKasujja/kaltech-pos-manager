@@ -17,7 +17,7 @@ type CompanyTableProps = {
 export function CompanyTable({ promises, queryKeys }: CompanyTableProps) {
   const [{ data, totalPages }] = React.use(promises);
 
-  const { table, shallow, debounceMs, throttleMs } = useDataTable({
+  const { table } = useDataTable({
     data,
     columns,
     pageCount: totalPages,

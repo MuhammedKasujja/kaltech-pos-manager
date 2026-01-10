@@ -31,7 +31,7 @@ export function formatDate(
       timeStyle: "short",
       ...opts,
     }).format(new Date(date));
-  } catch (_) {
+  } catch (_) { // eslint-disable-line @typescript-eslint/no-unused-vars
     return "";
   }
 }
@@ -61,7 +61,7 @@ export const formatDateTime = (
       hour12: true,
       ...options,
     });
-  } catch (_) {
+  } catch (_) { // eslint-disable-line @typescript-eslint/no-unused-vars
     return "";
   }
 };

@@ -278,7 +278,7 @@ export function useDataTable<TData>(props: UseDataTableProps<TData>) {
       setGlobalFilter(updaterOrValue);
       debouncedSetFilterValues({});
     },
-    [debouncedSetFilterValues, globalFilter]
+    [debouncedSetFilterValues, setGlobalFilter]
   );
 
   const table = useReactTable({

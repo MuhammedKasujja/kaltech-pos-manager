@@ -1,6 +1,6 @@
 "use client";
 import { useAccounts } from "@/features/accounts/hooks/use-accounts";
-import { DataTable } from "@/components/data-table";
+import { DataTableLegacy } from "@/components/data-table/data-table-old";
 import { columns } from "../columns";
 import { LoadingShimmer } from "@/components/loading-shimmer";
 
@@ -11,5 +11,5 @@ export function AccountList() {
     return <div>{`${error}`}</div>;
   }
   if (isLoading) return <LoadingShimmer />;
-  return <DataTable columns={columns} data={accounts ?? []} />;
+  return <DataTableLegacy columns={columns} data={accounts ?? []} />;
 }
