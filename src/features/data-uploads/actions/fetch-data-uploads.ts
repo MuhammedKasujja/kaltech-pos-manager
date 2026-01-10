@@ -6,6 +6,7 @@ import { findSyncDeviceByDeviceId } from "@/features/sync-device/actions";
 import { systemDateTime } from "@/lib/utils";
 import { formatDataUploadList } from "../utils/format-data";
 import { EntityUpload, GetDataUploadsSchema } from "../types";
+// import { Prisma } from "@prisma/client";
 
 export type DataUploadDetail = Awaited<
   ReturnType<typeof fetchDataUploads>
@@ -13,18 +14,38 @@ export type DataUploadDetail = Awaited<
 
 export async function fetchDataUploads(input: GetDataUploadsSchema) {
   await verifySession();
-  const updates = await prisma.dataUpload.findMany({
-    orderBy: { createdAt: "desc" },
-    include: {
-      account: {
-        include: {
-          company: {},
+  const { page, perPage } = input;
+
+  const safePage = Math.max(1, Math.floor(page));
+  const safePageSize = Math.min(100, Math.max(1, Math.floor(perPage)));
+  const skip = (safePage - 1) * safePageSize;
+
+  // Build dynamic where clause
+  // const where: any = {};
+  // const where: Prisma.DataUploadWhereInput = {
+  //   AND: [],
+  // };
+
+  const [items, total] = await Promise.all([
+    prisma.dataUpload.findMany({
+      skip,
+      take: safePageSize,
+      orderBy: { createdAt: "desc" },
+      include: {
+        account: {
+          include: {
+            company: {},
+          },
         },
       },
-    },
-  });
+    }),
 
-  return { data: updates, totalPages: 5 };
+    prisma.dataUpload.count(),
+  ]);
+
+  const totalPages = Math.ceil(total / safePageSize);
+
+  return { data: items, totalPages };
 }
 
 export async function fetchAccountDataUploads(data: FetchDataUploadsDto) {

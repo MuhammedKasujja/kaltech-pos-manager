@@ -25,6 +25,10 @@ export type GetDataUploadsSchema = Awaited<
   ReturnType<typeof dataUploadSearchParamsCache.parse>
 >;
 
+export type GetAccountDataUploadsSchema = Awaited<
+  ReturnType<typeof dataUploadSearchParamsCache.parse>
+>;
+
 
 export type EntityUpload = {
   state: "updated" | "created" | "deleted";
