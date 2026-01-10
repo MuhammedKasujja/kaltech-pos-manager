@@ -1,6 +1,5 @@
 "use client";
 
-import { LoadingShimmer } from "@/components/loading-shimmer";
 import { CollapsibleDataTable } from "@/components/collapsible-data-table";
 import {
   Table,
@@ -11,7 +10,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { formatDateTime } from "@/lib/format";
-import { useAccountDataUploads } from "../hooks/use-account-data-uploads";
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -27,37 +25,45 @@ import {
 import { MoreHorizontal } from "lucide-react";
 import { toast } from "sonner";
 import { EntityUpload } from "../types";
-import { AccountDataUploadType } from "../actions/account-data-uploads";
+import {
+  AccountDataUploadType,
+  fetchAccountAllDataUploads,
+} from "../actions/account-data-uploads";
+import React from "react";
+import { QueryKeys } from "@/types/data-table";
+import { useDataTable } from "@/hooks/use-data-table";
 // import { formatDataUploadList } from "../utils/format-data";
 // import { JsonPreview } from "./json-preview";
 
-export function AccountDataUploadsTable({
-  accountKey,
-}: {
-  accountKey: string;
-}) {
-  const { dataUploads, error, isLoading } = useAccountDataUploads({
-    accountKey,
-  });
-  if (error) {
-    return <div>{`${error}`}</div>;
-  }
-  if (isLoading) return <LoadingShimmer />;
+type AccountDataUploadsTableProps = {
+  promises: Promise<[Awaited<ReturnType<typeof fetchAccountAllDataUploads>>]>;
+  queryKeys?: Partial<QueryKeys>;
+};
 
-  // function Preview({ data }: { data: EntityUpload[] }) {
-  //   return data?.map((ele) => (
-  //     <div key={ele.data.uuid}>
-  //       <div>{ele.entity}</div>
-  //       <JsonPreview data={formatDataUpload(ele)}/>
-  //     </div>
-  //   ));
-  // }
+export function AccountDataUploadsTable({
+  promises,
+  queryKeys,
+}: AccountDataUploadsTableProps) {
+  const [{ data, totalPages }] = React.use(promises);
+
+  const { table } = useDataTable({
+    data,
+    columns,
+    pageCount: totalPages,
+    initialState: {
+      sorting: [{ id: "createdAt", desc: true }],
+      columnPinning: { right: ["actions"] },
+    },
+    queryKeys,
+    getRowId: (originalRow) => originalRow.id.toString(),
+    shallow: false,
+    clearOnDefault: true,
+  });
 
   return (
     <div className="space-y-5">
       <CollapsibleDataTable
-        columns={columns}
-        data={dataUploads ?? []}
+        table={table}
         renderDetails={(upload) => (
           <Table>
             <TableHeader>

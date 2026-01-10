@@ -5,7 +5,7 @@ import prisma from "@/lib/prisma";
 
 export type AccountDataUploadType = Awaited<
   ReturnType<typeof fetchAccountAllDataUploads>
->[0];
+>["data"][0];
 /**
  * Get account data uploads
  * @param accountKey string
@@ -33,5 +33,5 @@ export async function fetchAccountAllDataUploads({
 
   // const flattenedData = dataUploads.flatMap((item) => item.data);
 
-  return dataUploads;
+  return { data: dataUploads, totalPages: 2 };
 }

@@ -4,6 +4,7 @@ import {
   AdminUserCard,
   SyncDeviceList,
 } from "@/features/company/components";
+import { fetchAccountAllDataUploads } from "@/features/data-uploads/actions/account-data-uploads";
 import { AccountDataUploadsTable } from "@/features/data-uploads/components/account-data-uploads-table";
 import {
   fetchDataSyncSubscriptionPlans,
@@ -17,6 +18,8 @@ export default async function CompanyDetailsPage(
   const { accountKey } = await props.params;
   const dataSubscriptions = await fetchDataSyncSubscriptionPlans();
   const accountSubscriptions = await fetchAccountSetupSubscriptionPlans();
+
+  const promises = Promise.all([fetchAccountAllDataUploads({ accountKey })]);
 
   return (
     <div className="flex flex-col gap-4 p-6">
@@ -46,7 +49,7 @@ export default async function CompanyDetailsPage(
             <SyncDeviceList companyKey={accountKey} />
           </TabsContent>
           <TabsContent value="data_uploads">
-            <AccountDataUploadsTable accountKey={accountKey} />
+            <AccountDataUploadsTable promises={promises} />
           </TabsContent>
         </Tabs>
       </div>

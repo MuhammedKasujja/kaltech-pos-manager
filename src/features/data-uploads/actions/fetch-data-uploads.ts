@@ -5,11 +5,13 @@ import { findAccountWithDataSyncByKey } from "@/features/accounts/actions";
 import { findSyncDeviceByDeviceId } from "@/features/sync-device/actions";
 import { systemDateTime } from "@/lib/utils";
 import { formatDataUploadList } from "../utils/format-data";
-import { EntityUpload } from "../types";
+import { EntityUpload, GetDataUploadsSchema } from "../types";
 
-export type DataUploadDetail = Awaited<ReturnType<typeof fetchDataUploads>>[0];
+export type DataUploadDetail = Awaited<
+  ReturnType<typeof fetchDataUploads>
+>["data"][0];
 
-export async function fetchDataUploads() {
+export async function fetchDataUploads(input: GetDataUploadsSchema) {
   await verifySession();
   const updates = await prisma.dataUpload.findMany({
     orderBy: { createdAt: "desc" },
@@ -22,7 +24,7 @@ export async function fetchDataUploads() {
     },
   });
 
-  return updates;
+  return { data: updates, totalPages: 5 };
 }
 
 export async function fetchAccountDataUploads(data: FetchDataUploadsDto) {

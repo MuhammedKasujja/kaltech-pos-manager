@@ -16,32 +16,27 @@ import {
 } from "@/components/ui/collapsible";
 import { Button } from "@/components/ui/button";
 import { ChevronDown, ChevronRight } from "lucide-react";
-import {
-  useReactTable,
-  ColumnDef,
-  getCoreRowModel,
-  flexRender,
-} from "@tanstack/react-table";
+import { flexRender, type Table as TanstackTable } from "@tanstack/react-table";
+import { cn } from "@/lib/utils";
+import { getColumnPinningStyle } from "@/lib/data-table";
+import { DataTablePagination } from "./data-table/data-table-pagination";
 
-interface CollapsibleTableProps<TData> {
-  data: TData[];
-  columns: ColumnDef<TData>[];
+interface CollapsibleTableProps<TData> extends React.ComponentProps<"div"> {
+  table: TanstackTable<TData>;
+  actionBar?: React.ReactNode;
   renderDetails: (row: TData) => React.ReactNode;
   multiExpand?: boolean;
 }
 
 export function CollapsibleDataTable<TData>({
-  data,
-  columns,
+  table,
+  actionBar,
   renderDetails,
   multiExpand = false,
+  children,
+  className,
+  ...props
 }: CollapsibleTableProps<TData>) {
-  const table = useReactTable({
-    data,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-  });
-
   const [openRows, setOpenRows] = React.useState<Set<string>>(new Set());
 
   function toggleRow(id: string) {
@@ -58,17 +53,27 @@ export function CollapsibleDataTable<TData>({
   }
 
   return (
-    <div className="overflow-hidden rounded-lg border">
-      <Table>
-        <TableHeader className="bg-muted sticky top-0 z-10">
-          <TableRow>
-            {/* empty header for toggle column */}
-            <TableHead className="w-8" />
-            {table
-              .getHeaderGroups()
-              .map((headerGroup) =>
+    <div
+      className={cn("flex w-full flex-col gap-2.5 overflow-auto", className)}
+      {...props}
+    >
+      {children}
+      <div className="overflow-hidden rounded-lg border">
+        <Table>
+          <TableHeader className="bg-muted">
+            <TableRow>
+              {/* empty header for toggle column */}
+              <TableHead className="w-8" />
+              {table.getHeaderGroups().map((headerGroup) =>
                 headerGroup.headers.map((header) => (
-                  <TableHead key={header.id}>
+                  <TableHead
+                    key={header.id}
+                    colSpan={header.colSpan}
+                    style={{
+                      ...getColumnPinningStyle({ column: header.column }),
+                      background: "var(--bg-muted)",
+                    }}
+                  >
                     {header.isPlaceholder
                       ? null
                       : flexRender(
@@ -78,74 +83,83 @@ export function CollapsibleDataTable<TData>({
                   </TableHead>
                 ))
               )}
-          </TableRow>
-        </TableHeader>
-
-        <TableBody className="**:data-[slot=table-cell]:first:w-8">
-          {table.getRowModel().rows.length > 0 ? (
-            table.getRowModel().rows.map((row) => {
-              const id = row.id;
-              const isOpen = openRows.has(id);
-              return (
-                <Collapsible
-                  key={id}
-                  open={isOpen}
-                  onOpenChange={() => toggleRow(id)}
-                  asChild
-                >
-                  <React.Fragment key={id + 1}>
-                    {/* main row */}
-                    <TableRow
-                      data-state={row.getIsSelected() ? "selected" : undefined}
-                    >
-                      <TableCell className="w-8 p-0">
-                        <CollapsibleTrigger asChild>
-                          <Button variant="ghost" size="sm" className="p-0">
-                            {isOpen ? (
-                              <ChevronDown className="h-4 w-4" />
-                            ) : (
-                              <ChevronRight className="h-4 w-4" />
-                            )}
-                          </Button>
-                        </CollapsibleTrigger>
-                      </TableCell>
-                      {row.getVisibleCells().map((cell) => (
-                        <TableCell key={cell.id}>
-                          {flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext()
-                          )}
-                        </TableCell>
-                      ))}
-                    </TableRow>
-
-                    {/* expanded row */}
-                    <CollapsibleContent asChild>
-                      <TableRow>
-                        <TableCell
-                          colSpan={row.getVisibleCells().length + 1}
-                          className="bg-muted"
-                        >
-                          {renderDetails(row.original)}
-                        </TableCell>
-                      </TableRow>
-                    </CollapsibleContent>
-                  </React.Fragment>
-                </Collapsible>
-              );
-            })
-          ) : (
-            <TableRow>
-              <TableCell
-                colSpan={table.getVisibleLeafColumns().length + 1}
-                className="h-24 text-center"
-              >
-                No results.
-              </TableCell>
             </TableRow>
-          )}
-        </TableBody>
-      </Table>
+          </TableHeader>
+
+          <TableBody className="**:data-[slot=table-cell]:first:w-8">
+            {table.getRowModel().rows.length > 0 ? (
+              table.getRowModel().rows.map((row) => {
+                const id = row.id;
+                const isOpen = openRows.has(id);
+                return (
+                  <Collapsible
+                    key={id}
+                    open={isOpen}
+                    onOpenChange={() => toggleRow(id)}
+                    asChild
+                  >
+                    <React.Fragment key={id + 1}>
+                      {/* main row */}
+                      <TableRow
+                        data-state={
+                          row.getIsSelected() ? "selected" : undefined
+                        }
+                      >
+                        <TableCell className="w-8 p-0">
+                          <CollapsibleTrigger asChild>
+                            <Button variant="ghost" size="sm" className="p-0">
+                              {isOpen ? (
+                                <ChevronDown className="h-4 w-4" />
+                              ) : (
+                                <ChevronRight className="h-4 w-4" />
+                              )}
+                            </Button>
+                          </CollapsibleTrigger>
+                        </TableCell>
+                        {row.getVisibleCells().map((cell) => (
+                          <TableCell key={cell.id}>
+                            {flexRender(
+                              cell.column.columnDef.cell,
+                              cell.getContext()
+                            )}
+                          </TableCell>
+                        ))}
+                      </TableRow>
+
+                      {/* expanded row */}
+                      <CollapsibleContent asChild>
+                        <TableRow>
+                          <TableCell
+                            colSpan={row.getVisibleCells().length + 1}
+                            className="bg-muted"
+                          >
+                            {renderDetails(row.original)}
+                          </TableCell>
+                        </TableRow>
+                      </CollapsibleContent>
+                    </React.Fragment>
+                  </Collapsible>
+                );
+              })
+            ) : (
+              <TableRow>
+                <TableCell
+                  colSpan={table.getVisibleLeafColumns().length + 1}
+                  className="h-24 text-center"
+                >
+                  No results.
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </div>
+      <div className="flex flex-col gap-2.5">
+        <DataTablePagination table={table} />
+        {actionBar &&
+          table.getFilteredSelectedRowModel().rows.length > 0 &&
+          actionBar}
+      </div>
     </div>
   );
 }

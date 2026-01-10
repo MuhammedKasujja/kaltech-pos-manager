@@ -5,14 +5,9 @@ import { getCompanies } from "@/features/company/actions/get-all-companies";
 import { columns } from "@/features/company/components/columns";
 import { CompanyTable } from "@/features/company/components/company-table";
 import { getValidFilters } from "@/lib/data-table";
-import { SearchParams } from "@/types";
 import { Suspense } from "react";
 
-interface PageProps {
-  searchParams: Promise<SearchParams>;
-}
-
-export default function Page(props: PageProps) {
+export default function Page(props: PageProps<"/admin/accounts">) {
   return (
     <Shell>
       <Suspense
@@ -30,7 +25,7 @@ export default function Page(props: PageProps) {
   );
 }
 
-async function CompanyTableWrapper(props: PageProps) {
+async function CompanyTableWrapper(props: PageProps<"/admin/accounts">) {
   const searchParams = await props.searchParams;
   const search = accountSearchParamsCache.parse(searchParams);
 
