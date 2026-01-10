@@ -1,18 +1,31 @@
-import { Search } from 'lucide-react'
-import { InputGroup, InputGroupAddon, InputGroupInput } from '../ui/input-group'
+import { Search } from "lucide-react";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from "../ui/input-group";
+import { Table } from "@tanstack/react-table";
 
-type Props = {
-  onSearch: (value?: string) => void
-}
+type Props<TData> = {
+  table: Table<TData>;
+  onSearch?: (value?: string) => void;
+  placeholder?: string;
+};
 
-export function DataTableSearchInput({ onSearch }: Props) {
+export function DataTableSearchInput<TData>({
+  placeholder = "Search...",
+  onSearch,
+  table,
+}: Props<TData>) {
   return (
-    <InputGroup className="w-full min-w-0 max-w-sm">
+    <InputGroup className="min-w-0 max-w-smh-8 w-40 lg:w-56">
       <InputGroupInput
         id="search"
-        placeholder="Search..."
+        placeholder={placeholder}
+        value={table.getState().globalFilter ?? ""}
         onChange={(event) => {
-          onSearch?.(event.target.value)
+          table.options.onGlobalFilterChange?.(event.target.value);
+          onSearch?.(event.target.value);
         }}
         className="max-w-sm"
       />
@@ -20,5 +33,5 @@ export function DataTableSearchInput({ onSearch }: Props) {
         <Search />
       </InputGroupAddon>
     </InputGroup>
-  )
+  );
 }

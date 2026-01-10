@@ -48,7 +48,7 @@ export function DataTableLegacy<TData, TValue>({
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between gap-4">
-        {onSearch && <DataTableSearchInput onSearch={onSearch} />}
+        {onSearch && <DataTableSearchInput table={table} onSearch={onSearch} />}
         {tableActions?.()}
       </div>
       <div className="overflow-hidden rounded-lg border">

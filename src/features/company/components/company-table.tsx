@@ -6,6 +6,8 @@ import { useDataTable } from "@/hooks/use-data-table";
 import { QueryKeys } from "@/types/data-table";
 import { getCompanies } from "../actions/get-all-companies";
 import React from "react";
+import { DataTableToolbar } from "@/components/data-table/data-table-toolbar";
+import { DataTableSortList } from "@/components/data-table/data-table-sort-list";
 
 type CompanyTableProps = {
   promises: Promise<[Awaited<ReturnType<typeof getCompanies>>]>;
@@ -29,5 +31,11 @@ export function CompanyTable({ promises, queryKeys }: CompanyTableProps) {
     clearOnDefault: true,
   });
 
-  return <DataTable table={table} />;
+  return (
+    <DataTable table={table}>
+      <DataTableToolbar table={table}>
+        <DataTableSortList table={table} align="end" />
+      </DataTableToolbar>
+    </DataTable>
+  );
 }
