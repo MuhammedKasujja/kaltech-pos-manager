@@ -18,26 +18,8 @@ type CompanyTableProps = {
 };
 
 export function CompanyTable({ promises, queryKeys }: CompanyTableProps) {
-  const { error, isLoading } = useCompanies();
   const [{ data }] = React.use(promises);
 
-  if (error) return <div>{`${error}`}</div>;
-  if (isLoading || data == null)
-    return (
-      <DataTableSkeleton
-        columnCount={columns.length}
-        filterCount={1}
-        shrinkZero
-      />
-    );
-
-  return <AccountTable data={data} queryKeys={queryKeys} />;
-}
-
-function AccountTable({
-  data,
-  queryKeys,
-}: { data: CompanyDetail[] } & Pick<CompanyTableProps, "queryKeys">) {
   const { table, shallow, debounceMs, throttleMs } = useDataTable({
     data,
     columns,

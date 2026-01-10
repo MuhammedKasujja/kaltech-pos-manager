@@ -1,8 +1,12 @@
+import { DataTableSkeleton } from "@/components/data-table/data-table-skeleton";
+import { Shell } from "@/components/shell";
 import { accountSearchParamsCache } from "@/features/accounts/types";
 import { getCompanies } from "@/features/company/actions/get-all-companies";
+import { columns } from "@/features/company/components/columns";
 import { CompanyTable } from "@/features/company/components/company-table";
 import { getValidFilters } from "@/lib/data-table";
 import { SearchParams } from "@/types";
+import { Suspense } from "react";
 
 interface PageProps {
   searchParams: Promise<SearchParams>;
@@ -10,9 +14,19 @@ interface PageProps {
 
 export default function Page(props: PageProps) {
   return (
-    <div className="md:gap-6 md:p-6 space-y-6">
-      <CompanyTableWrapper {...props} />
-    </div>
+    <Shell>
+      <Suspense
+        fallback={
+          <DataTableSkeleton
+            columnCount={columns.length}
+            filterCount={1}
+            shrinkZero
+          />
+        }
+      >
+        <CompanyTableWrapper {...props} />
+      </Suspense>
+    </Shell>
   );
 }
 
