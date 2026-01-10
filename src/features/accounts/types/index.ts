@@ -14,7 +14,6 @@ export const accountSearchParamsCache = createSearchParamsCache({
   sort: getSortingStateParser<Account>().withDefault([
     { id: "createdAt", desc: true },
   ]),
-  title: parseAsString.withDefault(""),
   search: parseAsString.withDefault(""),
   createdAt: parseAsArrayOf(parseAsInteger).withDefault([]),
   // advanced filter

@@ -1,12 +1,7 @@
 "use client";
 
-import {
-  CompanyDetail,
-  useCompanies,
-} from "@/features/company/hooks/use-companies";
 import { DataTable } from "@/components/data-table";
 import { columns } from "./columns";
-import { DataTableSkeleton } from "@/components/data-table/data-table-skeleton";
 import { useDataTable } from "@/hooks/use-data-table";
 import { QueryKeys } from "@/types/data-table";
 import { getCompanies } from "../actions/get-all-companies";
@@ -18,12 +13,12 @@ type CompanyTableProps = {
 };
 
 export function CompanyTable({ promises, queryKeys }: CompanyTableProps) {
-  const [{ data }] = React.use(promises);
+  const [{ data, totalPages }] = React.use(promises);
 
   const { table, shallow, debounceMs, throttleMs } = useDataTable({
     data,
     columns,
-    pageCount: 2,
+    pageCount: totalPages,
     initialState: {
       sorting: [{ id: "createdAt", desc: true }],
       columnPinning: { right: ["actions"] },
