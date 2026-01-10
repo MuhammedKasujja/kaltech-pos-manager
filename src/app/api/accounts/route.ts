@@ -4,7 +4,11 @@ import { getAllAccounts } from "@/features/accounts/actions/get-all-account";
 import { ApiResponse } from "@/lib/api-response";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET() {
+export async function GET(req: NextRequest) {
+  const searchParams = req.nextUrl.searchParams;
+
+  const query = Object.fromEntries(searchParams.entries());
+  console.log({query})
   const accounts = await getAllAccounts();
   return NextResponse.json(accounts);
 }

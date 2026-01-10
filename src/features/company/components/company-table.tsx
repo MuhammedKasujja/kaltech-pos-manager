@@ -9,13 +9,17 @@ import { columns } from "./columns";
 import { DataTableSkeleton } from "@/components/data-table/data-table-skeleton";
 import { useDataTable } from "@/hooks/use-data-table";
 import { QueryKeys } from "@/types/data-table";
+import { getCompanies } from "../actions/get-all-companies";
+import React from "react";
 
 type CompanyTableProps = {
+  promises: Promise<[Awaited<ReturnType<typeof getCompanies>>]>;
   queryKeys?: Partial<QueryKeys>;
 };
 
-export function CompanyTable({ queryKeys }: CompanyTableProps) {
-  const { data, error, isLoading } = useCompanies();
+export function CompanyTable({ promises, queryKeys }: CompanyTableProps) {
+  const { error, isLoading } = useCompanies();
+  const [{ data }] = React.use(promises);
 
   if (error) return <div>{`${error}`}</div>;
   if (isLoading || data == null)
@@ -27,13 +31,13 @@ export function CompanyTable({ queryKeys }: CompanyTableProps) {
       />
     );
 
-  return <AccountTable data={data} />;
+  return <AccountTable data={data} queryKeys={queryKeys} />;
 }
 
 function AccountTable({
   data,
   queryKeys,
-}: { data: CompanyDetail[] } & CompanyTableProps) {
+}: { data: CompanyDetail[] } & Pick<CompanyTableProps, "queryKeys">) {
   const { table, shallow, debounceMs, throttleMs } = useDataTable({
     data,
     columns,
