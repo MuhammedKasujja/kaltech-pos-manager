@@ -30,6 +30,13 @@ export async function getUsers(input: GetUsersSchema) {
       where,
       skip,
       take: safePageSize,
+      select: {
+        id: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        createdAt: true,
+      },
     }),
     prisma.user.count({ where }),
   ]);
