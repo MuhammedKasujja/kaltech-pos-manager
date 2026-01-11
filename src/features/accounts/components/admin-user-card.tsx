@@ -8,7 +8,7 @@ import {
   CardFooter,
   CardTitle,
 } from "@/components/ui/card";
-import { useAccountDetails } from "@/features/accounts/hooks/use-companies";
+import { useAccountDetails } from "@/features/accounts/hooks/use-accounts";
 import { ChangeAdminAccountPassword } from "./change-admin-password-form";
 
 export function AdminUserCard({ companyKey }: { companyKey: string }) {

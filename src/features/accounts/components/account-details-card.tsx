@@ -9,7 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useAccountDetails } from "@/features/accounts/hooks/use-companies";
+import { useAccountDetails } from "@/features/accounts/hooks/use-accounts";
 import { formatDate } from "@/lib/format";
 import { Subscription } from "@prisma/client";
 import {

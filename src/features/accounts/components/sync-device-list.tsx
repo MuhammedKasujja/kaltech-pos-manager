@@ -16,7 +16,7 @@ import {
   EmptyHeader,
   EmptyMedia,
 } from "@/components/ui/empty";
-import { useAccountDetails } from "@/features/accounts/hooks/use-companies";
+import { useAccountDetails } from "@/features/accounts/hooks/use-accounts";
 import { deleteSyncDevice } from "@/features/sync-device/actions";
 import { toggleSyncDeviceStatus } from "@/features/sync-device/actions/toggle-sync-device-status";
 import { SyncDeviceStatus } from "@/features/sync-device/components/sync-device-status";

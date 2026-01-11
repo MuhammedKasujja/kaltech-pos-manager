@@ -1,17 +1,7 @@
 import { CreateAccountSchema } from "@/features/accounts/schemas";
 import { createCompanyAccount } from "@/features/accounts/actions/create-account";
-import { getAllAccounts } from "@/features/accounts/actions/get-all-accounts";
 import { ApiResponse } from "@/lib/api-response";
-import { NextRequest, NextResponse } from "next/server";
-
-export async function GET(req: NextRequest) {
-  const searchParams = req.nextUrl.searchParams;
-
-  const query = Object.fromEntries(searchParams.entries());
-  console.log({ query });
-  const accounts = await getAllAccounts();
-  return NextResponse.json(accounts);
-}
+import { NextRequest } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {

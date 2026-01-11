@@ -5,15 +5,6 @@ import { verifySession } from "@/lib/auth/verify-session";
 import { GetAccountsSchema } from "../types";
 import { Prisma } from "@prisma/client";
 
-export async function getAllAccounts() {
-  await verifySession();
-
-  const accounts = await prisma.account.findMany({
-    include: { company: true },
-  });
-  return accounts;
-}
-
 export type AccountDetails = Awaited<ReturnType<typeof getAccounts>>["data"][0];
 
 export async function getAccounts(input: GetAccountsSchema) {

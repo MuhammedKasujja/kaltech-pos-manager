@@ -1,21 +1,21 @@
 import useSWR from "swr";
-import { fetcher } from "@/lib/fetcher";
-import { getAllAccounts } from "../actions";
+import {
+  AccountDetailPreview,
+  getAccountDetails,
+} from "../actions/get-account-details";
 
-export type AccountDetail = Awaited<ReturnType<typeof getAllAccounts>>[0];
-
-export function useAccounts() {
-  const { data: accounts, error } = useSWR<AccountDetail[]>(
-    `/api/accounts`,
-    fetcher,
+export function useAccountDetails(accountKey: string) {
+  const { data: company, error } = useSWR<AccountDetailPreview>(
+    accountKey ? `api/company-${accountKey}` : null,
+    () => getAccountDetails(accountKey),
     {
-      dedupingInterval: 60000,
-    },
+      revalidateOnFocus: true,
+    }
   );
 
   return {
-    accounts,
-    isLoading: !accounts && !error,
+    company,
+    isLoading: !company && !error,
     error,
   };
 }
