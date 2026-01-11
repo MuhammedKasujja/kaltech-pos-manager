@@ -36,7 +36,7 @@ export async function getCompanies(input: GetAccountsSchema) {
       take: safePageSize,
       include: { admin: true, account: { include: { licence: true } } },
     }),
-
+    // TODO:(Muhammed) Error occurs pointing to too many requests - need to investigate
     prisma.company.count(),
   ]);
 
