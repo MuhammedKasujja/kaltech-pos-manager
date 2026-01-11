@@ -11,8 +11,6 @@ import {
 } from "@/components/ui/card";
 import { useCompanyDetails } from "@/features/company/hooks";
 import { formatDate } from "@/lib/format";
-import { Badge } from "@/components/ui/badge";
-import { IconCircleCheckFilled } from "@tabler/icons-react";
 import { Subscription } from "@prisma/client";
 import {
   AccountPlanListDialog,
@@ -21,6 +19,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { AccountEnableModuleDialog } from "@/features/accounts/components/enabled-modules-dialog";
+import { Status, StatusIndicator, StatusLabel } from "@/components/ui/status";
 
 export function AccountDetailsCard({
   companyKey,
@@ -37,13 +36,12 @@ export function AccountDetailsCard({
       <CardHeader>
         <CardTitle className="flex justify-start items-center text-2xl gap-2">
           {company?.name}
-          <Badge
-            variant="outline"
-            className="text-muted-foreground px-2 capitalize"
-          >
-            <IconCircleCheckFilled className="fill-green-500 dark:fill-green-400" />
-            {company?.account?.plan}
-          </Badge>
+          <Status variant="success">
+            <StatusIndicator />
+            <StatusLabel className="capitalize">
+              {company?.account?.plan}
+            </StatusLabel>
+          </Status>
         </CardTitle>
         <CardAction>
           <AccountEnableModuleDialog
