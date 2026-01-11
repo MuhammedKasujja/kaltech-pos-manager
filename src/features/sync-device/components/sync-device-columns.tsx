@@ -15,8 +15,6 @@ import { toast } from "sonner";
 import { formatDateTime } from "@/lib/format";
 import { deleteSyncDevice } from "../actions/delete-sync-device";
 import Link from "next/link";
-import { Badge } from "@/components/ui/badge";
-import { IconCircleCheckFilled, IconXboxXFilled } from "@tabler/icons-react";
 import { SyncDeviceStatus } from "./sync-device-status";
 
 export const columns: ColumnDef<SyncDeviceDetail>[] = [

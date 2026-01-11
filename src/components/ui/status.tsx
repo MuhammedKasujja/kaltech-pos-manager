@@ -3,7 +3,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import type * as React from "react";
 import { cn } from "@/lib/utils";
 
-interface DivProps extends React.ComponentProps<"div"> {}
+type DivProps = React.ComponentProps<"div">;
 
 const statusVariants = cva(
   "inline-flex w-fit shrink-0 items-center gap-1.5 overflow-hidden whitespace-nowrap rounded-full border px-2.5 py-1 font-medium text-xs transition-colors",
@@ -24,7 +24,7 @@ const statusVariants = cva(
     defaultVariants: {
       variant: "default",
     },
-  },
+  }
 );
 
 interface StatusProps extends VariantProps<typeof statusVariants>, DivProps {
@@ -57,7 +57,7 @@ function StatusIndicator(props: DivProps) {
         "relative flex size-2 shrink-0 rounded-full",
         "before:absolute before:inset-0 before:animate-ping before:rounded-full before:bg-inherit",
         "after:absolute after:inset-[2px] after:rounded-full after:bg-inherit",
-        className,
+        className
       )}
     />
   );
