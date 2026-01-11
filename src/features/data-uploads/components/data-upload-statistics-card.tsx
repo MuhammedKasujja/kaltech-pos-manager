@@ -10,17 +10,22 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useDataUploadStatistics } from "../hooks/use-upload-statistics";
+import { DataUploadStatistics } from "../actions/upload-statistics";
 
-export function DataUploadStatisticsCard() {
-  const { statistics } = useDataUploadStatistics();
+type DataUploadStatisticsCardProps = {
+  data: DataUploadStatistics;
+};
+
+export function DataUploadStatisticsCard({
+  data,
+}: DataUploadStatisticsCardProps) {
   return (
     <div className="*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 gap-3 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs @xl/main:grid-cols-2 @5xl/main:grid-cols-3">
       <Card className="@container/card">
         <CardHeader>
           <CardDescription>Total Uploads</CardDescription>
           <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-            {statistics?.totalUploads}
+            {data?.totalUploads}
           </CardTitle>
           <CardAction>
             <Badge variant="outline">
@@ -30,16 +35,14 @@ export function DataUploadStatisticsCard() {
           </CardAction>
         </CardHeader>
         <CardFooter className="flex-col items-start gap-1.5 text-sm">
-          <div className="text-muted-foreground">
-            All time uploads
-          </div>
+          <div className="text-muted-foreground">All time uploads</div>
         </CardFooter>
       </Card>
       <Card className="@container/card">
         <CardHeader>
           <CardDescription>Weekly Uploads</CardDescription>
           <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-            {statistics?.weeklyUploads}
+            {data?.weeklyUploads}
           </CardTitle>
           <CardAction>
             <Badge variant="outline">
@@ -58,7 +61,7 @@ export function DataUploadStatisticsCard() {
         <CardHeader>
           <CardDescription>Company Uploads</CardDescription>
           <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-            {statistics?.accountsWithUploads} / {statistics?.totalAccounts}
+            {data?.accountsWithUploads} / {data?.totalAccounts}
           </CardTitle>
           <CardAction>
             <Badge variant="outline">
@@ -68,7 +71,9 @@ export function DataUploadStatisticsCard() {
           </CardAction>
         </CardHeader>
         <CardFooter className="flex-col items-start gap-1.5 text-sm">
-          <div className="text-muted-foreground">Companies that have uploads changes so far</div>
+          <div className="text-muted-foreground">
+            Companies that have uploads changes so far
+          </div>
         </CardFooter>
       </Card>
     </div>

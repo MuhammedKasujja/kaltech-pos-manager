@@ -7,10 +7,12 @@ import { fetchDataUploads } from "@/features/data-uploads/actions/fetch-data-upl
 import { DataTableSkeleton } from "@/components/data-table/data-table-skeleton";
 import { columns } from "@/features/data-uploads/components/columns";
 import { dataUploadSearchParamsCache } from "@/features/data-uploads/types";
+import { getDataUploadStatistics } from "@/features/data-uploads/actions/upload-statistics";
 
 export default async function DataUploadsPage(
   props: PageProps<"/admin/data-uploads">
 ) {
+  const statistics = await getDataUploadStatistics();
   return (
     <Shell>
       <Suspense
@@ -22,7 +24,7 @@ export default async function DataUploadsPage(
           />
         }
       >
-        <DataUploadStatisticsCard />
+        <DataUploadStatisticsCard data={statistics} />
         <DataUploadsTableWrapper {...props} />
       </Suspense>
     </Shell>
