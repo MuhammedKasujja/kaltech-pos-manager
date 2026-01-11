@@ -1,7 +1,6 @@
 "use client";
 
 import { LoadingShimmer } from "@/components/loading-shimmer";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -17,20 +16,17 @@ import {
   EmptyHeader,
   EmptyMedia,
 } from "@/components/ui/empty";
-import { useCompanyDetails } from "@/features/company/hooks";
+import { useAccountDetails } from "@/features/accounts/hooks/use-companies";
 import { deleteSyncDevice } from "@/features/sync-device/actions";
 import { toggleSyncDeviceStatus } from "@/features/sync-device/actions/toggle-sync-device-status";
-import {
-  IconCircleCheckFilled,
-  IconDevicesPcOff,
-  IconXboxXFilled,
-} from "@tabler/icons-react";
+import { SyncDeviceStatus } from "@/features/sync-device/components/sync-device-status";
+import { IconDevicesPcOff } from "@tabler/icons-react";
 import React from "react";
 import { toast } from "sonner";
 import { mutate } from "swr";
 
 export function SyncDeviceList({ companyKey }: { companyKey: string }) {
-  const { company, isLoading } = useCompanyDetails(companyKey);
+  const { company, isLoading } = useAccountDetails(companyKey);
 
   if (isLoading) return <LoadingShimmer />;
 
@@ -57,15 +53,7 @@ export function SyncDeviceList({ companyKey }: { companyKey: string }) {
             <CardTitle>{device.userName}</CardTitle>
             <div>ID: {device.deviceId}</div>
             <div>
-              Status:{" "}
-              <Badge variant="outline" className="text-muted-foreground px-1.5">
-                {device.isActive ? (
-                  <IconCircleCheckFilled className="fill-green-500 dark:fill-green-400" />
-                ) : (
-                  <IconXboxXFilled className="fill-red-500 dark:fill-red-400" />
-                )}
-                {device.isActive ? "Active" : "Inactive"}
-              </Badge>
+              Status: <SyncDeviceStatus status={device.isActive} />
             </div>
           </CardContent>
           <CardFooter className="flex-col items-start gap-4 text-sm">

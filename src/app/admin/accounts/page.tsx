@@ -1,11 +1,11 @@
 import { DataTableSkeleton } from "@/components/data-table/data-table-skeleton";
 import { Shell } from "@/components/shell";
 import { accountSearchParamsCache } from "@/features/accounts/types";
-import { getCompanies } from "@/features/company/actions/get-all-companies";
-import { columns } from "@/features/company/components/columns";
-import { CompanyTable } from "@/features/company/components/company-table";
+import { columns } from "@/features/accounts/components/account-table-columns";
+import { AccountsTable } from "@/features/accounts/components/account-table";
 import { getValidFilters } from "@/lib/data-table";
 import { Suspense } from "react";
+import { getAccounts } from "@/features/accounts/actions";
 
 export default function Page(props: PageProps<"/admin/accounts">) {
   return (
@@ -32,10 +32,10 @@ async function CompanyTableWrapper(props: PageProps<"/admin/accounts">) {
   const validFilters = getValidFilters(search.filters);
 
   const promises = Promise.all([
-    getCompanies({
+    getAccounts({
       ...search,
       filters: validFilters,
     }),
   ]);
-  return <CompanyTable promises={promises} />;
+  return <AccountsTable promises={promises} />;
 }

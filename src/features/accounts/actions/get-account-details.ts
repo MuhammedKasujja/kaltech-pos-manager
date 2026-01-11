@@ -4,11 +4,11 @@ import { verifySession } from "@/lib/auth/verify-session";
 import prisma from "@/lib/prisma";
 import { SubscriptionType } from "@prisma/client";
 
-export type CompanyDetailPreview = Awaited<
-  ReturnType<typeof getCompanyDetails>
+export type AccountDetailPreview = Awaited<
+  ReturnType<typeof getAccountDetails>
 >;
 
-export async function getCompanyDetails(accountKey: string) {
+export async function getAccountDetails(accountKey: string) {
   await verifySession();
 
   return await prisma.company.findFirstOrThrow({

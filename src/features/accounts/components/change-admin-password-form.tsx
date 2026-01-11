@@ -15,7 +15,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { PasswordInput } from "@/components/form-inputs";
-import { changePasswordSchema, ChangeAdminPasswordType } from "../schemas";
+import { changePasswordSchema, ChangeAdminPasswordType } from "../../accounts/schemas";
 import { changeAdminPassword } from "../actions/change-admin-password";
 import { useTranslation } from "@/i18n";
 

@@ -1,15 +1,15 @@
 import { ColumnDef } from "@tanstack/react-table";
 
 import { Button } from "@/components/ui/button";
-import { CompanyDetail } from "@/features/company/hooks/use-companies";
+import { AccountDetails } from "@/features/accounts/actions/get-all-accounts";
 import { formatDateTime } from "@/lib/format";
 import { Badge } from "@/components/ui/badge";
 import { IconCircleCheckFilled, IconLoader } from "@tabler/icons-react";
 import Link from "next/link";
 
-export const columns: ColumnDef<CompanyDetail>[] = [
+export const columns: ColumnDef<AccountDetails>[] = [
   {
-    accessorKey: "name",
+    accessorKey: "Name",
     header: "Company Name",
     cell: ({ row }) => {
       const account = row.original.account;
@@ -26,15 +26,17 @@ export const columns: ColumnDef<CompanyDetail>[] = [
     },
   },
   {
+    id: "Phone",
     accessorKey: "phone",
     header: "Telephone",
   },
   {
-    id: "firstName",
+    id: "Admin Name",
     accessorKey: "admin.firstName",
     header: "Admin",
   },
   {
+    id: "Plan",
     accessorKey: "account.plan",
     header: "Plan",
   },
@@ -44,7 +46,7 @@ export const columns: ColumnDef<CompanyDetail>[] = [
     cell: ({ row }) => {
       const company = row.original;
       const license = company.account?.licence.at(
-        company.account?.licence.length - 1,
+        company.account?.licence.length - 1
       );
 
       return (

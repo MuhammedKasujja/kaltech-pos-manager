@@ -9,7 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useCompanyDetails } from "@/features/company/hooks";
+import { useAccountDetails } from "@/features/accounts/hooks/use-companies";
 import { formatDate } from "@/lib/format";
 import { Subscription } from "@prisma/client";
 import {
@@ -28,7 +28,7 @@ export function AccountDetailsCard({
   companyKey: string;
   subscriptions: { account: Subscription[]; sync: Subscription[] };
 }) {
-  const { company, isLoading } = useCompanyDetails(companyKey);
+  const { company, isLoading } = useAccountDetails(companyKey);
 
   if (isLoading) return <LoadingShimmer />;
   return (

@@ -3,7 +3,7 @@ import {
   AccountDetailsCard,
   AdminUserCard,
   SyncDeviceList,
-} from "@/features/company/components";
+} from "@/features/accounts/components";
 import { fetchAccountAllDataUploads } from "@/features/data-uploads/actions/account-data-uploads";
 import { AccountDataUploadsTable } from "@/features/data-uploads/components/account-data-uploads-table";
 import { dataUploadSearchParamsCache } from "@/features/data-uploads/types";
@@ -14,8 +14,8 @@ import {
 import { getValidFilters } from "@/lib/data-table";
 import { IconDevicesPc, IconRefresh } from "@tabler/icons-react";
 
-export default async function CompanyDetailsPage(
-  props: PageProps<"/admin/accounts/[accountKey]">,
+export default async function AccountDetailsPage(
+  props: PageProps<"/admin/accounts/[accountKey]">
 ) {
   const { accountKey } = await props.params;
   const searchParams = await props.searchParams;

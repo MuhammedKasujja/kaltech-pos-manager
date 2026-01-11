@@ -8,11 +8,11 @@ import {
   CardFooter,
   CardTitle,
 } from "@/components/ui/card";
-import { useCompanyDetails } from "@/features/company/hooks";
+import { useAccountDetails } from "@/features/accounts/hooks/use-companies";
 import { ChangeAdminAccountPassword } from "./change-admin-password-form";
 
 export function AdminUserCard({ companyKey }: { companyKey: string }) {
-  const { company, isLoading } = useCompanyDetails(companyKey);
+  const { company, isLoading } = useAccountDetails(companyKey);
 
   if (isLoading) return <LoadingShimmer />;
   return (
