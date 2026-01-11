@@ -12,7 +12,6 @@ type SyncDeviceListProps = {
 };
 
 export function SyncDeviceTable({ promises, queryKeys }: SyncDeviceListProps) {
-
   const [{ data, totalPages }] = React.use(promises);
 
   const { table } = useDataTable({

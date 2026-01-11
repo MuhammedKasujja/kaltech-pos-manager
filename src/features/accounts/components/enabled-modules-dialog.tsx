@@ -49,7 +49,7 @@ export function AccountEnableModuleDialog({
           variant="outline"
           className="text-muted-foreground px-2 capitalize"
         >
-          <IconRefresh/>
+          <IconRefresh />
           {tr("subscriptions.modules.key")}
         </Button>
       </DialogTrigger>

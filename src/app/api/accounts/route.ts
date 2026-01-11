@@ -8,7 +8,7 @@ export async function GET(req: NextRequest) {
   const searchParams = req.nextUrl.searchParams;
 
   const query = Object.fromEntries(searchParams.entries());
-  console.log({query})
+  console.log({ query });
   const accounts = await getAllAccounts();
   return NextResponse.json(accounts);
 }

@@ -20,4 +20,3 @@ export const fetchSyncDeviceSchema = z.object({
 });
 
 export type FetchDataUploadsDto = z.infer<typeof fetchDataUploadsSchema>;
-

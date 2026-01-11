@@ -1,4 +1,3 @@
-
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // TODO: convert this file back to index.ts
 
@@ -10,7 +9,7 @@ declare module "@tanstack/react-table" {
   interface TableMeta<TData extends RowData> {
     queryKeys?: QueryKeys;
   }
- 
+
   interface ColumnMeta<TData extends RowData, TValue> {
     label?: string;
     placeholder?: string;

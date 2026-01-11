@@ -42,16 +42,16 @@ export function formatDataUploadList(uploads: EntityUpload[]) {
       setRelations.add(relation.uuid);
     }
   }
-  return combineDataUpload(setRelations, entities)
+  return combineDataUpload(setRelations, entities);
   const { relations: mapRela, entities: mapEntities } = combineDataUpload(
     setRelations,
-    entities
+    entities,
   );
   return { relations: mapRela.length, entities: mapEntities.length };
 }
 
 export function formatAccountDataUploadList(
-  uploads: EntityUpload[]
+  uploads: EntityUpload[],
 ): EntityUpload[] {
   return uploads.map((data) => ({
     ...data,
@@ -63,12 +63,12 @@ export function formatAccountDataUploadList(
 }
 
 export function filterMapNulls<T>(
-  obj?: Record<string, T | null | undefined>
+  obj?: Record<string, T | null | undefined>,
 ): Record<string, T> | undefined {
   if (!obj) return undefined;
 
   const nonNullMap = Object.fromEntries(
-    Object.entries(obj).filter(([, v]) => v != null)
+    Object.entries(obj).filter(([, v]) => v != null),
   ) as Record<string, T>;
 
   return Object.keys(nonNullMap).length === 0 ? undefined : nonNullMap;
@@ -76,7 +76,7 @@ export function filterMapNulls<T>(
 
 function combineDataUpload(
   relations: Set<string>,
-  entities: Map<string, EntityUpload>
+  entities: Map<string, EntityUpload>,
 ) {
   const result = new Map<string, EntityUpload>();
   const models = new Map<string, EntityUpload>();

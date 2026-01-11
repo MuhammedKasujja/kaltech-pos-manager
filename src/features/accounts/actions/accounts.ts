@@ -47,7 +47,7 @@ export async function findAccountWithDataSyncByKey({
 
   if (!license) {
     throw new Error(
-      "Data syncronization is disabled for this Account, Please contact admin."
+      "Data syncronization is disabled for this Account, Please contact admin.",
     );
   }
 

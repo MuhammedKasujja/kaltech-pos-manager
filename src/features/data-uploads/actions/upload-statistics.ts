@@ -4,11 +4,13 @@ import { verifySession } from "@/lib/auth/verify-session";
 import prisma from "@/lib/prisma";
 import { systemDateTime } from "@/lib/utils";
 
-export type DataUploadStatistics = Awaited<ReturnType<typeof getDataUploadStatistics>>;
+export type DataUploadStatistics = Awaited<
+  ReturnType<typeof getDataUploadStatistics>
+>;
 
 export async function getDataUploadStatistics() {
   await verifySession();
-  
+
   const totalUploads = await prisma.dataUpload.count();
 
   const totalAccountsWithUploads = await prisma.dataUpload.findMany({

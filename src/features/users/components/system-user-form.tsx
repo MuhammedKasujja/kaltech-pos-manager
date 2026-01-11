@@ -38,7 +38,7 @@ export function SystemUserForm({ trigger }: { trigger?: React.ReactNode }) {
       <DialogTrigger asChild>
         {trigger ?? (
           <Button size="sm" className="font-normal">
-            <PlusIcon/>
+            <PlusIcon />
             Add User
           </Button>
         )}

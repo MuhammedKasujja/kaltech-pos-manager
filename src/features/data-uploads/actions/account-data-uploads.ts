@@ -13,7 +13,7 @@ export type AccountDataUploadType = Awaited<
  * @returns
  */
 export async function fetchAccountAllDataUploads(
-  input: GetAccountDataUploadsSchema & { accountKey: string }
+  input: GetAccountDataUploadsSchema & { accountKey: string },
 ) {
   await verifySession();
   const account = await findAccountByKey({ accountKey: input.accountKey });

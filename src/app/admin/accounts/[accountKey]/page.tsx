@@ -15,7 +15,7 @@ import { getValidFilters } from "@/lib/data-table";
 import { IconDevicesPc, IconRefresh } from "@tabler/icons-react";
 
 export default async function CompanyDetailsPage(
-  props: PageProps<"/admin/accounts/[accountKey]">
+  props: PageProps<"/admin/accounts/[accountKey]">,
 ) {
   const { accountKey } = await props.params;
   const searchParams = await props.searchParams;

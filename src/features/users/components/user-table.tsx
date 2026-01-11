@@ -33,8 +33,8 @@ export function UsersTable({ promises, queryKeys }: UsersTableProps) {
 
   return (
     <DataTable table={table}>
-      <DataTableToolbar table={table} >
-        <SystemUserForm/>
+      <DataTableToolbar table={table}>
+        <SystemUserForm />
         <DataTableSortList table={table} align="end" />
       </DataTableToolbar>
     </DataTable>

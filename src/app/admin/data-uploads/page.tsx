@@ -10,7 +10,7 @@ import { dataUploadSearchParamsCache } from "@/features/data-uploads/types";
 import { getDataUploadStatistics } from "@/features/data-uploads/actions/upload-statistics";
 
 export default async function DataUploadsPage(
-  props: PageProps<"/admin/data-uploads">
+  props: PageProps<"/admin/data-uploads">,
 ) {
   const statistics = await getDataUploadStatistics();
   return (
@@ -32,7 +32,7 @@ export default async function DataUploadsPage(
 }
 
 async function DataUploadsTableWrapper(
-  props: PageProps<"/admin/data-uploads">
+  props: PageProps<"/admin/data-uploads">,
 ) {
   const searchParams = await props.searchParams;
   const search = dataUploadSearchParamsCache.parse(searchParams);
