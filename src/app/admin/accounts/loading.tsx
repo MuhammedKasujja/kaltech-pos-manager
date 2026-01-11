@@ -1,5 +1,5 @@
 import { DataTableSkeleton } from "@/components/data-table/data-table-skeleton";
-import { columns } from "./columns";
+import { columns } from "@/features/accounts/components/account-table-columns";
 
 export default function Loading() {
   return (
@@ -7,15 +7,6 @@ export default function Loading() {
       <DataTableSkeleton
         columnCount={columns.length}
         filterCount={1}
-        cellWidths={[
-          "10rem",
-          "10rem",
-          "15rem",
-          "6rem",
-          "10rem",
-          "10rem",
-          "6rem",
-        ]}
         shrinkZero
       />
     </div>

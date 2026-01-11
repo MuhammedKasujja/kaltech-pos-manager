@@ -4,6 +4,7 @@ import {
   getAccountDetails,
 } from "../actions/get-account-details";
 
+
 export function useAccountDetails(accountKey: string) {
   const { data: company, error } = useSWR<AccountDetailPreview>(
     accountKey ? `api/company-${accountKey}` : null,
