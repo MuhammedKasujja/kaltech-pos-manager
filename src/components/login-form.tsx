@@ -32,7 +32,7 @@ export function LoginForm({
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const { data, error } = await loginUser(values);
     if (data) {
-      toast.success("User added successfully");
+      toast.success("User logged-in successfully");
       router.replace("/admin/dashboard");
     } else {
       toast.error(error);

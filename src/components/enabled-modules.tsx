@@ -77,8 +77,8 @@ export function EnabledModules({
       variant="outline"
       value={bitmaskToValues(enabledModules)}
       spacing={2}
-      size="sm"
-      className="flex-col items-stretch"
+      size="lg"
+      className="grid grid-cols-1 w-full"
     >
       {modules.map((module) => (
         <ToggleGroupItem
@@ -88,9 +88,11 @@ export function EnabledModules({
             // checked: Boolean(enabledModules & module.bitmask)
             onChange(enabledModules ^ module.bitmask);
           }}
+          asChild
         >
-          {/* <StarIcon /> */}
-          {tr(`subscriptions.modules.${module.label}`)}
+          <div className="w-full">
+            {tr(`subscriptions.modules.${module.label}`)}
+          </div>
         </ToggleGroupItem>
       ))}
     </ToggleGroup>

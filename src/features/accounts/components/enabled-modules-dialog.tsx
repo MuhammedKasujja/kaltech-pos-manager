@@ -62,16 +62,14 @@ export function AccountEnableModuleDialog({
                 {tr("subscriptions.enabledModules")}
               </DialogDescription>
             </DialogHeader>
-            <div className="grid items-start gap-5 md:grid-cols-2">
-              <div className="grid flex-1 gap-4">
-                <EnabledModules
-                  enabledModules={form.watch("enabledModules") ?? 0}
-                  onChange={(enabledModules) => {
-                    form.setValue("enabledModules", enabledModules);
-                  }}
-                />
-              </div>
-            </div>
+            <section id="account-modules">
+              <EnabledModules
+                enabledModules={form.watch("enabledModules") ?? 0}
+                onChange={(enabledModules) => {
+                  form.setValue("enabledModules", enabledModules);
+                }}
+              />
+            </section>
             <DialogFooter className="sm:justify-end">
               <Button type="submit" disabled={form.formState.isSubmitting}>
                 {tr("common.submit")}
