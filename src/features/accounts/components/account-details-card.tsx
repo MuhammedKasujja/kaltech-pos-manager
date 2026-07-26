@@ -20,8 +20,8 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { AccountEnableModuleDialog } from "@/features/accounts/components/enabled-modules-dialog";
 import { Status, StatusIndicator, StatusLabel } from "@/components/ui/status";
-import { forceDeleteAccount } from "@/features/accounts//actions/delete-account";
-import { Trash2Icon } from "lucide-react";
+// import { forceDeleteAccount } from "@/features/accounts//actions/delete-account";
+// import { Trash2Icon } from "lucide-react";
 
 export function AccountDetailsCard({
   companyKey,
@@ -32,18 +32,18 @@ export function AccountDetailsCard({
 }) {
   const { company, isLoading } = useAccountDetails(companyKey);
 
-  async function permanentDeleteAccount() {
-    const accountKey = company?.account?.accountKey;
+  // async function permanentDeleteAccount() {
+  //   const accountKey = company?.account?.accountKey;
 
-    if (!accountKey) return;
+  //   if (!accountKey) return;
 
-    const result = await forceDeleteAccount(accountKey);
-    if (result.success) {
-      toast.success("Account deleted successfully");
-    } else {
-      toast.error(`${result.error}`);
-    }
-  }
+  //   const result = await forceDeleteAccount(accountKey);
+  //   if (result.success) {
+  //     toast.success("Account deleted successfully");
+  //   } else {
+  //     toast.error(`${result.error}`);
+  //   }
+  // }
 
   if (isLoading) return <LoadingShimmer />;
   return (
@@ -65,13 +65,13 @@ export function AccountDetailsCard({
               accountKey: company!.account!.accountKey,
             }}
           />
-          <Button
+          {/* <Button
             variant={"destructive"}
             size={"icon"}
             onClick={permanentDeleteAccount}
           >
             <Trash2Icon />
-          </Button>
+          </Button> */}
         </CardAction>
       </CardHeader>
       <CardContent className="space-y-2.5">{company?.phone}</CardContent>
