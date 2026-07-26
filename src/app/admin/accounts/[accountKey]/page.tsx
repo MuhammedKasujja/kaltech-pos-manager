@@ -15,7 +15,7 @@ import { getValidFilters } from "@/lib/data-table";
 import { IconDevicesPc, IconRefresh } from "@tabler/icons-react";
 
 export default async function AccountDetailsPage(
-  props: PageProps<"/admin/accounts/[accountKey]">
+  props: PageProps<"/admin/accounts/[accountKey]">,
 ) {
   const { accountKey } = await props.params;
   const searchParams = await props.searchParams;
@@ -36,6 +36,9 @@ export default async function AccountDetailsPage(
 
   return (
     <div className="flex flex-col gap-4 p-6">
+      <div className="font-semibold text-xl flex justify-between">
+        <div>Account Details</div>
+      </div>
       <div className="flex flex-col md:flex-row gap-4 mb-4">
         <AccountDetailsCard
           companyKey={accountKey}

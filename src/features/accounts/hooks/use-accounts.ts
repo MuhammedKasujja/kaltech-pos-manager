@@ -1,9 +1,8 @@
 import useSWR from "swr";
 import {
-  AccountDetailPreview,
   getAccountDetails,
+  AccountDetailPreview,
 } from "../actions/get-account-details";
-
 
 export function useAccountDetails(accountKey: string) {
   const { data: company, error } = useSWR<AccountDetailPreview>(
@@ -11,7 +10,7 @@ export function useAccountDetails(accountKey: string) {
     () => getAccountDetails(accountKey),
     {
       revalidateOnFocus: true,
-    }
+    },
   );
 
   return {

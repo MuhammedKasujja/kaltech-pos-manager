@@ -20,6 +20,8 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { AccountEnableModuleDialog } from "@/features/accounts/components/enabled-modules-dialog";
 import { Status, StatusIndicator, StatusLabel } from "@/components/ui/status";
+import { forceDeleteAccount } from "@/features/accounts//actions/delete-account";
+import { Trash2Icon } from "lucide-react";
 
 export function AccountDetailsCard({
   companyKey,
@@ -29,6 +31,19 @@ export function AccountDetailsCard({
   subscriptions: { account: Subscription[]; sync: Subscription[] };
 }) {
   const { company, isLoading } = useAccountDetails(companyKey);
+
+  async function permanentDeleteAccount() {
+    const accountKey = company?.account?.accountKey;
+
+    if (!accountKey) return;
+
+    const result = await forceDeleteAccount(accountKey);
+    if (result.success) {
+      toast.success("Account deleted successfully");
+    } else {
+      toast.error(`${result.error}`);
+    }
+  }
 
   if (isLoading) return <LoadingShimmer />;
   return (
@@ -43,13 +58,20 @@ export function AccountDetailsCard({
             </StatusLabel>
           </Status>
         </CardTitle>
-        <CardAction>
+        <CardAction className="flex gap-2">
           <AccountEnableModuleDialog
             data={{
               enabledModules: company!.account?.enabledModules ?? 0,
               accountKey: company!.account!.accountKey,
             }}
           />
+          <Button
+            variant={"destructive"}
+            size={"icon"}
+            onClick={permanentDeleteAccount}
+          >
+            <Trash2Icon />
+          </Button>
         </CardAction>
       </CardHeader>
       <CardContent className="space-y-2.5">{company?.phone}</CardContent>
