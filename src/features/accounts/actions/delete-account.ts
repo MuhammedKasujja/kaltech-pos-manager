@@ -23,7 +23,6 @@ export async function forceDeleteAccount(accountKey: string) {
     await prisma.licence.deleteMany({ where: { accountId: account.id } });
     await prisma.dataUpload.deleteMany({ where: { accountId: account.id } });
     await prisma.account.delete({ where: { id: account.id } });
-    await prisma.companyAdmin.deleteMany({ where: { company: {id: account.companyId} } });
     await prisma.company.delete({ where: { id: account.companyId } });
     return { success: true };
   } catch (error) {
